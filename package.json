@@ -9,7 +9,6 @@
     "eject": "react-scripts eject",
     "ts-check": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint --ext .ts,.tsx",
-    "cm": "cz",
     "prepare": "husky install"
   },
   "eslintConfig": {
