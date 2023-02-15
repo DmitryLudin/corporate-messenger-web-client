@@ -19,11 +19,6 @@
       "plugin:prettier/recommended"
     ]
   },
-  "lint-staged": {
-    "*.@(ts|tsx)": [
-      "npm run lint"
-    ]
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
