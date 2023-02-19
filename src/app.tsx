@@ -1,7 +1,9 @@
-import { Box, CssBaseline, ThemeProvider, Typography } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext } from 'contexts/color-mode.context';
 import { useThemeColorMode } from 'hooks/use-theme-color-mode.hook';
 import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { router } from 'routes';
 
 function App() {
   const { colorMode, theme, toggleColorMode } = useThemeColorMode();
@@ -10,20 +12,7 @@ function App() {
     <ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box
-          sx={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            bgcolor: 'background.default',
-            color: 'text.primary',
-            borderRadius: 1,
-            p: 3,
-          }}
-        >
-          <Typography>{colorMode} mode</Typography>
-        </Box>
+        <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
