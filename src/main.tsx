@@ -1,19 +1,14 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { ColorModeContext } from 'contexts/color-mode.context';
-import { useThemeColorMode } from 'hooks/use-theme-color-mode.hook';
+import { CssBaseline, CssVarsProvider } from '@mui/joy';
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from 'routes';
+import { theme } from 'theme';
 
 export function Main() {
-  const { colorMode, theme, toggleColorMode } = useThemeColorMode();
-
   return (
-    <ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <CssVarsProvider theme={theme} defaultMode="system">
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </CssVarsProvider>
   );
 }

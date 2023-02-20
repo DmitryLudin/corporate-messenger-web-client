@@ -1,41 +1,30 @@
-import {
-  AppBar,
-  InputAdornment,
-  TextField,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import Grid from '@mui/material/Unstable_Grid2';
+import { Grid, Sheet } from '@mui/joy';
+import { Account } from 'modules/header/components/account';
+import { Logo } from 'modules/header/components/logo';
+import { Search } from 'modules/header/components/search';
 
 export function Header() {
   return (
-    <AppBar color="inherit">
-      <Toolbar variant="dense">
-        <Grid sx={{ flexGrow: 1 }} container spacing={3} alignItems="center">
-          <Grid xs>
-            <Typography>Корпоративный чат</Typography>
-          </Grid>
-          <Grid xs={4} display="flex" justifyContent="center">
-            <TextField
-              fullWidth
-              size="small"
-              variant="outlined"
-              placeholder="Поиск"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon fontSize="small" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid xs display="flex" justifyContent="end">
-            <Typography>секция Пользователь</Typography>
-          </Grid>
+    <Sheet
+      component="header"
+      sx={{
+        py: 1,
+        px: 2,
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+      }}
+    >
+      <Grid sx={{ flexGrow: 1 }} container alignItems="center">
+        <Grid xs>
+          <Logo />
         </Grid>
-      </Toolbar>
-    </AppBar>
+        <Grid xs={4} display="flex" justifyContent="center">
+          <Search />
+        </Grid>
+        <Grid xs display="flex" justifyContent="end">
+          <Account />
+        </Grid>
+      </Grid>
+    </Sheet>
   );
 }

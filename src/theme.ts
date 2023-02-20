@@ -1,34 +1,21 @@
-import { ThemeOptions } from '@mui/material/styles';
+import { extendTheme } from '@mui/joy/styles';
 
-export const lightThemeOptions: ThemeOptions = {
-  palette: {
-    mode: 'light',
-    background: {
-      default: '#f7f7f8',
-      paper: '#fff',
+export const theme = extendTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        background: {
+          body: 'var(--joy-palette-neutral-50)',
+        },
+      },
     },
-    primary: {
-      main: '#7558e0',
-      contrastText: '#fff',
-    },
-    secondary: {
-      main: '#e142a4',
+    dark: {
+      palette: {
+        background: {
+          body: 'var(--joy-palette-common-black)',
+          surface: 'var(--joy-palette-neutral-900)',
+        },
+      },
     },
   },
-};
-
-export const darkThemeOptions: ThemeOptions = {
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#0e0e0f',
-      paper: '#18181a',
-    },
-    primary: {
-      main: '#7558e0',
-    },
-    secondary: {
-      main: '#e142a4',
-    },
-  },
-};
+});
