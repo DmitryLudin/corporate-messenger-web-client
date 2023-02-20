@@ -1,21 +1,17 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { ColorModeContext } from 'contexts/color-mode.context';
-import { useThemeColorMode } from 'hooks/use-theme-color-mode.hook';
+import { Box } from '@mui/material';
+import { Header } from 'modules/header';
 import React from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { router } from 'routes';
 
-function App() {
-  const { colorMode, theme, toggleColorMode } = useThemeColorMode();
+const appLayoutStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+};
 
+export function App() {
   return (
-    <ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <Box sx={appLayoutStyles}>
+      <Header />
+    </Box>
   );
 }
-
-export default App;
