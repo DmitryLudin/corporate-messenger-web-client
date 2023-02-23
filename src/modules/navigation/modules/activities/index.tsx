@@ -3,39 +3,38 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import DraftsRoundedIcon from '@mui/icons-material/DraftsRounded';
 import InboxRoundedIcon from '@mui/icons-material/InboxRounded';
 import OutboxRoundedIcon from '@mui/icons-material/OutboxRounded';
-import { MainSidebarList } from 'modules/main-sidebar/components/list';
-import { MainSidebarListItem } from 'modules/main-sidebar/components/list-item';
+import { NavigationList } from 'modules/navigation/components/list';
+import { NavigationListItem } from 'modules/navigation/components/list-item';
 import React from 'react';
 
 export function Activities() {
   return (
-    <MainSidebarList title="Активности">
-      <MainSidebarListItem
-        onClick={() => {}}
-        selected
+    <NavigationList title="Активности">
+      <NavigationListItem
+        to="/"
         icon={<InboxRoundedIcon color="primary" fontSize="small" />}
-        text="Inboxdsadasdasdasdasda"
+        label="Inbox Inbox Inbox Inbox Inbox Inbox"
       />
-      <MainSidebarListItem
-        onClick={() => {}}
+      <NavigationListItem
+        to="link1"
         icon={<OutboxRoundedIcon fontSize="small" />}
-        text="Sent"
+        label="Sent"
       />
-      <MainSidebarListItem
-        onClick={() => {}}
+      <NavigationListItem
+        to="link2"
         icon={<DraftsRoundedIcon fontSize="small" />}
-        text="Draft"
+        label="Draft"
       />
-      <MainSidebarListItem
-        onClick={() => {}}
+      <NavigationListItem
+        to="link3"
         icon={<AssistantPhotoRoundedIcon fontSize="small" />}
-        text="Flagged"
+        label="Flagged"
       />
-      <MainSidebarListItem
-        onClick={() => {}}
+      <NavigationListItem
+        to="link4"
         icon={<DeleteRoundedIcon fontSize="small" />}
-        text="Trash"
+        label="Trash"
       />
-    </MainSidebarList>
+    </NavigationList>
   );
 }

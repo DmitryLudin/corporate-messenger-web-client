@@ -1,19 +1,21 @@
 import { Box } from '@mui/joy';
 import { Header } from 'modules/header';
-import { MainSidebar } from 'modules/main-sidebar';
+import { Navigation } from 'modules/navigation';
 import React from 'react';
 
-const appLayoutStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '100vh',
+const styles = {
+  appLayout: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
 };
 
 export function App() {
   return (
-    <Box sx={appLayoutStyles}>
+    <Box sx={styles.appLayout}>
       <Header />
-      <MainSidebar />
+      <Navigation />
     </Box>
   );
 }

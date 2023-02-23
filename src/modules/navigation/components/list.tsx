@@ -1,15 +1,12 @@
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { IconButton, List, ListItem, ListSubheader } from '@mui/joy';
-import React, { PropsWithChildren, useCallback, useState } from 'react';
+import React, { memo, PropsWithChildren, useCallback, useState } from 'react';
 
 interface IProps {
   title: string;
 }
 
-export function MainSidebarList({
-  title,
-  children,
-}: PropsWithChildren<IProps>) {
+function NavigationListMemo({ title, children }: PropsWithChildren<IProps>) {
   const [isOpen, setOpen] = useState(true);
 
   const handleToggle = useCallback(() => {
@@ -26,13 +23,12 @@ export function MainSidebarList({
     >
       <ListItem nested>
         <ListSubheader>
-          {title}
           <IconButton
             onClick={handleToggle}
             size="sm"
             variant="plain"
             color="primary"
-            sx={{ '--IconButton-size': '24px', ml: 'auto' }}
+            sx={{ '--IconButton-size': '24px', mr: 1 }}
           >
             <KeyboardArrowDownRoundedIcon
               fontSize="small"
@@ -42,9 +38,12 @@ export function MainSidebarList({
               }}
             />
           </IconButton>
+          {title}
         </ListSubheader>
         {isOpen && <List aria-labelledby="nav-list-browse">{children}</List>}
       </ListItem>
     </List>
   );
 }
+
+export const NavigationList = memo(NavigationListMemo);
