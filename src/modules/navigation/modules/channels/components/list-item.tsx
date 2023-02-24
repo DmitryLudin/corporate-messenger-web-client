@@ -6,34 +6,25 @@ import {
   NavigationListItem,
 } from 'modules/navigation/components/list-item';
 import { NavigationMoreButton } from 'modules/navigation/components/more-menu-button';
-import { usePopup } from 'modules/navigation/hooks/use-popup';
+import { useMoreButtonPopup } from 'modules/navigation/hooks/use-more-button-popup';
 import { useToggle } from 'modules/navigation/hooks/use-toggle';
 import { ChannelPopup } from 'modules/navigation/modules/channels/components/popup';
 import React from 'react';
 
 type TProps = Omit<INavigationListItemProps, 'icon'> & {
   isPrivate?: boolean;
-  id: string | number;
 };
 
-export function ChannelListItem({ id, to, isPrivate = false, label }: TProps) {
+export function ChannelListItem({ to, isPrivate = false, label }: TProps) {
   const [isHovered, toggleHovered] = useToggle();
-  const {
-    buttonLabel,
-    popupLabel,
-    onOpenPopup,
-    isPopupOpen,
-    onClosePopup,
-    anchorEl,
-  } = usePopup(id);
+  const { onOpenPopup, isPopupOpen, onClosePopup, anchorEl } =
+    useMoreButtonPopup();
 
   return (
     <>
       <ChannelPopup
-        buttonLabel={buttonLabel}
         isOpen={isPopupOpen}
         onClose={onClosePopup}
-        popupLabel={popupLabel}
         anchorEl={anchorEl}
       />
 
@@ -61,12 +52,7 @@ export function ChannelListItem({ id, to, isPrivate = false, label }: TProps) {
               placement="right"
             >
               <div>
-                <NavigationMoreButton
-                  id={buttonLabel}
-                  popupId={popupLabel}
-                  onClick={onOpenPopup}
-                  isPopupOpened={isPopupOpen}
-                />
+                <NavigationMoreButton onClick={onOpenPopup} />
               </div>
             </Tooltip>
           )

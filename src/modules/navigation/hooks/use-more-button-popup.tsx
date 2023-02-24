@@ -1,8 +1,6 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
 
-export const usePopup = (label: string | number) => {
-  const buttonLabel = `navigation-more-button-${label}`;
-  const popupLabel = `navigation-more-popup-${label}`;
+export const useMoreButtonPopup = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement>();
   const isPopupOpen = Boolean(anchorEl);
 
@@ -18,8 +16,6 @@ export const usePopup = (label: string | number) => {
   }, []);
 
   return {
-    buttonLabel,
-    popupLabel,
     anchorEl,
     isPopupOpen,
     onOpenPopup: handleOpenPopup,

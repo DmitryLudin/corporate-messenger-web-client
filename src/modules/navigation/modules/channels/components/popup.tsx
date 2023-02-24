@@ -3,20 +3,16 @@ import type { TNavigationMoreMenuPopup } from 'modules/navigation/types/more-men
 import React from 'react';
 
 export function ChannelPopup({
-  popupLabel,
-  buttonLabel,
   isOpen,
   onClose,
   anchorEl,
 }: TNavigationMoreMenuPopup) {
   return (
     <Menu
-      id={popupLabel}
       anchorEl={anchorEl}
       open={isOpen}
       onClose={onClose}
       size="sm"
-      aria-labelledby={buttonLabel}
       placement="top-start"
     >
       <MenuItem onClick={onClose}>Показать сведения о канале</MenuItem>

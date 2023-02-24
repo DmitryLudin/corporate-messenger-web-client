@@ -3,28 +3,16 @@ import { IconButton } from '@mui/joy';
 import React, { memo, MouseEventHandler } from 'react';
 
 type TProps = {
-  id: string;
-  popupId: string;
   onClick: MouseEventHandler<HTMLAnchorElement>;
-  isPopupOpened: boolean;
 };
 
-function NavigationMoreButtonMemo({
-  id,
-  popupId,
-  onClick,
-  isPopupOpened,
-}: TProps) {
+function NavigationMoreButtonMemo({ onClick }: TProps) {
   return (
     <IconButton
-      id={id}
       size="sm"
       color="neutral"
       variant="plain"
       onClick={onClick}
-      aria-controls={isPopupOpened ? popupId : undefined}
-      aria-haspopup="true"
-      aria-expanded={isPopupOpened ? 'true' : undefined}
       sx={{
         '--IconButton-size': '24px',
       }}

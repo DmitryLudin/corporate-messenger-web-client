@@ -38,7 +38,7 @@ export function NavigationListItemMemo({
         component={Link}
         to={to}
         variant={isActive ? 'soft' : 'plain'}
-        color={isActive ? 'primary' : undefined}
+        color={isActive ? 'neutral' : undefined}
       >
         <ListItemDecorator>{icon}</ListItemDecorator>
         <ListItemContent>

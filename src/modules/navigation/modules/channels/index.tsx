@@ -5,13 +5,8 @@ import React from 'react';
 export function Channels() {
   return (
     <NavigationList title="Каналы">
-      <ChannelListItem id={123} to="channels/2" label="Открытый канал" />
-      <ChannelListItem
-        isPrivate
-        id={321}
-        to="channels/2"
-        label="Concert tickets"
-      />
+      <ChannelListItem to="channels/2" label="Открытый канал" />
+      <ChannelListItem isPrivate to="channels/2" label="Concert tickets" />
     </NavigationList>
   );
 }
