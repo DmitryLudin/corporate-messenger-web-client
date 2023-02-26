@@ -1,6 +1,6 @@
 import { UserAvatar } from 'components/user-avatar';
-import { NavigationList } from 'modules/navigation/components/list';
-import { DirectListItem } from 'modules/navigation/modules/direct/components/list-item';
+import { NavigationList } from 'pages/app/modules/navigation/components/list';
+import { DirectListItem } from 'pages/app/modules/navigation/modules/direct/components/list-item';
 import React from 'react';
 
 export function Direct() {

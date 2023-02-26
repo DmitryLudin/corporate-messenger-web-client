@@ -1,6 +1,5 @@
 import { ListDivider, Menu, MenuItem } from '@mui/joy';
-import type { TNavigationMoreMenuPopup } from 'modules/navigation/types/more-menu-button.types';
-import React from 'react';
+import { TNavigationMoreMenuPopup } from 'pages/app/modules/navigation/types/more-menu-button.types';
 
 export function ChannelPopup({
   isOpen,

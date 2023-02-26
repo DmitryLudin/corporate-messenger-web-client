@@ -1,5 +1,5 @@
-import { NavigationList } from 'modules/navigation/components/list';
-import { ChannelListItem } from 'modules/navigation/modules/channels/components/list-item';
+import { NavigationList } from 'pages/app/modules/navigation/components/list';
+import { ChannelListItem } from 'pages/app/modules/navigation/modules/channels/components/list-item';
 import React from 'react';
 
 export function Channels() {

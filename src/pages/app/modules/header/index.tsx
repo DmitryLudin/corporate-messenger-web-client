@@ -1,7 +1,7 @@
 import { Grid, Sheet } from '@mui/joy';
-import { Account } from 'modules/header/components/account';
-import { Logo } from 'modules/header/components/logo';
-import { Search } from 'modules/header/components/search';
+import { Account } from 'pages/app/modules/header/components/account';
+import { Logo } from 'pages/app/modules/header/components/logo';
+import { Search } from 'pages/app/modules/header/components/search';
 
 export function Header() {
   return (

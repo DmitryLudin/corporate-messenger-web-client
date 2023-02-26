@@ -2,11 +2,11 @@ import { Tooltip } from '@mui/joy';
 import {
   INavigationListItemProps,
   NavigationListItem,
-} from 'modules/navigation/components/list-item';
-import { NavigationMoreButton } from 'modules/navigation/components/more-menu-button';
-import { useMoreButtonPopup } from 'modules/navigation/hooks/use-more-button-popup';
-import { useToggle } from 'modules/navigation/hooks/use-toggle';
-import { DirectPopup } from 'modules/navigation/modules/direct/components/popup';
+} from 'pages/app/modules/navigation/components/list-item';
+import { NavigationMoreButton } from 'pages/app/modules/navigation/components/more-menu-button';
+import { useMoreButtonPopup } from 'pages/app/modules/navigation/hooks/use-more-button-popup';
+import { useToggle } from 'pages/app/modules/navigation/hooks/use-toggle';
+import { DirectPopup } from 'pages/app/modules/navigation/modules/direct/components/popup';
 import React from 'react';
 
 type TProps = INavigationListItemProps;

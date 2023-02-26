@@ -3,8 +3,8 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import DraftsRoundedIcon from '@mui/icons-material/DraftsRounded';
 import InboxRoundedIcon from '@mui/icons-material/InboxRounded';
 import OutboxRoundedIcon from '@mui/icons-material/OutboxRounded';
-import { NavigationList } from 'modules/navigation/components/list';
-import { NavigationListItem } from 'modules/navigation/components/list-item';
+import { NavigationList } from 'pages/app/modules/navigation/components/list';
+import { NavigationListItem } from 'pages/app/modules/navigation/components/list-item';
 import React from 'react';
 
 export function Activities() {

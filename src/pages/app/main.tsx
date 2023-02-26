@@ -1,6 +1,6 @@
 import { Box } from '@mui/joy';
-import { Header } from 'modules/header';
-import { Navigation } from 'modules/navigation';
+import { Header } from 'pages/app/modules/header';
+import { Navigation } from 'pages/app/modules/navigation';
 import React from 'react';
 
 const styles = {

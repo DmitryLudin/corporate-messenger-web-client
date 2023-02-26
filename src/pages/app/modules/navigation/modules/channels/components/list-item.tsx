@@ -4,12 +4,11 @@ import { Tooltip } from '@mui/joy';
 import {
   INavigationListItemProps,
   NavigationListItem,
-} from 'modules/navigation/components/list-item';
-import { NavigationMoreButton } from 'modules/navigation/components/more-menu-button';
-import { useMoreButtonPopup } from 'modules/navigation/hooks/use-more-button-popup';
-import { useToggle } from 'modules/navigation/hooks/use-toggle';
-import { ChannelPopup } from 'modules/navigation/modules/channels/components/popup';
-import React from 'react';
+} from 'pages/app/modules/navigation/components/list-item';
+import { NavigationMoreButton } from 'pages/app/modules/navigation/components/more-menu-button';
+import { useMoreButtonPopup } from 'pages/app/modules/navigation/hooks/use-more-button-popup';
+import { useToggle } from 'pages/app/modules/navigation/hooks/use-toggle';
+import { ChannelPopup } from 'pages/app/modules/navigation/modules/channels/components/popup';
 
 type TProps = Omit<INavigationListItemProps, 'icon'> & {
   isPrivate?: boolean;
