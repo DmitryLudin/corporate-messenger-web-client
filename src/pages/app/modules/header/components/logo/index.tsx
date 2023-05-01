@@ -1,8 +1,17 @@
 import { Box, IconButton, Typography } from '@mui/joy';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import { withObserver } from 'hoc/with-observer.hoc';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
 
-export function Logo() {
+function LogoMemo() {
+  const params = useParams<{ namespace: string }>();
+  const { namespaces } = namespacesService.store;
+  const namespace = namespaces.find(
+    (namespace) => namespace.name === params.namespace
+  );
+
   return (
     <Box
       sx={{
@@ -15,9 +24,13 @@ export function Logo() {
       <IconButton size="sm" variant="solid">
         <QuestionAnswerOutlinedIcon />
       </IconButton>
-      <Typography component="h1" fontWeight="xl">
-        Корпоративный чат
-      </Typography>
+      {namespace && (
+        <Typography component="h1" fontWeight="xl">
+          {namespace.displayName || namespace.name}
+        </Typography>
+      )}
     </Box>
   );
 }
+
+export const Logo = withObserver(LogoMemo);

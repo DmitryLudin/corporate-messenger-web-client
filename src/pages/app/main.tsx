@@ -1,7 +1,9 @@
-import { Box } from '@mui/joy';
+import { Box, CircularProgress, Grid } from '@mui/joy';
+import { withObserver } from 'hoc/with-observer.hoc';
 import { Header } from 'pages/app/modules/header';
 import { Navigation } from 'pages/app/modules/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
 
 const styles = {
   appLayout: {
@@ -11,7 +13,17 @@ const styles = {
   },
 };
 
-export function App() {
+function AppMemo() {
+  const { isLoading } = namespacesService.store;
+
+  if (isLoading) {
+    return (
+      <Grid container justifyContent="center">
+        <CircularProgress />
+      </Grid>
+    );
+  }
+
   return (
     <Box sx={styles.appLayout}>
       <Header />
@@ -19,3 +31,5 @@ export function App() {
     </Box>
   );
 }
+
+export const App = withObserver(AppMemo);

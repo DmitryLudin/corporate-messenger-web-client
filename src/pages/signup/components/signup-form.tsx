@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Grid,
-  Input,
-  Link,
-} from '@mui/joy';
+import { Box, Button, Grid, Link } from '@mui/joy';
 import { SignupNameField } from 'pages/signup/components/name-field';
 import { SignupPasswordField } from 'pages/signup/components/password-field';
 import { SignupUsernameField } from 'pages/signup/components/username-field';

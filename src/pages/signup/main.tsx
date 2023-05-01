@@ -1,7 +1,19 @@
 import { Box, formLabelClasses, Typography } from '@mui/joy';
+import { withObserver } from 'hoc/with-observer.hoc';
 import { SignupForm } from 'pages/signup/components/signup-form';
+import { Navigate, useLocation } from 'react-router-dom';
+import { authService } from 'shared/domains/auth/auth.service';
 
-export function Signup() {
+export function SignupMemo() {
+  const { state } = useLocation();
+  const stateWithFrom = state as { from?: Location } | undefined;
+
+  if (authService.store.isAuthorized) {
+    return (
+      <Navigate to={stateWithFrom?.from?.pathname || '/namespaces'} replace />
+    );
+  }
+
   return (
     <Box
       sx={{
@@ -37,3 +49,5 @@ export function Signup() {
     </Box>
   );
 }
+
+export const Signup = withObserver(SignupMemo);

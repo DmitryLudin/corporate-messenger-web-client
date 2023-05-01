@@ -1,11 +1,18 @@
 import { Box, formLabelClasses, Typography } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
 import { LoginForm } from 'pages/login/components/login-form';
+import { Navigate, useLocation } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';
 
 function LoginMemo() {
-  const isAuthorized = authService.store.isAuthorized;
-  console.log(isAuthorized);
+  const { state } = useLocation();
+  const stateWithFrom = state as { from?: Location } | undefined;
+
+  if (authService.store.isAuthorized) {
+    return (
+      <Navigate to={stateWithFrom?.from?.pathname || '/namespaces'} replace />
+    );
+  }
 
   return (
     <Box
