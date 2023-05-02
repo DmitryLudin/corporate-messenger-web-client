@@ -1,16 +1,12 @@
 import { Box, IconButton, Typography } from '@mui/joy';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import { withObserver } from 'hoc/with-observer.hoc';
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
+import { namespaceService } from 'pages/app/domains/services/namespace.service';
+import { useNavigate } from 'react-router-dom';
 
 function LogoMemo() {
-  const params = useParams<{ namespace: string }>();
-  const { namespaces } = namespacesService.store;
-  const namespace = namespaces.find(
-    (namespace) => namespace.name === params.namespace
-  );
+  const navigate = useNavigate();
+  const namespace = namespaceService.store.namespace;
 
   return (
     <Box
@@ -21,7 +17,7 @@ function LogoMemo() {
         gap: 1.5,
       }}
     >
-      <IconButton size="sm" variant="solid">
+      <IconButton onClick={() => navigate('/')} size="sm" variant="solid">
         <QuestionAnswerOutlinedIcon />
       </IconButton>
       {namespace && (

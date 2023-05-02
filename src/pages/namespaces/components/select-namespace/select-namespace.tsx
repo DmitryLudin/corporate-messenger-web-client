@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
 
@@ -37,14 +37,14 @@ export function SelectNamespaceMemo() {
           }}
         >
           {namespaces.map((namespace, index) => (
-            <>
+            <Fragment key={namespace.id}>
               <ListItem>
                 <ListItemButton onClick={() => navigate(`/${namespace.name}`)}>
                   {namespace.displayName || namespace.name}
                 </ListItemButton>
               </ListItem>
               {index < namespaces.length - 1 && <ListDivider />}
-            </>
+            </Fragment>
           ))}
         </List>
       </Box>

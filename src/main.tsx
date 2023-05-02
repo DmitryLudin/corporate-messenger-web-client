@@ -14,7 +14,7 @@ export function Main() {
     authService
       .authenticate()
       .then(() => {
-        namespacesService.getAll();
+        return namespacesService.getAll();
       })
       .finally(() => setLoading(false));
   }, []);

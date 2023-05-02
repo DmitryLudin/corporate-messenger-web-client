@@ -1,7 +1,6 @@
 import { DefaultEventsMap, EventNames } from '@socket.io/component-emitter';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { TWsTransportCallback } from 'core/base-ws-transport/types';
-import * as process from 'process';
 import { Socket, io } from 'socket.io-client';
 
 const baseURL = process.env.REACT_APP_API_WS_URL || '';

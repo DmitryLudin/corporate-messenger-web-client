@@ -24,7 +24,7 @@ class NamespacesService {
 
   getAll() {
     this._store.setLoading(true);
-    this.transport
+    return this.transport
       .getAll()
       .then((namespaces) => this._store.updateStore({ namespaces }))
       .catch(this._store.setError)

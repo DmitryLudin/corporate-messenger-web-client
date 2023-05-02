@@ -13,6 +13,12 @@ export class NamespacesTransport extends BaseHttpTransport {
   getAll() {
     return this.get(this.basePath).then(this.deserializeArray(Namespace));
   }
+
+  getByName(name: string) {
+    return this.get(`${this.basePath}/${name}`).then(
+      this.deserialize(Namespace)
+    );
+  }
 }
 
 export const namespaceTransport = new NamespacesTransport();
