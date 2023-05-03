@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Grid } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
+import { channelsService } from 'pages/app/domains/services/channels.service';
 import { namespaceService } from 'pages/app/domains/services/namespace.service';
 import { Header } from 'pages/app/modules/header';
 import { Navigation } from 'pages/app/modules/navigation';
@@ -16,23 +17,24 @@ const styles = {
 
 function AppMemo() {
   const params = useParams<{ namespace: string }>();
-  const { namespace, isLoading, error } = namespaceService.store;
+  const { isLoading, error } = namespaceService.store;
 
   useEffect(() => {
     if (params.namespace) {
-      namespaceService.getByName(params.namespace);
+      namespaceService.getByName(params.namespace).then((namespace) => {
+        if (namespace) {
+          channelsService.connect(namespace.id);
+          channelsService.getAllForUser(namespace.id);
+        }
+      });
     }
+
+    return () => {
+      channelsService.resetStore();
+      namespaceService.resetStore();
+      channelsService.disconnect();
+    };
   }, [params.namespace]);
-
-  useEffect(() => {
-    if (namespace?.id) {
-      namespaceService.connect(namespace.id);
-
-      return () => {
-        namespaceService.disconnect();
-      };
-    }
-  }, [namespace?.id]);
 
   if (isLoading) {
     return (

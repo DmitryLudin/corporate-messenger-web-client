@@ -12,7 +12,11 @@ export const router = createBrowserRouter([
     children: [
       { path: '', index: true, element: <Navigate to={'/namespaces'} /> },
       { path: 'namespaces', element: <Namespaces /> },
-      { path: ':namespace', element: <App /> },
+      {
+        path: ':namespace',
+        element: <App />,
+        children: [{ path: 'channels/:channel', element: <div>канал</div> }],
+      },
     ],
   },
   {

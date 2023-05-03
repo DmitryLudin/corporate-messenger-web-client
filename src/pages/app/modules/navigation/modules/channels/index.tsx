@@ -1,12 +1,30 @@
+import { CircularProgress, ListItem } from '@mui/joy';
+import { withObserver } from 'hoc/with-observer.hoc';
+import { channelsService } from 'pages/app/domains/services/channels.service';
 import { NavigationList } from 'pages/app/modules/navigation/components/list';
 import { ChannelListItem } from 'pages/app/modules/navigation/modules/channels/components/list-item';
 import React from 'react';
 
-export function Channels() {
+function ChannelsMemo() {
+  const { isLoading, channels } = channelsService.store;
+
   return (
     <NavigationList title="Каналы">
-      <ChannelListItem to="channels/2" label="Открытый канал" />
-      <ChannelListItem isPrivate to="channels/2" label="Concert tickets" />
+      {isLoading && (
+        <ListItem>
+          <CircularProgress size="sm" />
+        </ListItem>
+      )}
+      {!isLoading &&
+        channels.map((channel) => (
+          <ChannelListItem
+            key={channel.id}
+            to={`channels/${channel.name}`}
+            label={channel.getName()}
+          />
+        ))}
     </NavigationList>
   );
 }
+
+export const Channels = withObserver(ChannelsMemo);

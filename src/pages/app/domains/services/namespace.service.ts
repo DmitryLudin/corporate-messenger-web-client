@@ -4,10 +4,6 @@ import {
   NamespacesTransport,
   namespaceTransport,
 } from 'shared/domains/namespaces/transports/namespaces.transport';
-import {
-  namespacesWsTransport,
-  NamespacesWsTransport,
-} from 'shared/domains/namespaces/transports/namespaces.ws-transport';
 
 type TStore = {
   namespace: Namespace | null;
@@ -24,13 +20,12 @@ export class NamespaceService {
     return this._store.getStore();
   }
 
-  constructor(
-    private readonly transport: NamespacesTransport,
-    private readonly wsTransport: NamespacesWsTransport
-  ) {}
+  constructor(private readonly transport: NamespacesTransport) {}
 
   getByName(name: string) {
+    this._store.resetStore();
     this._store.setLoading(true);
+
     return this.transport
       .getByName(name)
       .then((namespace) => {
@@ -41,17 +36,9 @@ export class NamespaceService {
       .finally(() => this._store.setLoading(false));
   }
 
-  connect(namespaceId: string) {
-    this.wsTransport.connect();
-    this.wsTransport.connectToNamespace(namespaceId);
-  }
-
-  disconnect() {
-    this.wsTransport.disconnect();
+  resetStore() {
+    this._store.resetStore();
   }
 }
 
-export const namespaceService = new NamespaceService(
-  namespaceTransport,
-  namespacesWsTransport
-);
+export const namespaceService = new NamespaceService(namespaceTransport);
