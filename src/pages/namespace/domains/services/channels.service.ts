@@ -1,13 +1,13 @@
 import { RequestStore } from 'core/base-request-store';
-import { Channel } from 'pages/app/domains/models/channel.model';
+import { Channel } from 'pages/namespace/domains/models/channel.model';
 import {
   channelsTransport,
   ChannelsTransport,
-} from 'pages/app/domains/transports/channels.transport';
+} from 'pages/namespace/domains/transports/channels.transport';
 import {
   channelsWsTransport,
   ChannelsWsTransport,
-} from 'pages/app/domains/transports/channels.ws-transport';
+} from 'pages/namespace/domains/transports/channels.ws-transport';
 
 type TStore = {
   channels: Channel[];

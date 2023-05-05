@@ -1,9 +1,9 @@
 import { Box, CircularProgress, Grid } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
-import { channelsService } from 'pages/app/domains/services/channels.service';
-import { namespaceService } from 'pages/app/domains/services/namespace.service';
-import { Header } from 'pages/app/modules/header';
-import { Navigation } from 'pages/app/modules/navigation';
+import { channelsService } from 'pages/namespace/domains/services/channels.service';
+import { namespaceService } from 'pages/namespace/domains/services/namespace.service';
+import { Header } from 'pages/namespace/modules/header';
+import { Navigation } from 'pages/namespace/modules/navigation';
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-function AppMemo() {
+function NamespaceMemo() {
   const params = useParams<{ namespace: string }>();
   const { isLoading, error } = namespaceService.store;
 
@@ -56,4 +56,4 @@ function AppMemo() {
   );
 }
 
-export const App = withObserver(AppMemo);
+export const Namespace = withObserver(NamespaceMemo);

@@ -1,7 +1,7 @@
 import { Divider, Sheet, Stack } from '@mui/joy';
-import { Activities } from 'pages/app/modules/navigation/modules/activities';
-import { Channels } from 'pages/app/modules/navigation/modules/channels';
-import { Direct } from 'pages/app/modules/navigation/modules/direct';
+import { Activities } from 'pages/namespace/modules/navigation/modules/activities';
+import { Channels } from 'pages/namespace/modules/navigation/modules/channels';
+import { Direct } from 'pages/namespace/modules/navigation/modules/direct';
 import React from 'react';
 
 export function Navigation() {

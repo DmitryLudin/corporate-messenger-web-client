@@ -1,5 +1,5 @@
 import { BaseHttpTransport } from 'core/base-http-transport';
-import { Channel } from 'pages/app/domains/models/channel.model';
+import { Channel } from 'pages/namespace/domains/models/channel.model';
 
 export class ChannelsTransport extends BaseHttpTransport {
   constructor() {

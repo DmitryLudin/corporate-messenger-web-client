@@ -1,5 +1,5 @@
 import { PrivateRoute } from 'components/private-route';
-import { App } from 'pages/app/main';
+import { Namespace } from 'pages/namespace/main';
 import { Login } from 'pages/login/main';
 import { Namespaces } from 'pages/namespaces/main';
 import { Signup } from 'pages/signup/main';
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
       { path: 'namespaces', element: <Namespaces /> },
       {
         path: ':namespace',
-        element: <App />,
+        element: <Namespace />,
         children: [{ path: 'channels/:channel', element: <div>канал</div> }],
       },
     ],

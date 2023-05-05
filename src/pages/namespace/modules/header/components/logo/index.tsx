@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from '@mui/joy';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import { withObserver } from 'hoc/with-observer.hoc';
-import { namespaceService } from 'pages/app/domains/services/namespace.service';
+import { namespaceService } from 'pages/namespace/domains/services/namespace.service';
 import { useNavigate } from 'react-router-dom';
 
 function LogoMemo() {
