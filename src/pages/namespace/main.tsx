@@ -3,7 +3,7 @@ import { withObserver } from 'hoc/with-observer.hoc';
 import { channelsService } from 'pages/namespace/domains/services/channels.service';
 import { namespaceService } from 'pages/namespace/domains/services/namespace.service';
 import { Header } from 'pages/namespace/modules/header';
-import { Navigation } from 'pages/namespace/modules/navigation';
+import { NavigationBar } from 'pages/namespace/modules/navigation-bar';
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ function NamespaceMemo() {
   return (
     <Box sx={styles.appLayout}>
       <Header />
-      <Navigation />
+      <NavigationBar />
     </Box>
   );
 }

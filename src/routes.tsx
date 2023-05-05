@@ -15,7 +15,10 @@ export const router = createBrowserRouter([
       {
         path: ':namespace',
         element: <Namespace />,
-        children: [{ path: 'channels/:channel', element: <div>канал</div> }],
+        children: [
+          { path: 'channels/:channel', element: <div>канал</div> },
+          { path: 'direct/:user', element: <div>личное сообщение</div> },
+        ],
       },
     ],
   },

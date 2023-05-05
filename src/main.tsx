@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from 'routes';
 import { authService } from 'shared/domains/auth/auth.service';
-import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
 import { theme } from 'theme';
 
 export function Main() {
@@ -11,12 +10,7 @@ export function Main() {
 
   useEffect(() => {
     setLoading(true);
-    authService
-      .authenticate()
-      .then(() => {
-        return namespacesService.getAll();
-      })
-      .finally(() => setLoading(false));
+    authService.authenticate().finally(() => setLoading(false));
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { ListDivider, Menu, MenuItem } from '@mui/joy';
-import { TNavigationMoreMenuPopup } from 'pages/namespace/modules/navigation/types/more-menu-button.types';
+import { TNavigationMoreMenuPopup } from 'pages/namespace/modules/navigation-bar/types/more-menu-button.types';
 
 export function ChannelPopup({
   isOpen,

@@ -9,10 +9,15 @@ import {
 import { withObserver } from 'hoc/with-observer.hoc';
 import { CreateNamespace } from 'pages/namespaces/components/create-namespace/create-namespace';
 import { SelectNamespace } from 'pages/namespaces/components/select-namespace/select-namespace';
+import { useEffect } from 'react';
 import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
 
 function NamespacesMemo() {
   const { isLoading, namespaces } = namespacesService.store;
+
+  useEffect(() => {
+    namespacesService.getAll();
+  }, []);
 
   return (
     <Box
