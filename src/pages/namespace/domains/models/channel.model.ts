@@ -35,6 +35,6 @@ export class Channel implements IChannel {
   createdAt!: Date;
 
   getName() {
-    return this.description || this.name;
+    return this.displayName || this.name;
   }
 }

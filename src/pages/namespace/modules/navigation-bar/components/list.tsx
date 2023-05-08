@@ -1,12 +1,23 @@
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { IconButton, List, ListItem, ListSubheader } from '@mui/joy';
-import React, { memo, PropsWithChildren, useCallback, useState } from 'react';
+import React, {
+  memo,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 
 interface IProps {
   title: string;
+  endAction?: ReactNode;
 }
 
-function NavigationListMemo({ title, children }: PropsWithChildren<IProps>) {
+function NavigationListMemo({
+  title,
+  endAction,
+  children,
+}: PropsWithChildren<IProps>) {
   const [isOpen, setOpen] = useState(true);
 
   const handleToggle = useCallback(() => {
@@ -21,7 +32,7 @@ function NavigationListMemo({ title, children }: PropsWithChildren<IProps>) {
         '--List-item-paddingRight': '1rem',
       }}
     >
-      <ListItem nested>
+      <ListItem nested endAction={endAction}>
         <ListSubheader>
           <IconButton
             onClick={handleToggle}

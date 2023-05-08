@@ -1,6 +1,10 @@
 import { RequestStore } from 'core/base-request-store';
 import { Channel } from 'pages/namespace/domains/models/channel.model';
 import {
+  namespaceService,
+  NamespaceService,
+} from 'pages/namespace/domains/services/namespace.service';
+import {
   channelsTransport,
   ChannelsTransport,
 } from 'pages/namespace/domains/transports/channels.transport';
@@ -8,6 +12,7 @@ import {
   channelsWsTransport,
   ChannelsWsTransport,
 } from 'pages/namespace/domains/transports/channels.ws-transport';
+import { TCreateChannel } from 'pages/namespace/domains/types/create-channel';
 
 type TStore = {
   channels: Channel[];
@@ -26,7 +31,8 @@ export class ChannelsService {
 
   constructor(
     private readonly transport: ChannelsTransport,
-    private readonly wsTransport: ChannelsWsTransport
+    private readonly wsTransport: ChannelsWsTransport,
+    private readonly namespaceService: NamespaceService
   ) {}
 
   getAllForUser(namespaceId: string) {
@@ -38,6 +44,18 @@ export class ChannelsService {
       .then((channels) => this._store.updateStore({ channels }))
       .catch(this._store.setError)
       .finally(() => this._store.setLoading(false));
+  }
+
+  async createChannel(data: TCreateChannel) {
+    const namespace = this.namespaceService.store.namespace;
+
+    if (!namespace) return;
+
+    return this.transport.create(namespace.id, data).then((channel) => {
+      const channels = this._store.getStoreValue('channels');
+      this._store.updateStore({ channels: channels.concat(channel) });
+      return channel;
+    });
   }
 
   connect(namespaceId: string) {
@@ -56,5 +74,6 @@ export class ChannelsService {
 
 export const channelsService = new ChannelsService(
   channelsTransport,
-  channelsWsTransport
+  channelsWsTransport,
+  namespaceService
 );

@@ -1,4 +1,8 @@
 import { Store } from 'core/base-store';
+import {
+  userWsTransport,
+  UserWsTransport,
+} from 'shared/domains/user/transports/user.ws-transport';
 import { IUser } from 'shared/domains/user/user.model';
 
 type TUserStore = {
@@ -16,9 +20,19 @@ export class UserService {
     return this._store.getStore();
   }
 
+  constructor(private readonly wsTransport: UserWsTransport) {}
+
   setUser(userData: IUser | null) {
     this._store.updateStore({ user: userData });
   }
+
+  connect() {
+    this.wsTransport.connect();
+  }
+
+  disconnect() {
+    this.wsTransport.disconnect();
+  }
 }
 
-export const userService = new UserService();
+export const userService = new UserService(userWsTransport);

@@ -6,6 +6,7 @@ import { Header } from 'pages/namespace/modules/header';
 import { NavigationBar } from 'pages/namespace/modules/navigation-bar';
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
+import { userService } from 'shared/domains/user/user.service';
 
 const styles = {
   appLayout: {
@@ -23,6 +24,7 @@ function NamespaceMemo() {
     if (params.namespace) {
       namespaceService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
+          userService.connect();
           channelsService.connect(namespace.id);
           channelsService.getAllForUser(namespace.id);
         }
@@ -32,6 +34,7 @@ function NamespaceMemo() {
     return () => {
       channelsService.resetStore();
       namespaceService.resetStore();
+      userService.disconnect();
       channelsService.disconnect();
     };
   }, [params.namespace]);

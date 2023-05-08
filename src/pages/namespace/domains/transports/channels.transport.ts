@@ -1,5 +1,6 @@
 import { BaseHttpTransport } from 'core/base-http-transport';
 import { Channel } from 'pages/namespace/domains/models/channel.model';
+import { TCreateChannel } from 'pages/namespace/domains/types/create-channel';
 
 export class ChannelsTransport extends BaseHttpTransport {
   constructor() {
@@ -10,6 +11,13 @@ export class ChannelsTransport extends BaseHttpTransport {
     return this.get(`namespaces/${namespaceId}/${this.basePath}/self`).then(
       this.deserializeArray(Channel)
     );
+  }
+
+  create(namespaceId: string, data: TCreateChannel) {
+    return this.post(
+      `namespaces/${namespaceId}/${this.basePath}/create`,
+      data
+    ).then(this.deserialize(Channel));
   }
 }
 
