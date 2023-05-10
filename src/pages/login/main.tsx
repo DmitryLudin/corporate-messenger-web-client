@@ -50,4 +50,4 @@ function LoginMemo() {
   );
 }
 
-export const Login = withObserver(LoginMemo);
+export const LoginPage = withObserver(LoginMemo);

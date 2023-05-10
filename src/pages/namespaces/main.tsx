@@ -53,4 +53,4 @@ function NamespacesMemo() {
   );
 }
 
-export const Namespaces = withObserver(NamespacesMemo);
+export const NamespacesPage = withObserver(NamespacesMemo);

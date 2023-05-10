@@ -1,11 +1,11 @@
-import { Box, CircularProgress, Grid } from '@mui/joy';
+import { Box, CircularProgress, Grid, Stack } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
-import { channelsService } from 'pages/namespace/domains/services/channels.service';
-import { namespaceService } from 'pages/namespace/domains/services/namespace.service';
-import { Header } from 'pages/namespace/modules/header';
-import { NavigationBar } from 'pages/namespace/modules/navigation-bar';
+import { channelsService } from 'pages/namespace/domains/channels/services/channels.service';
+import { namespaceService } from 'pages/namespace/domains/namespace/namespace.service';
+import { Header } from 'pages/namespace/layouts/header';
+import { NavigationBar } from 'pages/namespace/layouts/navigation-bar';
 import { useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { userService } from 'shared/domains/user/user.service';
 
 const styles = {
@@ -13,6 +13,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
+  },
+  contentLayout: {
+    flex: '1 1 auto',
   },
 };
 
@@ -54,9 +57,12 @@ function NamespaceMemo() {
   return (
     <Box sx={styles.appLayout}>
       <Header />
-      <NavigationBar />
+      <Stack sx={styles.contentLayout} direction="row">
+        <NavigationBar />
+        <Outlet />
+      </Stack>
     </Box>
   );
 }
 
-export const Namespace = withObserver(NamespaceMemo);
+export const NamespacePage = withObserver(NamespaceMemo);

@@ -50,4 +50,4 @@ export function SignupMemo() {
   );
 }
 
-export const Signup = withObserver(SignupMemo);
+export const SignupPage = withObserver(SignupMemo);

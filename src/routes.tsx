@@ -1,8 +1,9 @@
 import { PrivateRoute } from 'components/private-route';
-import { Namespace } from 'pages/namespace/main';
-import { Login } from 'pages/login/main';
-import { Namespaces } from 'pages/namespaces/main';
-import { Signup } from 'pages/signup/main';
+import { NamespacePage } from 'pages/namespace/main';
+import { LoginPage } from 'pages/login/main';
+import { ChannelScreen } from 'pages/namespace/screens/channel';
+import { NamespacesPage } from 'pages/namespaces/main';
+import { SignupPage } from 'pages/signup/main';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -11,12 +12,12 @@ export const router = createBrowserRouter([
     element: <PrivateRoute />,
     children: [
       { path: '', index: true, element: <Navigate to={'/namespaces'} /> },
-      { path: 'namespaces', element: <Namespaces /> },
+      { path: 'namespaces', element: <NamespacesPage /> },
       {
         path: ':namespace',
-        element: <Namespace />,
+        element: <NamespacePage />,
         children: [
-          { path: 'channels/:channel', element: <div>канал</div> },
+          { path: 'channels/:channel', element: <ChannelScreen /> },
           { path: 'direct/:user', element: <div>личное сообщение</div> },
         ],
       },
@@ -24,10 +25,10 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
     path: '/signup',
-    element: <Signup />,
+    element: <SignupPage />,
   },
 ]);
