@@ -4,7 +4,7 @@ import { NamespaceNameField } from 'pages/namespaces/components/create-namespace
 import React, { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
+import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 
 const defaultFormState = { name: '', displayName: '' };
 

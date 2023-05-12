@@ -9,10 +9,10 @@ import {
 import { withObserver } from 'hoc/with-observer.hoc';
 import React, { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
+import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 
 export function SelectNamespaceMemo() {
-  const { namespaces } = namespacesService.store;
+  const { namespaces } = namespacesService.namespacesStore;
   const navigate = useNavigate();
 
   return (

@@ -1,4 +1,10 @@
-import { CircularProgress, CssBaseline, CssVarsProvider, Grid } from '@mui/joy';
+import {
+  Box,
+  CircularProgress,
+  CssBaseline,
+  CssVarsProvider,
+  Grid,
+} from '@mui/joy';
 import React, { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from 'routes';
@@ -27,7 +33,9 @@ export function Main() {
           <CircularProgress color="primary" variant="soft" />
         </Grid>
       ) : (
-        <RouterProvider router={router} />
+        <Box sx={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
+          <RouterProvider router={router} />
+        </Box>
       )}
     </CssVarsProvider>
   );

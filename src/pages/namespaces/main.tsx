@@ -10,10 +10,10 @@ import { withObserver } from 'hoc/with-observer.hoc';
 import { CreateNamespace } from 'pages/namespaces/components/create-namespace/create-namespace';
 import { SelectNamespace } from 'pages/namespaces/components/select-namespace/select-namespace';
 import { useEffect } from 'react';
-import { namespacesService } from 'shared/domains/namespaces/services/namespaces.service';
+import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 
 function NamespacesMemo() {
-  const { isLoading, namespaces } = namespacesService.store;
+  const { isLoading, namespaces } = namespacesService.namespacesStore;
 
   useEffect(() => {
     namespacesService.getAll();

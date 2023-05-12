@@ -1,31 +1,33 @@
-import { Box, CircularProgress, Grid, Stack } from '@mui/joy';
+import { Box, CircularProgress, Grid } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
-import { channelsService } from 'pages/namespace/domains/channels/services/channels.service';
-import { namespaceService } from 'pages/namespace/domains/namespace/namespace.service';
-import { Header } from 'pages/namespace/layouts/header';
-import { NavigationBar } from 'pages/namespace/layouts/navigation-bar';
+import { NamespaceHeader } from 'pages/namespace/modules/header';
+import { NavigationBar } from 'pages/namespace/modules/navigation-bar';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
+import { channelsService } from 'shared/domains/channels/channels.service';
+import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 import { userService } from 'shared/domains/user/user.service';
 
 const styles = {
-  appLayout: {
+  namespaceLayout: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    width: '100%',
   },
   contentLayout: {
-    flex: '1 1 auto',
+    display: 'grid',
+    gridTemplateColumns: '240px 1fr',
+    height: '100%',
   },
 };
 
 function NamespaceMemo() {
   const params = useParams<{ namespace: string }>();
-  const { isLoading, error } = namespaceService.store;
+  const { isLoading, error } = namespacesService.selectedNamespaceStore;
 
   useEffect(() => {
     if (params.namespace) {
-      namespaceService.getByName(params.namespace).then((namespace) => {
+      namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
           channelsService.connect(namespace.id);
@@ -35,8 +37,8 @@ function NamespaceMemo() {
     }
 
     return () => {
+      namespacesService.resetStore();
       channelsService.resetStore();
-      namespaceService.resetStore();
       userService.disconnect();
       channelsService.disconnect();
     };
@@ -44,7 +46,11 @@ function NamespaceMemo() {
 
   if (isLoading) {
     return (
-      <Grid sx={styles.appLayout} alignItems="center" justifyContent="center">
+      <Grid
+        sx={styles.namespaceLayout}
+        alignItems="center"
+        justifyContent="center"
+      >
         <CircularProgress />
       </Grid>
     );
@@ -55,12 +61,12 @@ function NamespaceMemo() {
   }
 
   return (
-    <Box sx={styles.appLayout}>
-      <Header />
-      <Stack sx={styles.contentLayout} direction="row">
+    <Box sx={styles.namespaceLayout}>
+      <NamespaceHeader />
+      <Box sx={styles.contentLayout}>
         <NavigationBar />
         <Outlet />
-      </Stack>
+      </Box>
     </Box>
   );
 }
