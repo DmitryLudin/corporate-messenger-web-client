@@ -5,11 +5,11 @@ import { withObserver } from 'hoc/with-observer.hoc';
 import { channelsService } from 'shared/domains/channels/channels.service';
 
 function ChannelQuickActionsMemo() {
-  const members = channelsService.selectedChannelStore.members;
+  const channel = channelsService.selectedChannelsStore.channel;
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>
-      {members && (
+      {channel?.membersCount && (
         <Button
           size="sm"
           color="neutral"
@@ -17,7 +17,7 @@ function ChannelQuickActionsMemo() {
           startDecorator={<PeopleAltIcon />}
           // onClick={onClick}
         >
-          {members.meta.totalItems}
+          {channel.membersCount}
         </Button>
       )}
       <IconButton

@@ -1,7 +1,5 @@
 import { RequestStore } from 'core/base-request-store';
-import { TCreateChannel } from 'pages/namespace/types/create-channel';
 import { Channel } from 'shared/domains/channels/models/channel.model';
-import { Members } from 'shared/domains/channels/models/members.model';
 import {
   channelsTransport,
   ChannelsTransport,
@@ -10,82 +8,51 @@ import {
   channelsWsTransport,
   ChannelsWsTransport,
 } from 'shared/domains/channels/transports/channels.ws-transport';
-
-type TChannelsStore = {
-  channels: Channel[];
-};
-
-type TSelectedChannelsStore = {
-  channel: Channel | null;
-  members: Members | null;
-};
+import {
+  namespacesService,
+  NamespacesService,
+} from 'shared/domains/namespaces/namespaces.service';
 
 export class ChannelsService {
-  private readonly _channelsStore = new RequestStore<TChannelsStore>({
-    channels: [],
-  });
-  private readonly _selectedChannelStore =
-    new RequestStore<TSelectedChannelsStore>({
-      channel: null,
-      members: null,
-    });
+  private readonly _selectedChannelsStore = new RequestStore<{
+    channel: Channel | null;
+  }>({ channel: null });
 
-  get channelsStore() {
-    return this._channelsStore.getStore();
-  }
-
-  get selectedChannelStore() {
-    return this._selectedChannelStore.getStore();
+  get selectedChannelsStore() {
+    return this._selectedChannelsStore.getStore();
   }
 
   constructor(
     private readonly transport: ChannelsTransport,
-    private readonly wsTransport: ChannelsWsTransport
+    private readonly wsTransport: ChannelsWsTransport,
+    private readonly namespacesService: NamespacesService
   ) {}
 
-  getAllForUser(namespaceId: string) {
-    this._channelsStore.resetStore();
-    this._channelsStore.setLoading(true);
-
-    return this.transport
-      .getAllForUser(namespaceId)
-      .then((channels) => this._channelsStore.updateStore({ channels }))
-      .catch(this._channelsStore.setError)
-      .finally(() => this._channelsStore.setLoading(false));
-  }
-
-  getByName(namespaceId: string, channelName: string) {
-    this._selectedChannelStore.setLoading(true);
-
-    return this.transport
-      .getByName(namespaceId, channelName)
-      .then((channel) => this._selectedChannelStore.updateStore({ channel }))
-      .catch(this._selectedChannelStore.setError)
-      .finally(() => this._selectedChannelStore.setLoading(false));
-  }
-
-  getChannelMembers(namespaceId: string) {
-    const channel = this._selectedChannelStore.getStore().channel;
-
-    if (!channel) return;
-
-    return this.transport
-      .getChannelMembers(namespaceId, channel.id)
-      .then((members) => this._selectedChannelStore.updateStore({ members }))
-      .catch(this._selectedChannelStore.setError);
-  }
-
-  createChannel(namespaceId: string, data: TCreateChannel) {
-    return this.transport.create(namespaceId, data).then((channel) => {
-      const channels = this._channelsStore.getStoreValue('channels');
-      this._channelsStore.updateStore({ channels: channels.concat(channel) });
-      return channel;
-    });
+  async getByName(channelName: string) {
+    try {
+      this._selectedChannelsStore.setLoading(true);
+      const namespaceId = this.namespacesService.getSelectedNamespaceId();
+      const channel = await this.transport.getByName(namespaceId, channelName);
+      this._selectedChannelsStore.updateStore({ channel });
+    } catch (error) {
+      this._selectedChannelsStore.setError(error as Error);
+    } finally {
+      this._selectedChannelsStore.setLoading(false);
+    }
   }
 
   connect(namespaceId: string) {
     this.wsTransport.connect();
     this.wsTransport.sendJoinChannels(namespaceId);
+    // this.wsTransport.listenNewChannelMembers(({ users, channelId }) => {
+    //   const { members, channel } = this._selectedChannelsStore.getStore();
+    //
+    //   if (!members || channelId !== channel?.id) return;
+    //
+    //   members.items.push(...users);
+    //   console.log(members);
+    //   this._selectedChannelsStore.updateStoreValue('members', members);
+    // });
   }
 
   disconnect() {
@@ -93,12 +60,12 @@ export class ChannelsService {
   }
 
   resetStore() {
-    this._channelsStore.resetStore();
-    this._selectedChannelStore.resetStore();
+    this._selectedChannelsStore.resetStore();
   }
 }
 
 export const channelsService = new ChannelsService(
   channelsTransport,
-  channelsWsTransport
+  channelsWsTransport,
+  namespacesService
 );

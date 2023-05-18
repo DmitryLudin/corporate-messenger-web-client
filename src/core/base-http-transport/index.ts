@@ -41,7 +41,6 @@ export abstract class BaseHttpTransport {
   private request(config: AxiosRequestConfig) {
     return axios({
       withCredentials: true,
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
       baseURL: `${apiBaseURL}/api/`,
       ...config,
     })

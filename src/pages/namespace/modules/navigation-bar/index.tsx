@@ -25,7 +25,7 @@ export function NavigationBar() {
         <Activities />
         <Divider />
         <Channels />
-        <Direct />
+        {/*<Direct />*/}
       </Stack>
     </Sheet>
   );

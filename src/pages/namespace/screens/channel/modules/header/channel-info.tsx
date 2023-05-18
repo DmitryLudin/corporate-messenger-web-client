@@ -5,7 +5,7 @@ import React from 'react';
 import { channelsService } from 'shared/domains/channels/channels.service';
 
 function ChannelInfoMemo() {
-  const channel = channelsService.selectedChannelStore.channel;
+  const channel = channelsService.selectedChannelsStore.channel;
 
   return (
     <Stack>

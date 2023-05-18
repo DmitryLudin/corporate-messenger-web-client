@@ -1,10 +1,9 @@
-import { TRequestError } from 'core/base-http-transport/types';
 import { Store } from 'core/base-store';
 import { action } from 'mobx';
 
 type TRequestStore = {
   isLoading: boolean;
-  error?: TRequestError;
+  error?: Error;
 };
 
 const initialRequestStore: TRequestStore = {
@@ -22,7 +21,7 @@ export class RequestStore<T> extends Store<T & TRequestStore> {
   }
 
   @action
-  setError = (error?: TRequestError) => {
+  setError = (error?: Error) => {
     this.state.error = error;
   };
 }

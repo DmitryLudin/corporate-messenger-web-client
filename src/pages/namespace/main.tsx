@@ -4,7 +4,7 @@ import { NamespaceHeader } from 'pages/namespace/modules/header';
 import { NavigationBar } from 'pages/namespace/modules/navigation-bar';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
-import { channelsService } from 'shared/domains/channels/channels.service';
+import { navigationBarChannelsService } from 'shared/domains/channels/services/navigation-bar-channels.service';
 import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 import { userService } from 'shared/domains/user/user.service';
 
@@ -30,17 +30,15 @@ function NamespaceMemo() {
       namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
-          channelsService.connect(namespace.id);
-          channelsService.getAllForUser(namespace.id);
+          navigationBarChannelsService.getAllForUser();
         }
       });
     }
 
     return () => {
       namespacesService.resetStore();
-      channelsService.resetStore();
+      navigationBarChannelsService.resetStore();
       userService.disconnect();
-      channelsService.disconnect();
     };
   }, [params.namespace]);
 

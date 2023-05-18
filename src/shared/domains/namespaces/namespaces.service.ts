@@ -13,7 +13,7 @@ type TSelectedNamespaceStore = {
   namespace: Namespace | null;
 };
 
-class NamespacesService {
+export class NamespacesService {
   private readonly _namespacesStore = new RequestStore<TNamespaceStore>({
     namespaces: [],
   });
@@ -31,6 +31,14 @@ class NamespacesService {
   }
 
   constructor(private readonly transport: NamespacesTransport) {}
+
+  getSelectedNamespaceId() {
+    const namespaceId = this._selectedNamespaceStore.getStore().namespace?.id;
+
+    if (!namespaceId) throw new Error('No namespace selected');
+
+    return namespaceId;
+  }
 
   getAll() {
     this._namespacesStore.setLoading(true);
@@ -53,6 +61,10 @@ class NamespacesService {
       })
       .catch(this._selectedNamespaceStore.setError)
       .finally(() => this._selectedNamespaceStore.setLoading(false));
+  }
+
+  join(name: string) {
+    return this.transport.join(name);
   }
 
   create(data: { name: string; displayName: string }) {

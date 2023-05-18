@@ -1,11 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  formLabelClasses,
-  Grid,
-  Stack,
-} from '@mui/joy';
+import { Box, Divider, formLabelClasses, Stack } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
 import { CreateNamespace } from 'pages/namespaces/components/create-namespace/create-namespace';
 import { SelectNamespace } from 'pages/namespaces/components/select-namespace/select-namespace';
@@ -13,8 +6,6 @@ import { useEffect } from 'react';
 import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
 
 function NamespacesMemo() {
-  const { isLoading, namespaces } = namespacesService.namespacesStore;
-
   useEffect(() => {
     namespacesService.getAll();
   }, []);
@@ -35,19 +26,8 @@ function NamespacesMemo() {
     >
       <Stack justifyContent="center" spacing={4}>
         <CreateNamespace />
-
-        {isLoading ? (
-          <Grid container justifyContent="center">
-            <CircularProgress />
-          </Grid>
-        ) : (
-          namespaces.length > 0 && (
-            <>
-              <Divider sx={{ maxWidth: 400, width: '100%' }}>Или</Divider>
-              <SelectNamespace />
-            </>
-          )
-        )}
+        <Divider sx={{ maxWidth: 400, width: '100%' }}>Или</Divider>
+        <SelectNamespace />
       </Stack>
     </Box>
   );

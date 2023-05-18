@@ -6,8 +6,7 @@ import { ChannelNameField } from 'pages/namespace/modules/navigation-bar/modules
 import React, { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { channelsService } from 'shared/domains/channels/channels.service';
-import { namespacesService } from 'shared/domains/namespaces/namespaces.service';
+import { navigationBarChannelsService } from 'shared/domains/channels/services/navigation-bar-channels.service';
 
 type TProps = {
   isOpen: boolean;
@@ -30,23 +29,20 @@ function CreateChannelPopupMemo({ isOpen, handleClose }: TProps) {
   });
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   const handleSubmit = useCallback(
     (data: TCreateChannelForm) => {
-      if (!namespace) return;
-
       setLoading(true);
 
-      return channelsService
-        .createChannel(namespace.id, data)
+      return navigationBarChannelsService
+        .createChannel(data)
         .then((channel) => channel && navigate(`channels/${channel.name}`))
         .finally(() => {
           setLoading(false);
           handleClose();
         });
     },
-    [handleClose, namespace, navigate]
+    [handleClose, navigate]
   );
 
   return (

@@ -4,6 +4,7 @@ export interface IUser {
   id: number;
   username: string;
   displayName?: string | null;
+  name: string;
 }
 
 export class User implements IUser {
@@ -16,4 +17,8 @@ export class User implements IUser {
   @IsString()
   @IsOptional()
   displayName?: string | null;
+
+  get name() {
+    return this.displayName || this.username;
+  }
 }

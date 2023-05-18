@@ -1,4 +1,10 @@
-import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class Channel {
   @IsString()
@@ -26,6 +32,9 @@ export class Channel {
 
   @IsBoolean()
   isUnread!: boolean;
+
+  @IsNumber()
+  membersCount!: number;
 
   getName() {
     return this.displayName || this.name;

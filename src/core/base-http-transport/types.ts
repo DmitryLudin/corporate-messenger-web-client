@@ -1,4 +1,4 @@
-export type TRequestError = { message: string; code: string };
+export type TRequestError = Error & { message: string; code: string };
 
 export type TResponse<T> = {
   data: T | null;

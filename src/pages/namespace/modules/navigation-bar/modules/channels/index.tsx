@@ -5,11 +5,11 @@ import { NavigationList } from 'pages/namespace/modules/navigation-bar/component
 import { useToggle } from 'pages/namespace/modules/navigation-bar/hooks/use-toggle';
 import { CreateChannelPopup } from 'pages/namespace/modules/navigation-bar/modules/channels/components/create-channel-popup/create-channel-popup';
 import { ChannelListItem } from 'pages/namespace/modules/navigation-bar/modules/channels/components/list-item';
-import { channelsService } from 'shared/domains/channels/channels.service';
+import { navigationBarChannelsService } from 'shared/domains/channels/services/navigation-bar-channels.service';
 
 function ChannelsMemo() {
   const [isOpen, , handleOpen, handleClose] = useToggle();
-  const { isLoading, channels } = channelsService.channelsStore;
+  const { isLoading, channels } = navigationBarChannelsService.store;
 
   return (
     <>

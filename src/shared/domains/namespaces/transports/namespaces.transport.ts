@@ -7,17 +7,25 @@ export class NamespacesTransport extends BaseHttpTransport {
   }
 
   create(data: { name: string; displayName: string }) {
-    return this.post(this.basePath, data).then(this.deserialize(Namespace));
+    return this.post(`${this.basePath}/create`, data).then(
+      this.deserialize(Namespace)
+    );
   }
 
   getAll() {
-    return this.get(this.basePath).then(this.deserializeArray(Namespace));
+    return this.get(`${this.basePath}/me`).then(
+      this.deserializeArray(Namespace)
+    );
   }
 
   getByName(name: string) {
     return this.get(`${this.basePath}/${name}`).then(
       this.deserialize(Namespace)
     );
+  }
+
+  join(namespaceName: string) {
+    return this.post(`${this.basePath}/join`, { namespaceName });
   }
 }
 

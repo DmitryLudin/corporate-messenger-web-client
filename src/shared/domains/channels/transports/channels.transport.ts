@@ -1,8 +1,7 @@
 import { BaseHttpTransport } from 'core/base-http-transport';
-import { TCreateChannel } from 'pages/namespace/types/create-channel';
 import { Channel } from 'shared/domains/channels/models/channel.model';
-import { Members } from 'shared/domains/channels/models/members.model';
-import { User } from 'shared/domains/user/user.model';
+import { ChannelMembers } from 'shared/domains/channels/models/members.model';
+import { TCreateChannel } from 'shared/domains/channels/types/create-channel';
 
 export class ChannelsTransport extends BaseHttpTransport {
   constructor() {
@@ -10,7 +9,7 @@ export class ChannelsTransport extends BaseHttpTransport {
   }
 
   getAllForUser(namespaceId: string) {
-    return this.get(`namespaces/${namespaceId}/${this.basePath}/self`).then(
+    return this.get(`namespaces/${namespaceId}/${this.basePath}/me`).then(
       this.deserializeArray(Channel)
     );
   }
@@ -25,7 +24,7 @@ export class ChannelsTransport extends BaseHttpTransport {
     return this.get(
       `namespaces/${namespaceId}/channels/${channelId}/members`,
       params
-    ).then(this.deserialize(Members));
+    ).then(this.deserialize(ChannelMembers));
   }
 
   create(namespaceId: string, data: TCreateChannel) {
