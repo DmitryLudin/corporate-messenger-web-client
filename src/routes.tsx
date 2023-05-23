@@ -1,6 +1,7 @@
 import { PrivateRoute } from 'components/private-route';
 import { NamespacePage } from 'pages/namespace/main';
 import { LoginPage } from 'pages/login/main';
+import { BrowseChannelsScreen } from 'pages/namespace/screens/browse-channels/main';
 import { ChannelScreen } from 'pages/namespace/screens/channel';
 import { NamespacesPage } from 'pages/namespaces/main';
 import { SignupPage } from 'pages/signup/main';
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
         children: [
           { path: 'channels/:channel/*', element: <ChannelScreen /> },
           { path: 'direct/:user/*', element: <div>личное сообщение</div> },
+          { path: 'browse-channels', element: <BrowseChannelsScreen /> },
         ],
       },
     ],

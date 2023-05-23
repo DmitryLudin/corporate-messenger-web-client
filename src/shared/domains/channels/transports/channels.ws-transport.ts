@@ -1,5 +1,3 @@
-import { Type } from 'class-transformer';
-import { IsString, ValidateNested } from 'class-validator';
 import { BaseWsTransport } from 'core/base-ws-transport';
 import { ChannelsEventEnum } from 'shared/domains/channels/const/channel-event.enum';
 import { User } from 'shared/domains/user/user.model';

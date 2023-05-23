@@ -1,5 +1,6 @@
 import LockIcon from '@mui/icons-material/Lock';
 import { Tooltip } from '@mui/joy';
+import { PoundIcon } from 'components/icons/pound';
 import {
   INavigationListItemProps,
   NavigationListItem,
@@ -8,8 +9,6 @@ import { NavigationMoreButton } from 'pages/namespace/modules/navigation-bar/com
 import { useMoreButtonPopup } from 'pages/namespace/modules/navigation-bar/hooks/use-more-button-popup';
 import { useToggle } from 'pages/namespace/modules/navigation-bar/hooks/use-toggle';
 import { ChannelPopup } from 'pages/namespace/modules/navigation-bar/modules/channels/components/popup';
-import TagRoundedIcon from '@mui/icons-material/TagRounded';
-import { useLocation } from 'react-router-dom';
 
 type TProps = Omit<INavigationListItemProps, 'icon'> & {
   isPrivate?: boolean;
@@ -17,8 +16,6 @@ type TProps = Omit<INavigationListItemProps, 'icon'> & {
 
 export function ChannelListItem({ to, isPrivate = false, label }: TProps) {
   const [isHovered, toggleHovered] = useToggle();
-  const location = useLocation();
-  const isActive = location.pathname.includes(to);
   const { onOpenPopup, isPopupOpen, onClosePopup, anchorEl } =
     useMoreButtonPopup();
 
@@ -33,16 +30,7 @@ export function ChannelListItem({ to, isPrivate = false, label }: TProps) {
       <NavigationListItem
         to={to}
         label={label}
-        icon={
-          isPrivate ? (
-            <LockIcon fontSize="small" />
-          ) : (
-            <TagRoundedIcon
-              color={isActive ? 'primary' : 'inherit'}
-              fontSize="small"
-            />
-          )
-        }
+        icon={isPrivate ? <LockIcon fontSize="small" /> : <PoundIcon />}
         onMouseEnter={toggleHovered}
         onMouseLeave={toggleHovered}
         endAction={

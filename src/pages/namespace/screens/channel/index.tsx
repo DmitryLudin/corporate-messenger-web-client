@@ -1,5 +1,5 @@
-import { Box, CircularProgress, Grid } from '@mui/joy';
 import { withObserver } from 'hoc/with-observer.hoc';
+import { ScreenLayout } from 'pages/namespace/components/screen-layout/layout';
 import { ChannelContent } from 'pages/namespace/screens/channel/modules/content';
 import { ChannelFooter } from 'pages/namespace/screens/channel/modules/footer';
 import { ChannelHeader } from 'pages/namespace/screens/channel/modules/header';
@@ -21,31 +21,14 @@ function ChannelScreenMemo() {
     return () => channelsService.resetStore();
   }, []);
 
-  if (isLoading) {
-    return (
-      <Grid
-        sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <CircularProgress />
-      </Grid>
-    );
-  }
-
   return (
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
+    <ScreenLayout
+      isLoading={isLoading}
+      header={<ChannelHeader />}
+      footer={<ChannelFooter />}
     >
-      <ChannelHeader />
       <ChannelContent />
-      <ChannelFooter />
-    </Box>
+    </ScreenLayout>
   );
 }
 

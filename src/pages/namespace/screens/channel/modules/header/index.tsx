@@ -1,23 +1,25 @@
-import { Sheet } from '@mui/joy';
-import { ChannelInfo } from 'pages/namespace/screens/channel/modules/header/channel-info';
+import { Box } from '@mui/joy';
+import { PoundIcon } from 'components/icons/pound';
+import { withObserver } from 'hoc/with-observer.hoc';
+import { ScreenHeader } from 'pages/namespace/components/screen-header/header';
 import { ChannelQuickActions } from 'pages/namespace/screens/channel/modules/header/channel-quick-actions';
+import React from 'react';
+import { channelsService } from 'shared/domains/channels/channels.service';
 
-export function ChannelHeader() {
+function ChannelHeaderMemo() {
+  const channel = channelsService.selectedChannelsStore.channel;
+
   return (
-    <Sheet
-      sx={{
-        width: '100%',
-        height: '62px',
-        display: 'flex',
-        p: 1,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
-      }}
-    >
-      <ChannelInfo />
-      <ChannelQuickActions />
-    </Sheet>
+    <ScreenHeader
+      title={
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <PoundIcon /> {channel?.getName()}
+        </Box>
+      }
+      description={channel?.description}
+      endActions={<ChannelQuickActions />}
+    />
   );
 }
+
+export const ChannelHeader = withObserver(ChannelHeaderMemo);

@@ -5,7 +5,7 @@ import {
   ListItemDecorator,
   Typography,
 } from '@mui/joy';
-import { memo, MouseEventHandler, ReactNode } from 'react';
+import { memo, MouseEventHandler, JSX, cloneElement, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export interface INavigationListItemProps {
@@ -40,7 +40,9 @@ export function NavigationListItemMemo({
         variant={isActive ? 'soft' : 'plain'}
         color={isActive ? 'neutral' : undefined}
       >
-        <ListItemDecorator>{icon}</ListItemDecorator>
+        <ListItemDecorator>
+          {cloneElement(icon, { color: isActive ? 'primary' : 'inherit' })}
+        </ListItemDecorator>
         <ListItemContent>
           <Typography fontSize="sm" noWrap>
             {label}
