@@ -1,9 +1,9 @@
-import { Store } from 'core/base-store';
 import {
   userWsTransport,
   UserWsTransport,
 } from 'shared/domains/user/transports/user.ws-transport';
 import { IUser } from 'shared/domains/user/user.model';
+import { Store } from 'shared/lib/core/base-store';
 
 type TUserStore = {
   user: IUser | null;

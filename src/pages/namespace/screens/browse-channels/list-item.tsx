@@ -1,7 +1,6 @@
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Button, ListItem, ListItemContent, Stack, Typography } from '@mui/joy';
-import { PoundIcon } from 'components/icons/pound';
-import React from 'react';
+import { PoundIcon } from 'shared/components/icons/pound';
 
 export function BrowseChannelListItem() {
   return (

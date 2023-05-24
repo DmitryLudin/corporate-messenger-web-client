@@ -1,7 +1,7 @@
-import { BaseHttpTransport } from 'core/base-http-transport';
 import { Channel } from 'shared/domains/channels/models/channel.model';
 import { ChannelMembers } from 'shared/domains/channels/models/members.model';
 import { TCreateChannel } from 'shared/domains/channels/types/create-channel';
+import { BaseHttpTransport } from 'shared/lib/core/base-http-transport';
 
 export class ChannelsTransport extends BaseHttpTransport {
   constructor() {

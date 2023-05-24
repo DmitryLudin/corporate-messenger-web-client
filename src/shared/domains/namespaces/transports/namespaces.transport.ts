@@ -1,5 +1,5 @@
-import { BaseHttpTransport } from 'core/base-http-transport';
 import { Namespace } from 'shared/domains/namespaces/models/namepsace.model';
+import { BaseHttpTransport } from 'shared/lib/core/base-http-transport';
 
 export class NamespacesTransport extends BaseHttpTransport {
   constructor() {

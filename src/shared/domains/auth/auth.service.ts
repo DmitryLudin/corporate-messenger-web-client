@@ -1,11 +1,11 @@
-import { TRequestError } from 'core/base-http-transport/types';
-import { RequestStore } from 'core/base-request-store';
 import {
   authTransport,
   AuthTransport,
 } from 'shared/domains/auth/auth.transport';
 import { ILoginDto, ISignupDto } from 'shared/domains/auth/dto';
 import { userService, UserService } from 'shared/domains/user/user.service';
+import { TRequestError } from 'shared/lib/core/base-http-transport/types';
+import { RequestStore } from 'shared/lib/core/base-request-store';
 
 type TAuthStore = {
   isAuthorized: boolean;

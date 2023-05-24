@@ -1,11 +1,11 @@
 import { CircularProgress, IconButton, ListItem } from '@mui/joy';
-import { withObserver } from 'hoc/with-observer.hoc';
 import AddIcon from '@mui/icons-material/Add';
+import { CreateChannelModal } from 'modules/create-channel-modal';
 import { NavigationList } from 'pages/namespace/modules/navigation-bar/components/list';
-import { useToggle } from 'pages/namespace/modules/navigation-bar/hooks/use-toggle';
-import { CreateChannelPopup } from 'pages/namespace/modules/navigation-bar/modules/channels/components/create-channel-popup/create-channel-popup';
-import { ChannelListItem } from 'pages/namespace/modules/navigation-bar/modules/channels/components/list-item';
+import { ChannelListItem } from 'pages/namespace/modules/navigation-bar/modules/channels/channel-list-item';
 import { navigationBarChannelsService } from 'shared/domains/channels/services/navigation-bar-channels.service';
+import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
+import { useToggle } from 'shared/lib/hooks/use-toggle';
 
 function ChannelsMemo() {
   const [isOpen, , handleOpen, handleClose] = useToggle();
@@ -14,7 +14,7 @@ function ChannelsMemo() {
   return (
     <>
       {isOpen && (
-        <CreateChannelPopup isOpen={isOpen} handleClose={handleClose} />
+        <CreateChannelModal isOpen={isOpen} handleClose={handleClose} />
       )}
 
       <NavigationList

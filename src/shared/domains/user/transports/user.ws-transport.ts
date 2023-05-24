@@ -1,4 +1,4 @@
-import { BaseWsTransport } from 'core/base-ws-transport';
+import { BaseWsTransport } from 'shared/lib/core/base-ws-transport';
 
 export class UserWsTransport extends BaseWsTransport<{}> {
   constructor() {

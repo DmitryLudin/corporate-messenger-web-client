@@ -1,7 +1,7 @@
 import { Box, List, ListDivider } from '@mui/joy';
-import { withObserver } from 'hoc/with-observer.hoc';
 import { BrowseChannelListItem } from 'pages/namespace/screens/browse-channels/list-item';
 import { Virtuoso } from 'react-virtuoso';
+import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 
 const arr: unknown[] = [];
 arr.length = 100;

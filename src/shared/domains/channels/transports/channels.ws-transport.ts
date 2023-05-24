@@ -1,6 +1,6 @@
-import { BaseWsTransport } from 'core/base-ws-transport';
 import { ChannelsEventEnum } from 'shared/domains/channels/const/channel-event.enum';
 import { User } from 'shared/domains/user/user.model';
+import { BaseWsTransport } from 'shared/lib/core/base-ws-transport';
 
 type TChannelsEventsMap = {
   [ChannelsEventEnum.JOIN_CHANNELS]: (namespaceId: string) => void;

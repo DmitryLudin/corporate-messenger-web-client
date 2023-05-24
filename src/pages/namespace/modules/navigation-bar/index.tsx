@@ -1,7 +1,6 @@
 import { Divider, Sheet, Stack } from '@mui/joy';
 import { Activities } from 'pages/namespace/modules/navigation-bar/modules/activities';
 import { Channels } from 'pages/namespace/modules/navigation-bar/modules/channels';
-import React from 'react';
 
 export function NavigationBar() {
   return (

@@ -2,10 +2,10 @@ import AssistantPhotoRoundedIcon from '@mui/icons-material/AssistantPhotoRounded
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import DraftsRoundedIcon from '@mui/icons-material/DraftsRounded';
 import OutboxRoundedIcon from '@mui/icons-material/OutboxRounded';
-import { BrowseChannelsIcon } from 'components/icons/browse-channels';
 import { NavigationList } from 'pages/namespace/modules/navigation-bar/components/list';
 import { NavigationListItem } from 'pages/namespace/modules/navigation-bar/components/list-item';
 import React from 'react';
+import { BrowseChannelsIcon } from 'shared/components/icons/browse-channels';
 
 export function Activities() {
   return (

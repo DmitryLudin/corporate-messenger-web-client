@@ -1,4 +1,3 @@
-import { RequestStore } from 'core/base-request-store';
 import { Channel } from 'shared/domains/channels/models/channel.model';
 import {
   channelsTransport,
@@ -9,6 +8,7 @@ import {
   namespacesService,
   NamespacesService,
 } from 'shared/domains/namespaces/namespaces.service';
+import { RequestStore } from 'shared/lib/core/base-request-store';
 
 type TChannelsStore = {
   channels: Channel[];

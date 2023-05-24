@@ -1,9 +1,9 @@
-import { RequestStore } from 'core/base-request-store';
 import { Namespace } from 'shared/domains/namespaces/models/namepsace.model';
 import {
   NamespacesTransport,
   namespaceTransport,
 } from 'shared/domains/namespaces/transports/namespaces.transport';
+import { RequestStore } from 'shared/lib/core/base-request-store';
 
 type TNamespaceStore = {
   namespaces: Namespace[];

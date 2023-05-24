@@ -5,9 +5,9 @@ import {
 } from 'pages/namespace/modules/navigation-bar/components/list-item';
 import { NavigationMoreButton } from 'pages/namespace/modules/navigation-bar/components/more-menu-button';
 import { useMoreButtonPopup } from 'pages/namespace/modules/navigation-bar/hooks/use-more-button-popup';
-import { useToggle } from 'pages/namespace/modules/navigation-bar/hooks/use-toggle';
 import { DirectPopup } from 'pages/namespace/modules/navigation-bar/modules/direct/components/popup';
 import React from 'react';
+import { useToggle } from 'shared/lib/hooks/use-toggle';
 
 type TProps = INavigationListItemProps;
 
