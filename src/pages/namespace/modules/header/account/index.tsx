@@ -1,4 +1,4 @@
-import { UserAvatar } from 'components/user-avatar';
+import { UserAvatar } from 'shared/components/user-avatar';
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 

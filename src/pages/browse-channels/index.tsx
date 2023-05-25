@@ -1,10 +1,10 @@
 import { Button } from '@mui/joy';
-import { Layout } from 'components/layout';
-import { PageHeader } from 'components/page-header';
 import { CreateChannelModal } from 'modules/create-channel-modal';
 import { browseChannelsService } from 'pages/browse-channels/domains';
 import { BrowseChannelList } from 'pages/browse-channels/modules';
 import { useEffect } from 'react';
+import { Layout } from 'shared/components/layout';
+import { PageHeader } from 'shared/components/page-header';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 import { useToggle } from 'shared/lib/hooks/use-toggle';
 

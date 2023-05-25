@@ -1,7 +1,7 @@
 import { Box } from '@mui/joy';
-import { PoundIcon } from 'components/icons/pound';
-import { PageHeader } from 'components/page-header';
 import { ChannelQuickActions } from 'pages/channel/header/channel-quick-actions';
+import { PoundIcon } from 'shared/components/icons/pound';
+import { PageHeader } from 'shared/components/page-header';
 import { channelsService } from 'shared/domains/channels';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 

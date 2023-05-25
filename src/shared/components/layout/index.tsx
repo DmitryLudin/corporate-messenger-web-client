@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from '@mui/joy';
-import { LayoutFooter } from 'components/layout/layout-footer';
-import { LayoutHeader } from 'components/layout/layout-header';
 import { PropsWithChildren, ReactNode } from 'react';
+import { LayoutFooter } from 'shared/components/layout/layout-footer';
+import { LayoutHeader } from 'shared/components/layout/layout-header';
 
 type TProps = {
   header?: ReactNode;

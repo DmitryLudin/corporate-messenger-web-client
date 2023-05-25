@@ -1,7 +1,7 @@
 import { Grid, Stack } from '@mui/joy';
-import { PageHeaderDescription } from 'components/page-header/description';
-import { PageHeaderTitle } from 'components/page-header/title';
 import { ReactNode } from 'react';
+import { PageHeaderDescription } from 'shared/components/page-header/description';
+import { PageHeaderTitle } from 'shared/components/page-header/title';
 
 type TProps = {
   title: ReactNode;

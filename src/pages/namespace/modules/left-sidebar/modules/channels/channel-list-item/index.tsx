@@ -1,6 +1,5 @@
 import LockIcon from '@mui/icons-material/Lock';
 import { Tooltip } from '@mui/joy';
-import { PoundIcon } from 'components/icons/pound';
 import {
   INavigationListItemProps,
   NavigationListItem,
@@ -8,6 +7,7 @@ import {
 } from 'pages/namespace/modules/left-sidebar/components';
 import { useMoreButtonPopup } from 'pages/namespace/modules/left-sidebar/hooks';
 import { ChannelPopup } from 'pages/namespace/modules/left-sidebar/modules/channels/channel-list-item/channel-popup';
+import { PoundIcon } from 'shared/components/icons/pound';
 import { useToggle } from 'shared/lib/hooks/use-toggle';
 
 type TProps = Omit<INavigationListItemProps, 'icon'> & {

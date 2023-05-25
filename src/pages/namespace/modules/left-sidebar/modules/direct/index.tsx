@@ -1,6 +1,6 @@
-import { UserAvatar } from 'components/user-avatar';
 import { NavigationList } from 'pages/namespace/modules/left-sidebar/components';
 import { DirectListItem } from 'pages/namespace/modules/left-sidebar/modules/direct/list-item';
+import { UserAvatar } from 'shared/components/user-avatar';
 
 export function Direct() {
   return (
