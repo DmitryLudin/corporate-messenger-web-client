@@ -42,18 +42,6 @@ export class NavigationBarChannelsService {
     }
   }
 
-  async createChannel(data: TCreateChannel) {
-    try {
-      const namespaceId = this.namespacesService.getSelectedNamespaceId();
-      // const channel = await this.transport.create(namespaceId, data);
-      // const channels = this._store.getStoreValue('channels');
-      // this._store.updateStore({ channels: channels.concat(channel) });
-      // return channel;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   resetStore() {
     this._store.resetStore();
   }

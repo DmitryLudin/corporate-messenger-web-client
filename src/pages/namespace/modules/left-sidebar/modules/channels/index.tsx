@@ -1,9 +1,9 @@
 import { CircularProgress, IconButton, ListItem } from '@mui/joy';
 import AddIcon from '@mui/icons-material/Add';
 import { CreateChannelModal } from 'modules/create-channel-modal';
-import { NavigationList } from 'pages/namespace/modules/left-sidebar/components/list';
-import { ChannelListItem } from 'pages/namespace/modules/left-sidebar/modules/channels/components/channel-list-item';
-import { navigationBarChannelsService } from 'pages/namespace/modules/left-sidebar/modules/channels/services/navigation-bar-channels.service';
+import { navigationBarChannelsService } from 'pages/namespace/domains';
+import { NavigationList } from 'pages/namespace/modules/left-sidebar/components';
+import { ChannelListItem } from 'pages/namespace/modules/left-sidebar/modules/channels/channel-list-item';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 import { useToggle } from 'shared/lib/hooks/use-toggle';
 

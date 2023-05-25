@@ -8,13 +8,13 @@ import {
   ListItemButton,
   Typography,
 } from '@mui/joy';
-import React, { Fragment } from 'react';
+import { browseNamespacesService } from 'pages/browse-namespaces/domains';
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 
 export function SelectNamespaceMemo() {
-  const { isLoading, namespaces } = namespacesService.namespacesStore;
+  const { isLoading, namespaces } = browseNamespacesService.store;
   const navigate = useNavigate();
 
   return (

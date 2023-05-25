@@ -5,26 +5,15 @@ import {
 } from 'shared/domains/namespaces/transports/namespaces.transport';
 import { RequestStore } from 'shared/lib/core/base-request-store';
 
-type TNamespaceStore = {
-  namespaces: Namespace[];
-};
-
 type TSelectedNamespaceStore = {
   namespace: Namespace | null;
 };
 
 export class NamespacesService {
-  private readonly _namespacesStore = new RequestStore<TNamespaceStore>({
-    namespaces: [],
-  });
   private readonly _selectedNamespaceStore =
     new RequestStore<TSelectedNamespaceStore>({
       namespace: null,
     });
-
-  get namespacesStore() {
-    return this._namespacesStore.getStore();
-  }
 
   get selectedNamespaceStore() {
     return this._selectedNamespaceStore.getStore();
@@ -33,16 +22,11 @@ export class NamespacesService {
   constructor(private readonly transport: NamespacesTransport) {}
 
   getSelectedNamespaceId() {
-    return this._selectedNamespaceStore.getStore().namespace?.id;
-  }
+    const namespaceId = this._selectedNamespaceStore.getStore().namespace?.id;
 
-  getAll() {
-    this._namespacesStore.setLoading(true);
-    return this.transport
-      .getAll()
-      .then((namespaces) => this._namespacesStore.updateStore({ namespaces }))
-      .catch(this._namespacesStore.setError)
-      .finally(() => this._namespacesStore.setLoading(false));
+    if (!namespaceId) throw new Error('Рабочее пространство не выбрано');
+
+    return namespaceId;
   }
 
   getByName(name: string) {
@@ -57,21 +41,6 @@ export class NamespacesService {
       })
       .catch(this._selectedNamespaceStore.setError)
       .finally(() => this._selectedNamespaceStore.setLoading(false));
-  }
-
-  join(name: string) {
-    return this.transport.join(name);
-  }
-
-  create(data: { name: string; displayName: string }) {
-    return this.transport.create(data).then((namespace) => {
-      this._namespacesStore.updateStore((prevState) => ({
-        ...prevState,
-        namespaces: [...prevState.namespaces, namespace],
-      }));
-
-      return namespace;
-    });
   }
 
   resetStore() {

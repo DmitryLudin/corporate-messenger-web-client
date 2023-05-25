@@ -1,6 +1,6 @@
 import { Box, List, ListDivider } from '@mui/joy';
-import { BrowseChannelListItem } from 'pages/browse-channels/components/list-item';
-import { browseChannelsService } from 'pages/browse-channels/services/browse-channels.service';
+import { browseChannelsService } from 'pages/browse-channels/domains';
+import { BrowseChannelListItem } from './list-item';
 import { Virtuoso } from 'react-virtuoso';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 

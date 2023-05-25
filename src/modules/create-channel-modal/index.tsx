@@ -4,10 +4,10 @@ import { ChannelDisplayNameField } from 'modules/create-channel-modal/components
 import { ChannelNameField } from 'modules/create-channel-modal/components/channel-name-field';
 import { defaultCreateChannelFormState } from 'modules/create-channel-modal/consts/default-create-channel-form-state';
 import { TCreateChannelForm } from 'modules/create-channel-modal/types/create-channel-form';
-import { navigationBarChannelsService } from 'pages/namespace/modules/left-sidebar/modules/channels/services/navigation-bar-channels.service';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { channelsService } from 'shared/domains/channels';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 
 type TProps = {
@@ -29,7 +29,7 @@ function CreateChannelModalMemo({ isOpen, handleClose }: TProps) {
       setLoading(true);
 
       return (
-        navigationBarChannelsService
+        channelsService
           .createChannel(data)
           // .then(
           //   (channel) =>

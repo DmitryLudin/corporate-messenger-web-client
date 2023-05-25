@@ -1,6 +1,5 @@
 import { ListDivider, Menu, MenuItem } from '@mui/joy';
-import { TNavigationMoreMenuPopup } from 'pages/namespace/modules/left-sidebar/types/more-menu-button.types';
-import React from 'react';
+import { TNavigationMoreMenuPopup } from 'pages/namespace/modules/left-sidebar/types';
 
 export function DirectPopup({
   isOpen,

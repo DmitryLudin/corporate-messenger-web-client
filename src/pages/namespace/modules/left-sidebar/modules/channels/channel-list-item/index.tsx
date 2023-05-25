@@ -4,10 +4,10 @@ import { PoundIcon } from 'components/icons/pound';
 import {
   INavigationListItemProps,
   NavigationListItem,
-} from 'pages/namespace/modules/left-sidebar/components/list-item';
-import { NavigationMoreButton } from 'pages/namespace/modules/left-sidebar/components/more-menu-button';
-import { useMoreButtonPopup } from 'pages/namespace/modules/left-sidebar/hooks/use-more-button-popup';
-import { ChannelPopup } from 'pages/namespace/modules/left-sidebar/modules/channels/components/channel-popup';
+  NavigationMoreButton,
+} from 'pages/namespace/modules/left-sidebar/components';
+import { useMoreButtonPopup } from 'pages/namespace/modules/left-sidebar/hooks';
+import { ChannelPopup } from 'pages/namespace/modules/left-sidebar/modules/channels/channel-list-item/channel-popup';
 import { useToggle } from 'shared/lib/hooks/use-toggle';
 
 type TProps = Omit<INavigationListItemProps, 'icon'> & {

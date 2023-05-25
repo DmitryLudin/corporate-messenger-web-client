@@ -1,14 +1,15 @@
 import { Box, Divider, formLabelClasses, Stack } from '@mui/joy';
-import { CreateNamespaceSection } from 'pages/browse-namespaces/modules/create-namespace';
-import { JoinNamespaceSection } from 'pages/browse-namespaces/modules/join-namespace';
-import { SelectNamespaceSection } from 'pages/browse-namespaces/modules/select-namespace';
-import React, { useEffect } from 'react';
-import { namespacesService } from 'shared/domains/namespaces';
-import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
+import { browseNamespacesService } from 'pages/browse-namespaces/domains';
+import {
+  CreateNamespaceSection,
+  JoinNamespaceSection,
+  SelectNamespaceSection,
+} from 'pages/browse-namespaces/modules';
+import { useEffect } from 'react';
 
-function BrowseNamespacesPageMemo() {
+export function BrowseNamespacesPage() {
   useEffect(() => {
-    namespacesService.getAll();
+    browseNamespacesService.getAll();
   }, []);
 
   return (
@@ -34,5 +35,3 @@ function BrowseNamespacesPageMemo() {
     </Box>
   );
 }
-
-export const BrowseNamespacesPage = withObserver(BrowseNamespacesPageMemo);

@@ -1,6 +1,8 @@
 import { Divider, Sheet, Stack } from '@mui/joy';
-import { Activities } from 'pages/namespace/modules/left-sidebar/modules/activities';
-import { Channels } from 'pages/namespace/modules/left-sidebar/modules/channels';
+import {
+  Activities,
+  Channels,
+} from 'pages/namespace/modules/left-sidebar/modules';
 
 export function NamespaceLeftSidebar() {
   return (

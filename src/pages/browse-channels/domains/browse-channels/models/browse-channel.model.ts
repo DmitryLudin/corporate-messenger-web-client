@@ -1,5 +1,4 @@
-import { Type } from 'class-transformer';
-import { IsBoolean, IsNumber, ValidateNested } from 'class-validator';
+import { IsBoolean, IsNumber } from 'class-validator';
 import { Channel } from 'shared/domains/channels/models/channel.model';
 import 'reflect-metadata';
 

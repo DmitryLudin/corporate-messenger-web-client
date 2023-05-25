@@ -1,10 +1,10 @@
 import { Button, Grid } from '@mui/joy';
+import { browseNamespacesService } from 'pages/browse-namespaces/domains';
 import { NamespaceDisplayNameField } from 'pages/browse-namespaces/modules/create-namespace/form/display-name-field';
 import { NamespaceNameField } from 'pages/browse-namespaces/modules/create-namespace/form/name-field';
 import React, { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces';
 
 const defaultFormState = { name: '', displayName: '' };
 
@@ -21,7 +21,7 @@ export function CreateNamespaceForm() {
   const handleSubmit = useCallback(
     (data: TCreateNamespaceForm) => {
       setLoading(true);
-      return namespacesService
+      return browseNamespacesService
         .create(data)
         .then((namespace) => navigate(`/${namespace.name}`))
         .catch()

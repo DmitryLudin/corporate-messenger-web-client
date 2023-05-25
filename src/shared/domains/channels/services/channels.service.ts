@@ -7,6 +7,7 @@ import {
   channelsWsTransport,
   ChannelsWsTransport,
 } from 'shared/domains/channels/transports/channels.ws-transport';
+import { TCreateChannel } from 'shared/domains/channels/types';
 import {
   namespacesService,
   NamespacesService,
@@ -57,6 +58,18 @@ export class ChannelsService {
 
   disconnect() {
     this.wsTransport.disconnect();
+  }
+
+  async createChannel(data: TCreateChannel) {
+    try {
+      const namespaceId = this.namespacesService.getSelectedNamespaceId();
+      // const channel = await this.transport.create(namespaceId, data);
+      // const channels = this._store.getStoreValue('channels');
+      // this._store.updateStore({ channels: channels.concat(channel) });
+      // return channel;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   resetStore() {

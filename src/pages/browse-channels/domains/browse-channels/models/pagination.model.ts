@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { BrowseChannel } from 'shared/domains/channels/models/browse-channel/browse-channel.model';
-import { PaginationMeta } from 'shared/domains/channels/models/browse-channel/pagination-meta.model';
+import { BrowseChannel } from 'pages/browse-channels/domains/browse-channels/models/browse-channel.model';
+import { PaginationMeta } from 'pages/browse-channels/domains/browse-channels/models/pagination-meta.model';
 
 export class BrowseChannelPagination {
   @ValidateNested({ each: true })

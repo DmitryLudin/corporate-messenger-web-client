@@ -2,10 +2,10 @@ import { Tooltip } from '@mui/joy';
 import {
   INavigationListItemProps,
   NavigationListItem,
-} from 'pages/namespace/modules/left-sidebar/components/list-item';
-import { NavigationMoreButton } from 'pages/namespace/modules/left-sidebar/components/more-menu-button';
-import { useMoreButtonPopup } from 'pages/namespace/modules/left-sidebar/hooks/use-more-button-popup';
-import { DirectPopup } from 'pages/namespace/modules/left-sidebar/modules/direct/components/popup';
+  NavigationMoreButton,
+} from 'pages/namespace/modules/left-sidebar/components';
+import { useMoreButtonPopup } from 'pages/namespace/modules/left-sidebar/hooks';
+import { DirectPopup } from 'pages/namespace/modules/left-sidebar/modules/direct/popup';
 import React from 'react';
 import { useToggle } from 'shared/lib/hooks/use-toggle';
 

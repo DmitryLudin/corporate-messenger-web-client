@@ -1,8 +1,8 @@
 import { Button, FormControl, Input, Typography } from '@mui/joy';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
-import React, { useCallback, useState } from 'react';
+import { browseNamespacesService } from 'pages/browse-namespaces/domains';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces';
 
 const cyrillicToTranslit = CyrillicToTranslit();
 
@@ -14,7 +14,7 @@ export function JoinNamespaceSection() {
   const handleJoinNamespace = useCallback(async () => {
     try {
       setLoading(true);
-      await namespacesService.join(namespaceUrl);
+      await browseNamespacesService.join(namespaceUrl);
       navigate(`/${namespaceUrl}`);
     } catch (error) {
       console.log(error);

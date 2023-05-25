@@ -1,8 +1,8 @@
-import { BrowseChannel } from 'shared/domains/channels/models/browse-channel/browse-channel.model';
 import {
-  channelsTransport,
-  ChannelsTransport,
-} from 'shared/domains/channels/transports/channels.transport';
+  browseChannelsTransport,
+  BrowseChannelsTransport,
+} from 'pages/browse-channels/domains/browse-channels/browse-channels.transport';
+import { BrowseChannel } from './models/browse-channel.model';
 import {
   namespacesService,
   NamespacesService,
@@ -25,7 +25,7 @@ class BrowseChannelsService {
   }
 
   constructor(
-    private readonly transport: ChannelsTransport,
+    private readonly transport: BrowseChannelsTransport,
     private readonly namespacesService: NamespacesService
   ) {}
 
@@ -34,11 +34,11 @@ class BrowseChannelsService {
       const namespaceId = this.namespacesService.getSelectedNamespaceId();
       this._store.resetStore();
       this._store.setLoading(true);
-      // const pagination = await this.transport.getAll(namespaceId);
-      // this._store.updateStore({
-      //   channels: pagination.items,
-      //   totalCount: pagination.meta.totalItems,
-      // });
+      const result = await this.transport.getAll(namespaceId);
+      this._store.updateStore({
+        channels: result.items,
+        totalCount: result.meta.totalItems,
+      });
     } catch (error) {
       this._store.setError(error as Error);
     } finally {
@@ -48,6 +48,6 @@ class BrowseChannelsService {
 }
 
 export const browseChannelsService = new BrowseChannelsService(
-  channelsTransport,
+  browseChannelsTransport,
   namespacesService
 );

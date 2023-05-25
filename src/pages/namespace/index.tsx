@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Grid } from '@mui/joy';
-import { navigationBarChannelsService } from 'pages/namespace/modules/left-sidebar/modules/channels/services/navigation-bar-channels.service';
+import { navigationBarChannelsService } from 'pages/namespace/domains';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { namespacesService } from 'shared/domains/namespaces';
