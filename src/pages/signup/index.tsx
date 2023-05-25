@@ -1,7 +1,7 @@
 import { Box, formLabelClasses, Typography } from '@mui/joy';
 import { SignupForm } from 'pages/signup/signup-form';
 import { Navigate, useLocation } from 'react-router-dom';
-import { authService } from 'shared/domains/auth/auth.service';
+import { authService } from 'shared/domains/auth';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 
 export function SignupPageMemo() {

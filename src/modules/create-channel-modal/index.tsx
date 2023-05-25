@@ -4,10 +4,10 @@ import { ChannelDisplayNameField } from 'modules/create-channel-modal/components
 import { ChannelNameField } from 'modules/create-channel-modal/components/channel-name-field';
 import { defaultCreateChannelFormState } from 'modules/create-channel-modal/consts/default-create-channel-form-state';
 import { TCreateChannelForm } from 'modules/create-channel-modal/types/create-channel-form';
+import { navigationBarChannelsService } from 'pages/namespace/modules/left-sidebar/modules/channels/services/navigation-bar-channels.service';
 import React, { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { navigationBarChannelsService } from 'shared/domains/channels/services/navigation-bar-channels.service';
+import { useNavigate, useParams } from 'react-router-dom';
 import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
 
 type TProps = {
@@ -21,21 +21,30 @@ function CreateChannelModalMemo({ isOpen, handleClose }: TProps) {
     defaultValues: defaultCreateChannelFormState,
   });
   const [isLoading, setLoading] = useState(false);
+  const params = useParams<{ namespace: string }>();
   const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     (data: TCreateChannelForm) => {
       setLoading(true);
 
-      return navigationBarChannelsService
-        .createChannel(data)
-        .then((channel) => channel && navigate(`channels/${channel.name}`))
-        .finally(() => {
-          setLoading(false);
-          handleClose();
-        });
+      return (
+        navigationBarChannelsService
+          .createChannel(data)
+          // .then(
+          //   (channel) =>
+          //     channel &&
+          //     navigate(`/${params.namespace}/channels/${channel.name}`, {
+          //       relative: 'path',
+          //     })
+          // )
+          .finally(() => {
+            setLoading(false);
+            handleClose();
+          })
+      );
     },
-    [handleClose, navigate]
+    [handleClose, navigate, params]
   );
 
   return (

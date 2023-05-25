@@ -6,10 +6,10 @@ import {
   Grid,
 } from '@mui/joy';
 import { router } from 'pages';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import { authService } from 'shared/domains/auth/auth.service';
-import { theme } from './theme';
+import { theme } from 'shared/config/theme';
+import { authService } from 'shared/domains/auth';
 
 export function App() {
   const [isLoading, setLoading] = useState(true);

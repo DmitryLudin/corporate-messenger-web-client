@@ -3,7 +3,7 @@ import {
   AuthTransport,
 } from 'shared/domains/auth/auth.transport';
 import { ILoginDto, ISignupDto } from 'shared/domains/auth/dto';
-import { userService, UserService } from 'shared/domains/user/user.service';
+import { userService, UserService } from 'shared/domains/user';
 import { TRequestError } from 'shared/lib/core/base-http-transport/types';
 import { RequestStore } from 'shared/lib/core/base-request-store';
 

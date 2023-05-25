@@ -5,7 +5,7 @@ import { SignupUsernameField } from 'pages/signup/signup-form/username-field';
 import React, { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
-import { authService } from 'shared/domains/auth/auth.service';
+import { authService } from 'shared/domains/auth';
 
 const defaultFormState = { username: '', password: '', name: '' };
 

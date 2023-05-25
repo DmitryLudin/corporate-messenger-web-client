@@ -1,1 +1,1 @@
-export { namespacesService } from './namespaces.service';
+export { namespacesService, NamespacesService } from './namespaces.service';

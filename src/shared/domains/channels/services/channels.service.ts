@@ -10,7 +10,7 @@ import {
 import {
   namespacesService,
   NamespacesService,
-} from 'shared/domains/namespaces/namespaces.service';
+} from 'shared/domains/namespaces';
 import { RequestStore } from 'shared/lib/core/base-request-store';
 
 export class ChannelsService {
@@ -31,7 +31,7 @@ export class ChannelsService {
   async getByName(channelName: string) {
     try {
       this._selectedChannelsStore.setLoading(true);
-      const namespaceId = this.namespacesService.getSelectedNamespaceId();
+      const namespaceId = this.getSelectedNamespaceId();
       const channel = await this.transport.getByName(namespaceId, channelName);
       this._selectedChannelsStore.updateStore({ channel });
     } catch (error) {
@@ -61,6 +61,14 @@ export class ChannelsService {
 
   resetStore() {
     this._selectedChannelsStore.resetStore();
+  }
+
+  private getSelectedNamespaceId() {
+    const namespaceId = this.namespacesService.getSelectedNamespaceId();
+
+    if (!namespaceId) throw new Error('No namespace selected');
+
+    return namespaceId;
   }
 }
 

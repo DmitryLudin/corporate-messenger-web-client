@@ -33,11 +33,7 @@ export class NamespacesService {
   constructor(private readonly transport: NamespacesTransport) {}
 
   getSelectedNamespaceId() {
-    const namespaceId = this._selectedNamespaceStore.getStore().namespace?.id;
-
-    if (!namespaceId) throw new Error('No namespace selected');
-
-    return namespaceId;
+    return this._selectedNamespaceStore.getStore().namespace?.id;
   }
 
   getAll() {

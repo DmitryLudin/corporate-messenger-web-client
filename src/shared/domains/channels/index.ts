@@ -1,3 +1,3 @@
-export { channelsService, navigationBarChannelsService } from './services';
-export { ChannelMembers, Channel } from './models';
+export * from './services';
+export * from './models';
 export type { TCreateChannel } from './types';
