@@ -1,7 +1,6 @@
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Button, IconButton, Stack } from '@mui/joy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { channelsService } from 'entities/channel';
+import { ChannelMembersCount, channelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 
 function ChannelQuickActionsMemo() {
@@ -14,10 +13,9 @@ function ChannelQuickActionsMemo() {
           size="sm"
           color="neutral"
           variant="plain"
-          startDecorator={<PeopleAltIcon />}
           // onClick={onClick}
         >
-          {channel.membersCount}
+          <ChannelMembersCount count={channel.membersCount} />
         </Button>
       )}
       <IconButton

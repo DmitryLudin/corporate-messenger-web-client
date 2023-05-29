@@ -1,8 +1,5 @@
-import { Box } from '@mui/joy';
-
-import { channelsService } from 'entities/channel';
+import { ChannelName, channelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
-import { PoundIcon } from 'shared/ui/icons';
 import { PageHeader } from 'shared/ui/page-header';
 
 import { ChannelQuickActions } from './ui';
@@ -12,11 +9,7 @@ function ChannelHeaderMemo() {
 
   return (
     <PageHeader
-      title={
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <PoundIcon /> {channel?.getName()}
-        </Box>
-      }
+      title={channel && <ChannelName name={channel.getName()} />}
       description={channel?.description}
       endActions={<ChannelQuickActions />}
     />

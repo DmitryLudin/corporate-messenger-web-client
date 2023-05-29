@@ -7,6 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/joy';
+import { ChannelMembersCount, ChannelName } from 'entities/channel';
 import { Link, useParams } from 'react-router-dom';
 
 import { PoundIcon } from 'shared/ui/icons';
@@ -47,20 +48,12 @@ export function BrowseChannelListItem({
         to={`/${params.namespace}/channels/${name}`}
       >
         <ListItemContent>
-          <Stack gap={0.5} alignItems="center" direction="row">
-            <PoundIcon fontSize="md" />
-            <Typography fontWeight="xl" fontSize="sm">
-              {displayName}
-            </Typography>
-          </Stack>
+          <ChannelName size="sm" name={displayName} />
           <Typography color="neutral" fontSize="xs">
             <Stack gap={0.5} alignItems="center" direction="row">
               {description}
               {description && <span>·</span>}
-              <Stack gap={0.5} direction="row" alignItems="center">
-                <PeopleAltIcon />
-                {membersCount || 0}
-              </Stack>
+              <ChannelMembersCount count={membersCount} />
             </Stack>
           </Typography>
         </ListItemContent>
