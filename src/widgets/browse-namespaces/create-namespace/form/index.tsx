@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   browseNamespacesService,
   TCreateNamespaceDto,
-} from 'entities/namespace';
+} from 'shared/domains/namespace';
 
 import { NamespaceDisplayNameField } from './display-name-field';
 import { NamespaceNameField } from './name-field';

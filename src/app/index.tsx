@@ -10,7 +10,7 @@ import { RouterProvider } from 'react-router-dom';
 import 'reflect-metadata';
 
 import { router } from 'pages';
-import { authService } from 'entities/user';
+import { authService } from 'shared/domains/user';
 import { theme } from 'shared/config/theme';
 
 export function App() {

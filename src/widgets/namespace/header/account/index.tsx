@@ -1,4 +1,5 @@
-import { UserAvatar, userService } from 'entities/user';
+import { UserAvatar } from 'entities/user';
+import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 
 function AccountMemo() {

@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { authService } from 'entities/user';
+import { authService } from 'shared/domains/user';
 
 import { SignupNameField } from './name-field';
 import { SignupPasswordField } from './password-field';

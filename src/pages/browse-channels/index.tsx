@@ -1,4 +1,5 @@
 import { Button } from '@mui/joy';
+import { useEffect } from 'react';
 
 import { channelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
@@ -11,6 +12,10 @@ import { BrowseChannelList } from 'widgets/browse-channels';
 function BrowseChannelsPageMemo() {
   const { isLoading } = channelsService.channelsStore;
   const [isOpen, , handleOpen, handleClose] = useToggle();
+
+  useEffect(() => {
+    channelsService.getChannels();
+  }, []);
 
   return (
     <>

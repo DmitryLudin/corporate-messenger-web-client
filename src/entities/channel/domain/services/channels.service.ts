@@ -1,3 +1,4 @@
+import { namespacesService, NamespacesService } from 'shared/domains/namespace';
 import { RequestStore } from 'shared/lib/core';
 
 import {
@@ -25,7 +26,6 @@ export class ChannelsService {
   private readonly _selectedChannelsStore =
     new RequestStore<TSelectedChannelsStore>({});
 
-  private namespaceId: string = '';
   private selectedChannelName: string = '';
 
   get channelsStore() {
@@ -46,18 +46,19 @@ export class ChannelsService {
 
   constructor(
     private readonly transport: ChannelsTransport,
-    private readonly wsTransport: ChannelsWsTransport
+    private readonly wsTransport: ChannelsWsTransport,
+    private readonly namespaceService: NamespacesService
   ) {}
 
-  init(namespaceId: string) {
-    this.namespaceId = namespaceId;
-  }
-
   getChannels() {
+    const namespaceId = this.namespaceService.getSelectedNamespaceId();
+
+    if (!namespaceId) return;
+
     this._channelsStore.setLoading(true);
 
     return this.transport
-      .getChannels(this.namespaceId)
+      .getChannels(namespaceId)
       .then(({ meta, items }) =>
         this._channelsStore.updateStore({
           totalCount: meta.totalItems,
@@ -69,10 +70,14 @@ export class ChannelsService {
   }
 
   getByName(channelName: string) {
+    const namespaceId = this.namespaceService.getSelectedNamespaceId();
+
+    if (!namespaceId) return;
+
     this._selectedChannelsStore.setLoading(true);
 
     return this.transport
-      .getByName(this.namespaceId, channelName)
+      .getByName(namespaceId, channelName)
       .then((channel) => {
         this.selectedChannelName = channelName;
         this._selectedChannelsStore.updateStore({ [channelName]: channel });
@@ -82,17 +87,25 @@ export class ChannelsService {
   }
 
   async getSelfChannels() {
+    const namespaceId = this.namespaceService.getSelectedNamespaceId();
+
+    if (!namespaceId) return;
+
     this._selfChannelsStore.setLoading(true);
 
     return this.transport
-      .getSelf(this.namespaceId)
+      .getSelf(namespaceId)
       .then((channels) => this._selfChannelsStore.updateStore({ channels }))
       .catch(this._selfChannelsStore.setLoading)
       .finally(() => this._selfChannelsStore.setLoading(false));
   }
 
-  createChannel(data: TCreateChannelDto) {
-    return this.transport.create(this.namespaceId, data).then((channel) => {
+  async createChannel(data: TCreateChannelDto) {
+    const namespaceId = this.namespaceService.getSelectedNamespaceId();
+
+    if (!namespaceId) return;
+
+    return this.transport.create(namespaceId, data).then((channel) => {
       this._selfChannelsStore.updateStore((state) => {
         state.channels.push(channel);
         return state;
@@ -108,8 +121,12 @@ export class ChannelsService {
   }
 
   connect() {
+    const namespaceId = this.namespaceService.getSelectedNamespaceId();
+
+    if (!namespaceId) return;
+
     this.wsTransport.connect();
-    this.wsTransport.sendJoinChannels(this.namespaceId);
+    this.wsTransport.sendJoinChannels(namespaceId);
     // this.wsTransport.listenNewChannelMembers(({ users, channelId }) => {
     //   const { members, channel } = this._selectedChannelsStore.getStore();
     //
@@ -129,12 +146,12 @@ export class ChannelsService {
     this._selectedChannelsStore.resetStore();
     this._channelsStore.resetStore();
     this._selfChannelsStore.resetStore();
-    this.namespaceId = '';
     this.selectedChannelName = '';
   }
 }
 
 export const channelsService = new ChannelsService(
   channelsTransport,
-  channelsWsTransport
+  channelsWsTransport,
+  namespacesService
 );

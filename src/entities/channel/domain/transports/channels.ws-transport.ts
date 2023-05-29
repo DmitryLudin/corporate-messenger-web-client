@@ -1,5 +1,5 @@
+import { User } from 'shared/domains/user';
 import { BaseWsTransport } from 'shared/lib/core';
-import { User } from 'shared/models';
 
 import { ChannelsEventEnum } from '../const';
 

@@ -1,5 +1,4 @@
 import { Box, List, ListDivider } from '@mui/joy';
-import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import { channelsService } from 'entities/channel';
@@ -9,10 +8,6 @@ import { BrowseChannelListItem } from './ui';
 
 function BrowseChannelListMemo() {
   const channels = channelsService.channelsStore.channels;
-
-  useEffect(() => {
-    channelsService.getChannels();
-  }, []);
 
   return (
     <List

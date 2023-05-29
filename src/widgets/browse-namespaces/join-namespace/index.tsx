@@ -3,7 +3,7 @@ import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { browseNamespacesService } from 'entities/namespace';
+import { browseNamespacesService } from 'shared/domains/namespace';
 
 const cyrillicToTranslit = CyrillicToTranslit();
 

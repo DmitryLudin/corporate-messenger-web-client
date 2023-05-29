@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 
-import { TCreateNamespaceDto } from 'entities/namespace';
+import { TCreateNamespaceDto } from 'shared/domains/namespace';
 
 const cyrillicToTranslit = CyrillicToTranslit();
 

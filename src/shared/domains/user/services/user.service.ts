@@ -1,7 +1,7 @@
 import { Store } from 'shared/lib/core';
-import { IUser } from 'shared/models';
 
 import { userWsTransport, UserWsTransport } from '../transports';
+import { IUser } from '../models';
 
 type TUserStore = {
   user: IUser | null;

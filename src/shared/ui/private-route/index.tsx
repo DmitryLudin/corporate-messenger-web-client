@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import { authService } from 'entities/user';
+import { authService } from 'shared/domains/user';
 
 function PrivateRouteObserver() {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
-import { BasePagination } from 'shared/models';
+import { BasePagination } from 'shared/domains/pagination';
 
 import { Channel } from '../models';
 

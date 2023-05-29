@@ -11,8 +11,8 @@ import {
 import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { browseNamespacesService } from 'entities/namespace';
 import { withObserver } from 'shared/lib/hoc';
+import { browseNamespacesService } from 'shared/domains/namespace';
 
 export function SelectNamespaceMemo() {
   const { isLoading, namespaces } = browseNamespacesService.store;

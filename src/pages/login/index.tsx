@@ -1,7 +1,7 @@
 import { Box, formLabelClasses, Typography } from '@mui/joy';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { authService } from 'entities/user';
+import { authService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 import { LoginForm } from 'widgets/auth';
 

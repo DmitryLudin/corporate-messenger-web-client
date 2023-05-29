@@ -2,8 +2,8 @@ import { Box, IconButton, Typography } from '@mui/joy';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import { useNavigate } from 'react-router-dom';
 
-import { namespacesService } from 'entities/namespace';
 import { withObserver } from 'shared/lib/hoc';
+import { namespacesService } from 'shared/domains/namespace';
 
 function LogoMemo() {
   const navigate = useNavigate();

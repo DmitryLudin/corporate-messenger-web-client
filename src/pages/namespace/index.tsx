@@ -2,10 +2,10 @@ import { Box, CircularProgress, Grid } from '@mui/joy';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
 
+import { namespacesService } from 'shared/domains/namespace';
+import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 import { channelsService } from 'entities/channel';
-import { userService } from 'entities/user';
-import { namespacesService } from 'entities/namespace';
 import { NamespaceHeader, NamespaceLeftSidebar } from 'widgets/namespace';
 
 const styles = {
@@ -23,14 +23,14 @@ const styles = {
 
 function NamespacePageMemo() {
   const params = useParams<{ namespace: string }>();
-  const { isLoading, error } = namespacesService.selectedNamespaceStore;
+  const { namespace, isLoading, error } =
+    namespacesService.selectedNamespaceStore;
 
   useEffect(() => {
     if (params.namespace) {
       namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
-          channelsService.init(namespace.id);
           channelsService.getSelfChannels();
           channelsService.connect();
         }
@@ -45,7 +45,7 @@ function NamespacePageMemo() {
     };
   }, [params.namespace]);
 
-  if (isLoading) {
+  if (isLoading && !namespace) {
     return (
       <Grid
         sx={styles.namespaceLayout}

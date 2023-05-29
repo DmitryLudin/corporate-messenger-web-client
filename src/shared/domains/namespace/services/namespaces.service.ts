@@ -20,11 +20,7 @@ export class NamespacesService {
   constructor(private readonly transport: NamespacesTransport) {}
 
   getSelectedNamespaceId() {
-    const namespaceId = this._selectedNamespaceStore.getStore().namespace?.id;
-
-    if (!namespaceId) throw new Error('Рабочее пространство не выбрано');
-
-    return namespaceId;
+    return this._selectedNamespaceStore.getStore().namespace?.id;
   }
 
   getByName(name: string) {

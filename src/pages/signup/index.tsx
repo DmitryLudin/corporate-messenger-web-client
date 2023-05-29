@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { withObserver } from 'shared/lib/hoc';
 import { SignupForm } from 'widgets/auth';
-import { authService } from 'entities/user';
+import { authService } from 'shared/domains/user';
 
 export function SignupPageMemo() {
   const { state } = useLocation();
