@@ -1,17 +1,12 @@
 import { Box, Divider, formLabelClasses, Stack } from '@mui/joy';
-import { browseNamespacesService } from 'pages/browse-namespaces/domains';
+
 import {
   CreateNamespaceSection,
   JoinNamespaceSection,
   SelectNamespaceSection,
-} from 'pages/browse-namespaces/modules';
-import { useEffect } from 'react';
+} from 'widgets/browse-namespaces';
 
 export function BrowseNamespacesPage() {
-  useEffect(() => {
-    browseNamespacesService.getAll();
-  }, []);
-
   return (
     <Box
       component="main"

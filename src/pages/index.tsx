@@ -1,11 +1,13 @@
-import { BrowseChannelsPage } from 'pages/browse-channels';
-import { ChannelPage } from 'pages/channel';
-import { LoginPage } from 'pages/login';
-import { NamespacePage } from 'pages/namespace';
-import { BrowseNamespacesPage } from 'pages/browse-namespaces';
-import { SignupPage } from 'pages/signup';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { PrivateRoute } from 'shared/components/private-route';
+
+import { PrivateRoute } from 'shared/ui/private-route';
+
+import { BrowseChannelsPage } from './browse-channels';
+import { BrowseNamespacesPage } from './browse-namespaces';
+import { ChannelPage } from './channel';
+import { LoginPage } from './login';
+import { NamespacePage } from './namespace';
+import { SignupPage } from './signup';
 
 export const router = createBrowserRouter([
   {

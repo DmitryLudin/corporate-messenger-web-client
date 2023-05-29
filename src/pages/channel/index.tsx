@@ -1,11 +1,10 @@
-import { ChannelContent } from 'pages/channel/content';
-import { ChannelFooter } from 'pages/channel/footer';
-import { ChannelHeader } from 'pages/channel/header';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Layout } from 'shared/components/layout';
-import { channelsService } from 'shared/domains/channels';
-import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
+
+import { channelsService } from 'entities/channel';
+import { withObserver } from 'shared/lib/hoc';
+import { Layout } from 'shared/ui/layout';
+import { ChannelContent, ChannelFooter, ChannelHeader } from 'widgets/channel';
 
 function ChannelPageMemo() {
   const params = useParams<{ channel: string }>();
@@ -16,10 +15,6 @@ function ChannelPageMemo() {
       channelsService.getByName(params.channel);
     }
   }, [params.channel]);
-
-  useEffect(() => {
-    return () => channelsService.resetStore();
-  }, []);
 
   return (
     <Layout

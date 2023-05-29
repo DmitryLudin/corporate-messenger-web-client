@@ -1,20 +1,16 @@
 import { Button } from '@mui/joy';
-import { CreateChannelModal } from 'modules/create-channel-modal';
-import { browseChannelsService } from 'pages/browse-channels/domains';
-import { BrowseChannelList } from 'pages/browse-channels/modules';
-import { useEffect } from 'react';
-import { Layout } from 'shared/components/layout';
-import { PageHeader } from 'shared/components/page-header';
-import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
-import { useToggle } from 'shared/lib/hooks/use-toggle';
+
+import { channelsService } from 'entities/channel';
+import { withObserver } from 'shared/lib/hoc';
+import { useToggle } from 'shared/lib/hooks';
+import { CreateChannelModal } from 'features/channels';
+import { Layout } from 'shared/ui/layout';
+import { PageHeader } from 'shared/ui/page-header';
+import { BrowseChannelList } from 'widgets/browse-channels';
 
 function BrowseChannelsPageMemo() {
+  const { isLoading } = channelsService.channelsStore;
   const [isOpen, , handleOpen, handleClose] = useToggle();
-  const { isLoading } = browseChannelsService.store;
-
-  useEffect(() => {
-    browseChannelsService.getAll();
-  }, []);
 
   return (
     <>

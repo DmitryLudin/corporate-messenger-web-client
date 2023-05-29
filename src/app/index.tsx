@@ -5,11 +5,13 @@ import {
   CssVarsProvider,
   Grid,
 } from '@mui/joy';
-import { router } from 'pages';
 import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
+import 'reflect-metadata';
+
+import { router } from 'pages';
+import { authService } from 'entities/user';
 import { theme } from 'shared/config/theme';
-import { authService } from 'shared/domains/auth';
 
 export function App() {
   const [isLoading, setLoading] = useState(true);

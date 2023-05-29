@@ -1,11 +1,12 @@
 import { Box, CircularProgress, Grid } from '@mui/joy';
-import { navigationBarChannelsService } from 'pages/namespace/domains';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
-import { namespacesService } from 'shared/domains/namespaces';
-import { userService } from 'shared/domains/user';
-import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
-import { NamespaceHeader, NamespaceLeftSidebar } from './modules';
+
+import { withObserver } from 'shared/lib/hoc';
+import { channelsService } from 'entities/channel';
+import { userService } from 'entities/user';
+import { namespacesService } from 'entities/namespace';
+import { NamespaceHeader, NamespaceLeftSidebar } from 'widgets/namespace';
 
 const styles = {
   namespaceLayout: {
@@ -29,15 +30,18 @@ function NamespacePageMemo() {
       namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
-          navigationBarChannelsService.getAllForUser();
+          channelsService.init(namespace.id);
+          channelsService.getSelfChannels();
+          channelsService.connect();
         }
       });
     }
 
     return () => {
       namespacesService.resetStore();
-      navigationBarChannelsService.resetStore();
+      channelsService.reset();
       userService.disconnect();
+      channelsService.disconnect();
     };
   }, [params.namespace]);
 

@@ -1,8 +1,9 @@
 import { Box, formLabelClasses, Typography } from '@mui/joy';
-import { SignupForm } from 'pages/signup/signup-form';
 import { Navigate, useLocation } from 'react-router-dom';
-import { authService } from 'shared/domains/auth';
-import { withObserver } from 'shared/lib/hoc/with-observer.hoc';
+
+import { withObserver } from 'shared/lib/hoc';
+import { SignupForm } from 'widgets/auth';
+import { authService } from 'entities/user';
 
 export function SignupPageMemo() {
   const { state } = useLocation();
