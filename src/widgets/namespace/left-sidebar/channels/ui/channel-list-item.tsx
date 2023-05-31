@@ -1,27 +1,22 @@
-import LockIcon from '@mui/icons-material/Lock';
 import { Tooltip } from '@mui/joy';
 
+import { withObserver } from 'shared/lib/hoc';
 import { useMenu, useToggle } from 'shared/lib/hooks';
 import { PoundIcon } from 'shared/ui/icons';
 import { MoreIconButton } from 'shared/ui/more-icon-button';
-import {
-  INavigationListItemProps,
-  NavigationListItem,
-} from 'shared/ui/navigation-list';
+import { NavigationListItem } from 'shared/ui/navigation-list';
+import { selfChannelsService } from 'entities/channel';
 
 import { ChannelQuickActionsMenu } from './channel-quick-actions-menu';
 
-type TProps = Omit<INavigationListItemProps, 'icon'> & {
-  isPrivate?: boolean;
-};
+type TProps = { channelId: string };
 
-export function SidebarChannelListItem({
-  to,
-  isPrivate = false,
-  label,
-}: TProps) {
+function SidebarChannelListItemMemo({ channelId }: TProps) {
   const [isHovered, toggleHovered] = useToggle();
   const { isMenuOpen, onOpenMenu, onCloseMenu, anchorEl } = useMenu();
+  const channel = selfChannelsService.getChannelById(channelId);
+
+  if (!channel) return null;
 
   return (
     <>
@@ -32,9 +27,10 @@ export function SidebarChannelListItem({
       />
 
       <NavigationListItem
-        to={to}
-        label={label}
-        icon={isPrivate ? <LockIcon fontSize="small" /> : <PoundIcon />}
+        to={`channels/${channel.name}`}
+        label={channel.getName()}
+        // icon={isPrivate ? <LockIcon fontSize="small" /> : <PoundIcon />}
+        icon={<PoundIcon />}
         onMouseEnter={toggleHovered}
         onMouseLeave={toggleHovered}
         endAction={
@@ -58,3 +54,5 @@ export function SidebarChannelListItem({
     </>
   );
 }
+
+export const SidebarChannelListItem = withObserver(SidebarChannelListItemMemo);

@@ -31,7 +31,6 @@ function NamespacePageMemo() {
       namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
-          channelsService.getSelfChannels();
           channelsService.connect();
         }
       });
@@ -45,7 +44,7 @@ function NamespacePageMemo() {
     };
   }, [params.namespace]);
 
-  if (isLoading && !namespace) {
+  if (isLoading || !namespace) {
     return (
       <Grid
         sx={styles.namespaceLayout}

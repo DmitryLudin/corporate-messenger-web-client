@@ -1,7 +1,8 @@
 import { CircularProgress, IconButton, ListItem } from '@mui/joy';
 import AddIcon from '@mui/icons-material/Add';
+import { useEffect, useState } from 'react';
 
-import { channelsService } from 'entities/channel';
+import { selfChannelsService } from 'entities/channel';
 import { CreateChannelModal } from 'features/channels';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
@@ -11,7 +12,12 @@ import { SidebarChannelListItem } from './ui';
 
 function SidebarChannelListMemo() {
   const [isOpen, , handleOpen, handleClose] = useToggle();
-  const { isLoading, channels } = channelsService.selfChannelsStore;
+  const [isLoading, setLoading] = useState(true);
+  const selfChannelIds = selfChannelsService.getSelfChannelIds();
+
+  useEffect(() => {
+    selfChannelsService.fetchSelfChannels().finally(() => setLoading(false));
+  }, []);
 
   return (
     <>
@@ -40,12 +46,8 @@ function SidebarChannelListMemo() {
         )}
 
         {!isLoading &&
-          channels.map((channel) => (
-            <SidebarChannelListItem
-              key={channel.id}
-              to={`channels/${channel.name}`}
-              label={channel.getName()}
-            />
+          selfChannelIds?.map((channelId) => (
+            <SidebarChannelListItem key={channelId} channelId={channelId} />
           ))}
       </NavigationList>
     </>

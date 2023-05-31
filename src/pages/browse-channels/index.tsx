@@ -1,7 +1,7 @@
 import { Button } from '@mui/joy';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { channelsService } from 'entities/channel';
+import { browseChannelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
 import { CreateChannelModal } from 'features/channels';
@@ -10,11 +10,11 @@ import { PageHeader } from 'shared/ui/page-header';
 import { BrowseChannelList } from 'widgets/browse-channels';
 
 function BrowseChannelsPageMemo() {
-  const { isLoading } = channelsService.channelsStore;
+  const [isLoading, setLoading] = useState(true);
   const [isOpen, , handleOpen, handleClose] = useToggle();
 
   useEffect(() => {
-    channelsService.getChannels();
+    browseChannelsService.fetchChannels().finally(() => setLoading(false));
   }, []);
 
   return (

@@ -1,13 +1,12 @@
-import { User } from 'shared/domains/user';
 import { BaseWsTransport } from 'shared/lib/core';
 
 import { ChannelsEventEnum } from '../const';
 
 type TChannelsEventsMap = {
   [ChannelsEventEnum.JOIN_CHANNELS]: (namespaceId: string) => void;
-  [ChannelsEventEnum.MEMBERS_ADDED]: (data: {
-    users: User[];
+  [ChannelsEventEnum.MEMBERS_COUNT]: (data: {
     channelId: string;
+    membersCount: number;
   }) => void;
 };
 
@@ -20,14 +19,11 @@ export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
     this.send(ChannelsEventEnum.JOIN_CHANNELS, namespaceId);
   }
 
-  // listenNewChannelMembers(
-  //   callback: TChannelsEventsMap[ChannelsEventEnum.MEMBERS_ADDED]
-  // ) {
-  //   this.listen(
-  //     ChannelsEventEnum.MEMBERS_ADDED,
-  //     this.deserialize(NewChannelMember, callback)
-  //   );
-  // }
+  listenNewChannelMembersCount(
+    callback: TChannelsEventsMap[ChannelsEventEnum.MEMBERS_COUNT]
+  ) {
+    this.listen(ChannelsEventEnum.MEMBERS_COUNT, callback);
+  }
 }
 
 export const channelsWsTransport = new ChannelsWsTransport();

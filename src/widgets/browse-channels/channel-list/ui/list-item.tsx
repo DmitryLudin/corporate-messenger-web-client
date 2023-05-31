@@ -1,4 +1,3 @@
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {
   Button,
   ListItem,
@@ -7,53 +6,79 @@ import {
   Stack,
   Typography,
 } from '@mui/joy';
-import { ChannelMembersCount, ChannelName } from 'entities/channel';
+import { useCallback, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { PoundIcon } from 'shared/ui/icons';
+import {
+  browseChannelsService,
+  ChannelMembersCount,
+  ChannelName,
+  channelsService,
+} from 'entities/channel';
+import { userService } from 'shared/domains/user';
+import { withObserver } from 'shared/lib/hoc';
 
 type TProps = {
-  name: string;
-  displayName: string;
-  description?: string;
-  isMember: boolean;
-  membersCount: number;
+  channelId: string;
 };
 
-export function BrowseChannelListItem({
-  name,
-  displayName,
-  description,
-  isMember,
-  membersCount,
-}: TProps) {
+function BrowseChannelListItemMemo({ channelId }: TProps) {
+  const [isLoading, setLoading] = useState(false);
   const params = useParams<{ namespace: string }>();
+  const channel = browseChannelsService.getChannelById(channelId);
+  const user = userService.store.user;
+
+  const handleLeave = useCallback(async () => {
+    if (user?.id) {
+      setLoading(true);
+      await channelsService.leaveChannel(channelId, { userId: user.id });
+      setLoading(false);
+    }
+  }, [channelId, user?.id]);
+
+  const handleJoin = useCallback(async () => {
+    if (user?.id) {
+      setLoading(true);
+      await channelsService.joinChannel(channelId, { userIds: [user.id] });
+      setLoading(false);
+    }
+  }, [channelId, user?.id]);
+
+  if (!channel) return null;
 
   return (
     <ListItem
       endAction={
         <Stack direction="row" gap={2}>
-          {isMember ? (
-            <Button size="sm" variant="outlined" color="danger">
+          {channel.isMember ? (
+            <Button
+              size="sm"
+              variant="outlined"
+              color="danger"
+              onClick={handleLeave}
+              loading={isLoading}
+            >
               Покинуть
             </Button>
           ) : (
-            <Button size="sm">Присоединиться</Button>
+            <Button loading={isLoading} onClick={handleJoin} size="sm">
+              Присоединиться
+            </Button>
           )}
         </Stack>
       }
     >
       <ListItemButton
         component={Link}
-        to={`/${params.namespace}/channels/${name}`}
+        to={`/${params.namespace}/channels/${channel.name}`}
       >
         <ListItemContent>
-          <ChannelName size="sm" name={displayName} />
+          <ChannelName size="sm" name={channel.getName()} />
           <Typography color="neutral" fontSize="xs">
             <Stack gap={0.5} alignItems="center" direction="row">
-              {description}
-              {description && <span>·</span>}
-              <ChannelMembersCount count={membersCount} />
+              {channel.description}
+              {channel.description && <span>·</span>}
+              <ChannelMembersCount count={channel.membersCount} />
             </Stack>
           </Typography>
         </ListItemContent>
@@ -61,3 +86,5 @@ export function BrowseChannelListItem({
     </ListItem>
   );
 }
+
+export const BrowseChannelListItem = withObserver(BrowseChannelListItemMemo);

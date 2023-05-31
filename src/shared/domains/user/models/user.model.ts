@@ -1,15 +1,15 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export interface IUser {
-  id: number;
+  id: string;
   username: string;
   displayName?: string | null;
   name: string;
 }
 
 export class User implements IUser {
-  @IsNumber()
-  id!: number;
+  @IsString()
+  id!: string;
 
   @IsString()
   username!: string;

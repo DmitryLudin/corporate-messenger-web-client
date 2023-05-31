@@ -27,7 +27,12 @@ export class Store<T extends object> {
   @action
   updateStore(state: Partial<T> | ((prevState: T) => Partial<T>)): void {
     const newState = typeof state === 'function' ? state(this.state) : state;
-    this.state = { ...this.state, ...newState };
+
+    this.state = Object.assign(
+      Object.create(Object.getPrototypeOf(this.state)),
+      this.state,
+      newState
+    );
   }
 
   @action

@@ -1,13 +1,13 @@
 import { Box, List, ListDivider } from '@mui/joy';
 import { Virtuoso } from 'react-virtuoso';
 
-import { channelsService } from 'entities/channel';
+import { browseChannelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 
 import { BrowseChannelListItem } from './ui';
 
 function BrowseChannelListMemo() {
-  const channels = channelsService.channelsStore.channels;
+  const { channelIds } = browseChannelsService.store;
 
   return (
     <List
@@ -20,17 +20,11 @@ function BrowseChannelListMemo() {
     >
       <Virtuoso
         style={{ height: '100%' }}
-        data={channels}
-        itemContent={(index, channel) => (
-          <Box key={index}>
+        data={channelIds}
+        itemContent={(index, channelId) => (
+          <Box key={channelId}>
             {index > 0 && <ListDivider />}
-            <BrowseChannelListItem
-              name={channel.name}
-              displayName={channel?.getName()}
-              description={channel.description}
-              isMember={channel.isMember}
-              membersCount={channel.membersCount}
-            />
+            <BrowseChannelListItem channelId={channelId} />
           </Box>
         )}
       ></Virtuoso>

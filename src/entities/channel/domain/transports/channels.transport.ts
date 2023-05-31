@@ -1,6 +1,10 @@
 import { BaseHttpTransport } from 'shared/lib/core';
 
-import { TCreateChannelDto } from '../dto';
+import type {
+  TCreateChannelDto,
+  TJoinChannelDto,
+  TLeaveChannelDto,
+} from '../dto';
 import { Channel, ChannelPagination } from '../models';
 
 export class ChannelsTransport extends BaseHttpTransport {
@@ -25,6 +29,20 @@ export class ChannelsTransport extends BaseHttpTransport {
     return this.get(`namespaces/${namespaceId}/${this.basePath}/me`).then(
       this.deserializeArray(Channel)
     );
+  }
+
+  join(namespaceId: string, channelId: string, data: TJoinChannelDto) {
+    return this.post(
+      `namespaces/${namespaceId}/${this.basePath}/${channelId}/members/add`,
+      data
+    ).then(this.deserialize(Channel));
+  }
+
+  leave(namespaceId: string, channelId: string, data: TLeaveChannelDto) {
+    return this.post(
+      `namespaces/${namespaceId}/${this.basePath}/${channelId}/members/remove`,
+      data
+    ).then(this.deserialize(Channel));
   }
 
   create(namespaceId: string, data: TCreateChannelDto) {
