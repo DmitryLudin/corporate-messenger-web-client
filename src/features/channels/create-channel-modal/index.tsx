@@ -1,10 +1,10 @@
 import { Box, Button, Modal, ModalDialog, Stack, Typography } from '@mui/joy';
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
 
 import { withObserver } from 'shared/lib/hoc';
 import { channelsService, TCreateChannelDto } from 'entities/channel';
+import { useNamespaceNavigate } from 'shared/lib/hooks';
 
 import {
   ChannelDescriptionField,
@@ -29,8 +29,7 @@ function CreateChannelModalMemo({ isOpen, handleClose }: TProps) {
     defaultValues: defaultFormState,
   });
   const [isLoading, setLoading] = useState(false);
-  const params = useParams<{ namespace: string }>();
-  const navigate = useNavigate();
+  const { namespaceNavigate } = useNamespaceNavigate();
 
   const handleSubmit = useCallback(
     (data: TCreateChannelDto) => {
@@ -38,17 +37,13 @@ function CreateChannelModalMemo({ isOpen, handleClose }: TProps) {
 
       return channelsService
         .createChannel(data)
-        .then(() =>
-          navigate(`/${params.namespace}/channels/${data.name}`, {
-            relative: 'path',
-          })
-        )
+        .then(() => namespaceNavigate(`/channels/${data.name}`))
         .finally(() => {
           setLoading(false);
           handleClose();
         });
     },
-    [handleClose, navigate, params]
+    [handleClose, namespaceNavigate]
   );
 
   return (

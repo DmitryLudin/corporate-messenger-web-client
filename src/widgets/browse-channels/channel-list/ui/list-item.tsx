@@ -17,6 +17,7 @@ import {
 } from 'entities/channel';
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
+import { JoinChannelButton } from 'features/channels';
 
 type TProps = {
   channelId: string;
@@ -32,14 +33,6 @@ function BrowseChannelListItemMemo({ channelId }: TProps) {
     if (user?.id) {
       setLoading(true);
       await channelsService.leaveChannel(channelId, { userId: user.id });
-      setLoading(false);
-    }
-  }, [channelId, user?.id]);
-
-  const handleJoin = useCallback(async () => {
-    if (user?.id) {
-      setLoading(true);
-      await channelsService.joinChannel(channelId, { userIds: [user.id] });
       setLoading(false);
     }
   }, [channelId, user?.id]);
@@ -61,9 +54,7 @@ function BrowseChannelListItemMemo({ channelId }: TProps) {
               Покинуть
             </Button>
           ) : (
-            <Button loading={isLoading} onClick={handleJoin} size="sm">
-              Присоединиться
-            </Button>
+            <JoinChannelButton channelId={channelId} />
           )}
         </Stack>
       }
