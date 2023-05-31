@@ -1,10 +1,11 @@
 import { Button, IconButton, Stack } from '@mui/joy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { ChannelMembersCount, channelsService } from 'entities/channel';
+
+import { ChannelMembersCount, selectedChannelService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 
 function ChannelQuickActionsMemo() {
-  const channel = channelsService.getSelectedChannel();
+  const channel = selectedChannelService.selectedChannel;
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>

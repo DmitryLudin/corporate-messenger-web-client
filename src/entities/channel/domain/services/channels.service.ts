@@ -1,54 +1,21 @@
 import { channelsStore, ChannelsStore } from 'entities/channel/domain/stores';
 import { namespacesService, NamespacesService } from 'shared/domains/namespace';
-import { RequestStore } from 'shared/lib/core';
 
-import { TSelectedChannelsStore } from '../types';
 import {
   channelsTransport,
   ChannelsTransport,
   channelsWsTransport,
   ChannelsWsTransport,
 } from '../transports';
-import { Channel } from '../models';
 import { TCreateChannelDto, TJoinChannelDto, TLeaveChannelDto } from '../dto';
 
 export class ChannelsService {
-  private readonly _selectedChannelsStore =
-    new RequestStore<TSelectedChannelsStore>({});
-
-  private selectedChannelId: string = '';
-
-  get selectedChannelsStore() {
-    return this._selectedChannelsStore.getStore();
-  }
-
-  getSelectedChannel(): Channel | undefined {
-    return this._selectedChannelsStore.getStoreValue(this.selectedChannelId);
-  }
-
   constructor(
     private readonly store: ChannelsStore,
     private readonly transport: ChannelsTransport,
     private readonly wsTransport: ChannelsWsTransport,
     private readonly namespaceService: NamespacesService
   ) {}
-
-  getByName(channelName: string) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-
-    if (!namespaceId) return;
-
-    this._selectedChannelsStore.setLoading(true);
-
-    return this.transport
-      .getByName(namespaceId, channelName)
-      .then((channel) => {
-        this.selectedChannelId = channel.id;
-        this._selectedChannelsStore.updateStore({ [channel.id]: channel });
-      })
-      .catch(this._selectedChannelsStore.setLoading)
-      .finally(() => this._selectedChannelsStore.setLoading(false));
-  }
 
   async createChannel(data: TCreateChannelDto) {
     const namespaceId = this.namespaceService.getSelectedNamespaceId();
@@ -110,8 +77,6 @@ export class ChannelsService {
 
   reset() {
     this.store.reset();
-    this._selectedChannelsStore.resetStore();
-    this.selectedChannelId = '';
   }
 }
 

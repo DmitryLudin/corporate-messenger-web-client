@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { channelsService } from 'entities/channel';
+import { selectedChannelService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 import { Layout } from 'shared/ui/layout';
 import { ChannelContent, ChannelFooter, ChannelHeader } from 'widgets/channel';
 
 function ChannelPageMemo() {
   const params = useParams<{ channel: string }>();
-  const { isLoading } = channelsService.selectedChannelsStore;
+  const { isLoading } = selectedChannelService.store;
 
   useEffect(() => {
     if (params.channel) {
-      channelsService.getByName(params.channel);
+      selectedChannelService.fetchByName(params.channel);
     }
   }, [params.channel]);
 

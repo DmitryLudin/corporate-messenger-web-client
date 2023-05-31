@@ -1,11 +1,11 @@
-import { ChannelName, channelsService } from 'entities/channel';
+import { ChannelName, selectedChannelService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 import { PageHeader } from 'shared/ui/page-header';
 
 import { ChannelQuickActions } from './ui';
 
 function ChannelHeaderMemo() {
-  const channel = channelsService.getSelectedChannel();
+  const channel = selectedChannelService.selectedChannel;
 
   return (
     <PageHeader
