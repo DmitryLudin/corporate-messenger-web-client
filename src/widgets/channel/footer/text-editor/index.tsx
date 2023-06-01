@@ -10,7 +10,10 @@ import { textEditorTheme } from 'shared/config/themes';
 import {
   EditorContainer,
   EditorContentEditable,
+  EditorInnerContainer,
   EditorPlaceholder,
+  EditorHeaderToolbar,
+  EditorFooterToolbar,
 } from './ui';
 
 function onChange(editorState: EditorState) {
@@ -36,16 +39,20 @@ export function ChannelTextEditor() {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <EditorContainer>
-        <RichTextPlugin
-          contentEditable={<EditorContentEditable />}
-          placeholder={
-            <EditorPlaceholder>Enter some text...</EditorPlaceholder>
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <OnChangePlugin onChange={onChange} />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
+        <EditorHeaderToolbar />
+        <EditorInnerContainer>
+          <RichTextPlugin
+            contentEditable={<EditorContentEditable />}
+            placeholder={
+              <EditorPlaceholder>Enter some text...</EditorPlaceholder>
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <OnChangePlugin onChange={onChange} />
+          <HistoryPlugin />
+          <AutoFocusPlugin />
+        </EditorInnerContainer>
+        <EditorFooterToolbar />
       </EditorContainer>
     </LexicalComposer>
   );

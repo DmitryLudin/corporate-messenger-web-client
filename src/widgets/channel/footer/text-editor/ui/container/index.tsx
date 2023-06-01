@@ -5,10 +5,21 @@ export function EditorContainer({ children }: PropsWithChildren) {
   return (
     <Sheet
       sx={(theme) => ({
+        display: 'grid',
+        gridTemplateAreas: `
+          "context context context"
+          "formatting formatting formatting"
+          "input input input"
+          "attachments attachments attachments"
+          "broadcast_controls broadcast_controls broadcast_controls"
+          "prefix toolbar_buttons suffix"
+        `,
+        gridTemplateColumns: 'auto minmax(0,1fr) auto',
+        gridTemplateRows: 'auto auto minmax(0,100%) auto auto auto',
         position: 'relative',
         width: '100%',
-        height: '98px',
-        overflow: 'auto',
+        minHeight: '132px',
+        overflow: 'hidden',
         lineHeight: '20px',
         fontWeight: 400,
         textAlign: 'left',
