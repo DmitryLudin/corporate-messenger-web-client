@@ -11,7 +11,7 @@ import 'reflect-metadata';
 
 import { router } from 'pages';
 import { authService } from 'shared/domains/user';
-import { theme } from 'shared/config/theme';
+import { appTheme } from 'shared/config/themes';
 
 export function App() {
   const [isLoading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ export function App() {
   }, []);
 
   return (
-    <CssVarsProvider theme={theme} defaultMode="system">
+    <CssVarsProvider theme={appTheme} defaultMode="system">
       <CssBaseline />
       {isLoading ? (
         <Grid

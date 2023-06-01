@@ -1,18 +1,15 @@
-import { Sheet } from '@mui/joy';
-import React, { PropsWithChildren } from 'react';
+import { Box } from '@mui/joy';
+import { PropsWithChildren } from 'react';
 
 export function LayoutFooter({ children }: PropsWithChildren) {
   return (
-    <Sheet
+    <Box
       sx={{
         width: '100%',
-        minHeight: '98px',
-        borderTop: '1px solid',
-        borderColor: 'divider',
         mt: 'auto',
       }}
     >
       {children}
-    </Sheet>
+    </Box>
   );
 }

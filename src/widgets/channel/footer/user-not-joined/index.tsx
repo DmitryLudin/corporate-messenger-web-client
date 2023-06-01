@@ -1,4 +1,4 @@
-import { Box, Link } from '@mui/joy';
+import { Link, Sheet } from '@mui/joy';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { withObserver } from 'shared/lib/hoc';
@@ -13,14 +13,17 @@ function UserNotJoinedChannelMemo() {
   if (!channel) return null;
 
   return (
-    <Box
+    <Sheet
       sx={{
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        gap: 1,
+        borderTop: '1px solid',
+        borderColor: 'divider',
+        p: 2.5,
+        gap: 1.5,
       }}
     >
       <JoinChannelButton
@@ -36,7 +39,7 @@ function UserNotJoinedChannelMemo() {
       >
         Вернуться ко всем каналам
       </Link>
-    </Box>
+    </Sheet>
   );
 }
 
