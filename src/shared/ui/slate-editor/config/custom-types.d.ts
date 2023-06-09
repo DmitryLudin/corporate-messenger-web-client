@@ -1,5 +1,12 @@
-import { Text } from 'slate';
-import type { Descendant, BaseEditor, BaseRange, Range, Element } from 'slate';
+import type {
+  BaseNode,
+  Text,
+  Descendant,
+  BaseEditor,
+  BaseRange,
+  Range,
+  Element,
+} from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 
@@ -169,6 +176,7 @@ declare module 'slate' {
     Editor: TCustomEditor;
     Element: TCustomElement;
     Text: TCustomText | TEmptyText;
+    Note: BaseNode;
     Range: BaseRange & {
       [key: string]: unknown;
     };

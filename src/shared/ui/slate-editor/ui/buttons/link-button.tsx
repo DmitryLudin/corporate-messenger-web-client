@@ -1,7 +1,7 @@
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
 import { ListItem, ListItemButton } from '@mui/joy';
-import React from 'react';
+import React, { memo } from 'react';
 import { useSlate } from 'slate-react';
 
 import {
@@ -10,7 +10,7 @@ import {
   unwrapLink,
 } from 'shared/ui/slate-editor/lib';
 
-export function LinkButton() {
+function LinkButtonMemo() {
   const editor = useSlate();
   const isActive = isLinkActive(editor);
 
@@ -37,3 +37,5 @@ export function LinkButton() {
     </ListItem>
   );
 }
+
+export const LinkButton = memo(LinkButtonMemo);

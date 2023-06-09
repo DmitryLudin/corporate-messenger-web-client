@@ -1,7 +1,7 @@
 import { Box } from '@mui/joy';
 import { ChangeEventHandler } from 'react';
 import { Transforms } from 'slate';
-import { ReactEditor, useSlateStatic } from 'slate-react';
+import { ReactEditor, useReadOnly, useSlateStatic } from 'slate-react';
 
 import {
   TCodeBlockElement,
@@ -13,6 +13,7 @@ export function CodeBlockElement({
   children,
   element,
 }: TCustomRenderElementProps<TCodeBlockElement>) {
+  const isReadOnly = useReadOnly();
   const editor = useSlateStatic();
 
   const setLanguage = (language: string) => {
@@ -29,7 +30,7 @@ export function CodeBlockElement({
         fontSize: '16px',
         lineHeight: '20px',
         marginTop: '0',
-        backgroundColor: theme.palette.background.body,
+        background: 'rgba(0, 20, 60, .03)',
         padding: '5px 13px',
         whiteSpace: 'pre',
         overflow: 'auto',
@@ -38,8 +39,10 @@ export function CodeBlockElement({
     >
       <LanguageSelect
         value={element.language}
+        isDisabled={isReadOnly}
         onChange={(e) => setLanguage(e.currentTarget.value)}
       />
+
       {children}
     </Box>
   );
@@ -48,8 +51,10 @@ export function CodeBlockElement({
 const LanguageSelect = ({
   value,
   onChange,
+  isDisabled,
 }: {
   value: string;
+  isDisabled: boolean;
   onChange: ChangeEventHandler<HTMLSelectElement>;
 }) => {
   return (
@@ -57,6 +62,7 @@ const LanguageSelect = ({
       component="select"
       data-test-id="language-select"
       contentEditable={false}
+      disabled={isDisabled}
       sx={{
         position: 'absolute',
         right: '5px',

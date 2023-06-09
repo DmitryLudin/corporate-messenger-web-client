@@ -1,6 +1,4 @@
 import { TCustomRenderElementProps } from 'shared/ui/slate-editor/config';
-import { CodeBlockElement } from 'shared/ui/slate-editor/ui/editor/elements/code-block';
-import { CodeLineElement } from 'shared/ui/slate-editor/ui/editor/elements/code-line';
 
 import { QuoteElement } from './quote';
 import { LinkElement } from './link';
@@ -8,6 +6,9 @@ import { DefaultElement } from './default';
 import { BulletedListElement } from './bulleted-list';
 import { NumberedListElement } from './numbered-list';
 import { ListItemElement } from './list-item';
+import { CodeBlockElement } from './code-block';
+import { CodeLineElement } from './code-line';
+import { MentionElement } from './mention';
 
 export const renderElement = (props: TCustomRenderElementProps) => {
   switch (props.element.type) {
@@ -27,6 +28,9 @@ export const renderElement = (props: TCustomRenderElementProps) => {
       return <CodeBlockElement {...props} />;
     case 'code-line':
       return <CodeLineElement {...props} />;
+    case 'mention':
+      // @ts-ignore
+      return <MentionElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }

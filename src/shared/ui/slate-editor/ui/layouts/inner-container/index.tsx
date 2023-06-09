@@ -9,7 +9,8 @@ function EditorInnerContainerMemo({ children }: PropsWithChildren) {
         position: 'relative',
         overflow: 'auto',
         maxHeight: 'calc(60vh - 80px)',
-        p: 1,
+        px: 1,
+        pt: 1,
       }}
     >
       {children}

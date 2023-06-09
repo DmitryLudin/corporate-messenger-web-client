@@ -1,5 +1,5 @@
 import { ListItem, ListItemButton } from '@mui/joy';
-import { JSX, MouseEvent, useCallback } from 'react';
+import { JSX, memo, MouseEvent, useCallback } from 'react';
 import { Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
@@ -10,7 +10,7 @@ type TProps = {
   icon: JSX.Element;
 };
 
-export function TextFormattingButton({ format, icon }: TProps) {
+function TextFormattingButtonMemo({ format, icon }: TProps) {
   const editor = useSlate();
   const isActive = isMarkActive(editor, format);
 
@@ -46,3 +46,5 @@ function isMarkActive(editor: TCustomEditor, format: string) {
   // @ts-ignore
   return marks ? marks[format] === true : false;
 }
+
+export const TextFormattingButton = memo(TextFormattingButtonMemo);

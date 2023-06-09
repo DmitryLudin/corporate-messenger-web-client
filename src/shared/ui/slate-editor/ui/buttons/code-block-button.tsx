@@ -1,9 +1,10 @@
 import TerminalIcon from '@mui/icons-material/Terminal';
 import { ListItem, ListItemButton } from '@mui/joy';
+import { memo } from 'react';
 import { Transforms, Element } from 'slate';
 import { useSlateStatic } from 'slate-react';
 
-export function CodeBlockButton() {
+function CodeBlockButtonMemo() {
   const editor = useSlateStatic();
 
   const handleClick = () => {
@@ -37,3 +38,5 @@ export function CodeBlockButton() {
     </ListItem>
   );
 }
+
+export const CodeBlockButton = memo(CodeBlockButtonMemo);

@@ -1,10 +1,9 @@
 import { Sheet } from '@mui/joy';
-import { memo, useMemo } from 'react';
+import { memo, ReactNode, useEffect, useMemo } from 'react';
 import { SetNodeToDecorations } from 'shared/ui/slate-editor/ui/set-node-decorators';
-import { createEditor, Range, Transforms } from 'slate';
+import { createEditor } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
-import { isKeyHotkey } from 'is-hotkey';
 
 import {
   renderElement,
@@ -15,7 +14,13 @@ import {
   EditorInnerContainer,
   EditorFormattingToolbar,
 } from './ui';
-import { withLink, useDecorate } from './lib';
+import {
+  withLink,
+  useDecorate,
+  useKeyDown,
+  withMentions,
+  useMention,
+} from './lib';
 
 import './ui/styles.css';
 import 'prismjs/components/prism-javascript';
@@ -30,8 +35,12 @@ import 'prismjs/components/prism-java';
 
 type TProps = {
   placeholder: string;
+  onSubmit: VoidFunction;
+  onChange: (value: string) => void;
+  users?: string[];
   initialValue?: string;
   isReadOnly?: boolean;
+  footer?: ReactNode;
 };
 
 const initialState = [
@@ -70,9 +79,17 @@ const initialState = [
   },
 ];
 
-function EditorMemo({ initialValue, placeholder, isReadOnly = false }: TProps) {
+function EditorMemo({
+  initialValue,
+  placeholder,
+  isReadOnly = false,
+  onSubmit,
+  onChange,
+  users = [],
+  footer,
+}: TProps) {
   const editor = useMemo(
-    () => withLink(withHistory(withReact(createEditor()))),
+    () => withMentions(withLink(withHistory(withReact(createEditor())))),
     []
   );
   const deserializedInitialValue = useMemo(
@@ -80,54 +97,68 @@ function EditorMemo({ initialValue, placeholder, isReadOnly = false }: TProps) {
     [initialValue]
   );
   const decorate = useDecorate(editor);
+  const onKeyDown = useKeyDown(editor, onSubmit);
+  // const [chars, { target, index }, onMentionChange, onMentionKeyDown] =
+  //   useMention(editor, users);
 
-  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
-    const { selection } = editor;
-    if (selection && Range.isCollapsed(selection)) {
-      const { nativeEvent } = event;
-      if (isKeyHotkey('left', nativeEvent)) {
-        event.preventDefault();
-        Transforms.move(editor, { unit: 'offset', reverse: true });
-        return;
-      }
-      if (isKeyHotkey('right', nativeEvent)) {
-        event.preventDefault();
-        Transforms.move(editor, { unit: 'offset' });
-        return;
-      }
-    }
-  };
+  useEffect(() => {
+    onChange(JSON.stringify(initialState));
+  }, []);
 
   return (
-    <Slate editor={editor} initialValue={deserializedInitialValue}>
-      <Sheet
-        sx={(theme) => ({
-          border: '1px solid',
-          borderColor: theme.vars.palette.divider,
-          borderRadius: theme.radius.sm,
-        })}
-      >
-        <EditorContainer>
-          <EditorHeaderContainer>
-            <EditorFormattingToolbar />
-          </EditorHeaderContainer>
-          <EditorInnerContainer>
-            <SetNodeToDecorations />
-            <Editable
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              onKeyDown={onKeyDown}
-              decorate={decorate}
-              placeholder={placeholder}
-              readOnly={isReadOnly}
-              style={{ outline: 'none' }}
-              spellCheck
-              autoFocus
-            />
-          </EditorInnerContainer>
-          <EditorFooterContainer>footer</EditorFooterContainer>
-        </EditorContainer>
-      </Sheet>
+    <Slate
+      editor={editor}
+      onChange={(value) => {
+        // onMentionChange();
+        onChange(JSON.stringify(value));
+      }}
+      initialValue={deserializedInitialValue}
+    >
+      <SetNodeToDecorations />
+      {!isReadOnly ? (
+        <Sheet
+          sx={(theme) => ({
+            border: '1px solid',
+            borderColor: theme.vars.palette.divider,
+            borderRadius: theme.radius.sm,
+          })}
+        >
+          <EditorContainer>
+            <EditorHeaderContainer>
+              <EditorFormattingToolbar />
+            </EditorHeaderContainer>
+            <EditorInnerContainer>
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                onKeyDown={(event) => {
+                  // onMentionKeyDown(event);
+                  onKeyDown(event);
+                }}
+                decorate={decorate}
+                placeholder={placeholder}
+                readOnly={isReadOnly}
+                style={{ outline: 'none' }}
+                spellCheck
+                autoFocus
+              />
+            </EditorInnerContainer>
+            <EditorFooterContainer>{footer}</EditorFooterContainer>
+          </EditorContainer>
+        </Sheet>
+      ) : (
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          onKeyDown={onKeyDown}
+          decorate={decorate}
+          placeholder={placeholder}
+          readOnly={isReadOnly}
+          style={{ outline: 'none', overflow: 'hidden' }}
+          spellCheck
+          autoFocus
+        />
+      )}
     </Slate>
   );
 }

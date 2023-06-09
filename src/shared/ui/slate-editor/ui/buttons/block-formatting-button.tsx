@@ -1,5 +1,5 @@
 import { ListItem, ListItemButton } from '@mui/joy';
-import { JSX, MouseEvent, useCallback } from 'react';
+import { JSX, memo, MouseEvent, useCallback } from 'react';
 import { Transforms, Editor, Element as SlateElement } from 'slate';
 import { useSlate } from 'slate-react';
 
@@ -15,7 +15,7 @@ type TProps = {
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
-export function BlockFormattingButton({ format, icon }: TProps) {
+function BlockFormattingButtonMemo({ format, icon }: TProps) {
   const editor = useSlate();
   const isActive = isBlockActive(editor, format);
 
@@ -75,3 +75,5 @@ function isBlockActive(editor: TCustomEditor, format: string) {
 
   return !!match;
 }
+
+export const BlockFormattingButton = memo(BlockFormattingButtonMemo);
