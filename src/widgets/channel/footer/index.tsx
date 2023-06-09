@@ -1,9 +1,8 @@
 import { Box } from '@mui/joy';
 
-import { selectedChannelService } from 'entities/channel';
+import { ChannelEditor, selectedChannelService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 
-import { ChannelTextEditor } from './text-editor';
 import { UserNotJoinedChannel } from './user-not-joined';
 
 function ChannelFooterMemo() {
@@ -13,7 +12,7 @@ function ChannelFooterMemo() {
     <>
       {channel?.isMember ? (
         <Box sx={{ p: 2 }}>
-          <ChannelTextEditor />
+          <ChannelEditor />
         </Box>
       ) : (
         <UserNotJoinedChannel />

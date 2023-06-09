@@ -1,4 +1,5 @@
-import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
+import type { ClassConstructor } from 'class-transformer';
 import { isRequestError } from 'shared/lib/core/base-http-transport/guards';
 import type {
   TDeserializeArrayReturn,
@@ -6,7 +7,8 @@ import type {
   TRequestError,
   TResponse,
 } from './types';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const apiBaseURL = process.env.REACT_APP_API_URL;
 

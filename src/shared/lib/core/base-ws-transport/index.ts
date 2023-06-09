@@ -1,5 +1,6 @@
 import { DefaultEventsMap, EventNames } from '@socket.io/component-emitter';
-import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
+import type { ClassConstructor } from 'class-transformer';
 import { TWsTransportCallback } from 'shared/lib/core/base-ws-transport/types';
 import { Socket, io } from 'socket.io-client';
 

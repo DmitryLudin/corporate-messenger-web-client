@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { PrivateRoute } from 'shared/ui/private-route';
-import { ChannelTextEditor } from 'widgets/channel/footer/text-editor';
+import { TestTextEditor } from 'pages/text-editor';
 
 import { BrowseChannelsPage } from './browse-channels';
 import { BrowseNamespacesPage } from './browse-namespaces';
@@ -36,5 +36,5 @@ export const router = createBrowserRouter([
     path: '/signup',
     element: <SignupPage />,
   },
-  { path: '/editor', element: <ChannelTextEditor /> },
+  { path: '/editor', element: <TestTextEditor /> },
 ]);
