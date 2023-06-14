@@ -1,22 +1,13 @@
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  List,
-  ListDivider,
-  ListItem,
-  ListItemButton,
-  Typography,
-} from '@mui/joy';
-import { Fragment, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Box, CircularProgress, Grid, Typography } from '@mui/joy';
+import { useEffect } from 'react';
 
 import { withObserver } from 'shared/lib/hoc';
 import { browseNamespacesService } from 'shared/domains/namespace';
 
+import { BrowseNamespaceList } from './namespace-list';
+
 export function SelectNamespaceMemo() {
   const { isLoading, namespaces } = browseNamespacesService.store;
-  const navigate = useNavigate();
 
   useEffect(() => {
     browseNamespacesService.getAll();
@@ -36,31 +27,7 @@ export function SelectNamespaceMemo() {
             </Typography>
 
             <Box maxWidth={400}>
-              <List
-                variant="outlined"
-                sx={{
-                  bgcolor: 'background.surface',
-                  minWidth: 240,
-                  borderRadius: 'sm',
-                  boxShadow: 'sm',
-                  '--ListItemDecorator-size': '48px',
-                  '--ListItem-paddingLeft': '1.5rem',
-                  '--ListItem-paddingRight': '1rem',
-                }}
-              >
-                {namespaces.map((namespace, index) => (
-                  <Fragment key={namespace.id}>
-                    <ListItem>
-                      <ListItemButton
-                        onClick={() => navigate(`/${namespace.name}`)}
-                      >
-                        {namespace.displayName || namespace.name}
-                      </ListItemButton>
-                    </ListItem>
-                    {index < namespaces.length - 1 && <ListDivider />}
-                  </Fragment>
-                ))}
-              </List>
+              <BrowseNamespaceList namespaces={namespaces} />
             </Box>
           </>
         )

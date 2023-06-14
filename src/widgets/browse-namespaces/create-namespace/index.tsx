@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/joy';
 
-import { CreateNamespaceForm } from './form';
+import { CreateNamespaceForm } from 'features/namespaces/create-namespace';
 
 export function CreateNamespaceSection() {
   return (
