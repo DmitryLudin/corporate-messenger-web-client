@@ -1,4 +1,5 @@
 import { plainToInstance } from 'class-transformer';
+
 import { Store } from 'shared/lib/core';
 
 import { Channel } from '../models';

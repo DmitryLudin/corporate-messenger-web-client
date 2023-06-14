@@ -11,7 +11,7 @@ function ChannelFooterMemo() {
   return (
     <>
       {channel?.isMember ? (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ px: 2, pb: 2 }}>
           <ChannelEditor />
         </Box>
       ) : (

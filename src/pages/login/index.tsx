@@ -1,9 +1,9 @@
-import { Box, formLabelClasses, Typography } from '@mui/joy';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { authService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 import { LoginForm } from 'widgets/auth';
+import { AuthLayout, AuthPageDescription, AuthPageTitle } from 'entities/auth';
 
 function LoginPageMemo() {
   const { state } = useLocation();
@@ -16,37 +16,16 @@ function LoginPageMemo() {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <Box
-        component="main"
-        sx={{
-          p: 2,
-          width: 400,
-          maxWidth: '100%',
-          [`& .${formLabelClasses.asterisk}`]: {
-            visibility: 'hidden',
-          },
-        }}
-      >
-        <div>
-          <Typography component="h2" fontSize="xl2" fontWeight="lg">
-            Добро пожаловать
-          </Typography>
-          <Typography level="body2" sx={{ my: 1, mb: 3 }}>
-            Пожалуйста, введите свои данные чтобы войти.
-          </Typography>
-        </div>
+    <AuthLayout>
+      <div>
+        <AuthPageTitle>Добро пожаловать</AuthPageTitle>
+        <AuthPageDescription>
+          Пожалуйста, введите свои данные чтобы войти.
+        </AuthPageDescription>
+      </div>
 
-        <LoginForm />
-      </Box>
-    </Box>
+      <LoginForm />
+    </AuthLayout>
   );
 }
 

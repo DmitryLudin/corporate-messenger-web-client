@@ -33,6 +33,7 @@ export function JoinNamespaceSection() {
       <Typography level="body2" sx={{ my: 1, mb: 2 }}>
         Введите URL-адресс пространства.
       </Typography>
+
       <FormControl sx={{ maxWidth: 400 }}>
         <Input
           value={namespaceUrl}

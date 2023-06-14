@@ -5,7 +5,7 @@ import { browseChannelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
 import { CreateChannelModal } from 'features/channels';
-import { Layout } from 'shared/ui/layout';
+import { NamespaceContentLayout } from 'shared/ui/layouts/namespace-content-layout';
 import { PageHeader } from 'shared/ui/page-header';
 import { BrowseChannelList } from 'widgets/browse-channels';
 
@@ -23,7 +23,7 @@ function BrowseChannelsPageMemo() {
         <CreateChannelModal isOpen={isOpen} handleClose={handleClose} />
       )}
 
-      <Layout
+      <NamespaceContentLayout
         isLoading={isLoading}
         header={
           <PageHeader
@@ -42,7 +42,7 @@ function BrowseChannelsPageMemo() {
         }
       >
         <BrowseChannelList />
-      </Layout>
+      </NamespaceContentLayout>
     </>
   );
 }

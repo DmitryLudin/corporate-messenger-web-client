@@ -34,6 +34,7 @@ export function SelectNamespaceMemo() {
             <Typography level="body2" sx={{ mt: 3, mb: 2 }}>
               Выберите пространство из списка.
             </Typography>
+
             <Box maxWidth={400}>
               <List
                 variant="outlined"

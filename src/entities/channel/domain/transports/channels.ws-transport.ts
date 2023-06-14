@@ -1,3 +1,5 @@
+import { TCreateMessageDto } from 'entities/channel/domain/dto';
+import { ChannelMessageModel } from 'entities/channel/domain/models';
 import { BaseWsTransport } from 'shared/lib/core';
 
 import { ChannelsEventEnum } from '../const';
@@ -8,6 +10,8 @@ type TChannelsEventsMap = {
     channelId: string;
     membersCount: number;
   }) => void;
+  [ChannelsEventEnum.SEND_MESSAGE]: (data: TCreateMessageDto) => void;
+  [ChannelsEventEnum.NEW_MESSAGE]: (data: ChannelMessageModel) => void;
 };
 
 export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
@@ -17,6 +21,16 @@ export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
 
   sendJoinChannels(namespaceId: string) {
     this.send(ChannelsEventEnum.JOIN_CHANNELS, namespaceId);
+  }
+
+  sendChannelMessage(data: TCreateMessageDto) {
+    this.send(ChannelsEventEnum.SEND_MESSAGE, data);
+  }
+
+  listenChannelNewMessage(
+    callback: TChannelsEventsMap[ChannelsEventEnum.NEW_MESSAGE]
+  ) {
+    this.listen(ChannelsEventEnum.NEW_MESSAGE, callback);
   }
 
   listenNewChannelMembersCount(

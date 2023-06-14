@@ -1,6 +1,11 @@
-import { channelsStore, ChannelsStore } from 'entities/channel/domain/stores';
 import { namespacesService, NamespacesService } from 'shared/domains/namespace';
 
+import {
+  channelMessagesStore,
+  ChannelMessagesStore,
+  channelsStore,
+  ChannelsStore,
+} from '../stores';
 import {
   channelsTransport,
   ChannelsTransport,
@@ -12,6 +17,7 @@ import { TCreateChannelDto, TJoinChannelDto, TLeaveChannelDto } from '../dto';
 export class ChannelsService {
   constructor(
     private readonly store: ChannelsStore,
+    private readonly messagesStore: ChannelMessagesStore,
     private readonly transport: ChannelsTransport,
     private readonly wsTransport: ChannelsWsTransport,
     private readonly namespaceService: NamespacesService
@@ -69,6 +75,9 @@ export class ChannelsService {
         this.store.updateChannel(channelId, { membersCount });
       }
     );
+    this.wsTransport.listenChannelNewMessage((data) => {
+      this.messagesStore.addChannelMessage(data.channelId, data);
+    });
   }
 
   disconnect() {
@@ -82,6 +91,7 @@ export class ChannelsService {
 
 export const channelsService = new ChannelsService(
   channelsStore,
+  channelMessagesStore,
   channelsTransport,
   channelsWsTransport,
   namespacesService

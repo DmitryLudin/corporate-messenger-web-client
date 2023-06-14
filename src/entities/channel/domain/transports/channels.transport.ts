@@ -5,7 +5,11 @@ import type {
   TJoinChannelDto,
   TLeaveChannelDto,
 } from '../dto';
-import { Channel, ChannelPagination } from '../models';
+import {
+  Channel,
+  ChannelMessagePaginationModel,
+  ChannelPagination,
+} from '../models';
 
 export class ChannelsTransport extends BaseHttpTransport {
   constructor() {
@@ -50,6 +54,12 @@ export class ChannelsTransport extends BaseHttpTransport {
       `namespaces/${namespaceId}/${this.basePath}/create`,
       data
     ).then(this.deserialize(Channel));
+  }
+
+  getMessages(namespaceId: string, channelId: string) {
+    return this.get(
+      `namespaces/${namespaceId}/${this.basePath}/${channelId}/messages`
+    ).then(this.deserialize(ChannelMessagePaginationModel));
   }
 }
 
