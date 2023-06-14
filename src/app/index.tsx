@@ -21,8 +21,6 @@ import { router } from 'pages';
 import { authService } from 'shared/domains/user';
 import { appTheme } from 'shared/config/themes';
 
-import 'reflect-metadata';
-
 dayjs.locale('ru');
 dayjs.extend(relativeTime);
 dayjs.extend(customParseFormat);

@@ -28,4 +28,4 @@ function AuthLayoutMemo({ children }: PropsWithChildren) {
   );
 }
 
-export const AuthLayout = memo(AuthLayoutMemo);
+export const AuthPageLayout = memo(AuthLayoutMemo);

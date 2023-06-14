@@ -1,12 +1,13 @@
 import { StyledEngineProvider } from '@mui/joy';
-import { App } from 'app';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
 
+import 'reflect-metadata';
 import './index.css';
 import '@fontsource/public-sans';
-import 'reflect-metadata';
+
+import reportWebVitals from './reportWebVitals';
+import { App } from 'app';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

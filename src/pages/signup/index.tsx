@@ -1,11 +1,11 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { withObserver } from 'shared/lib/hoc';
-import { SignupForm } from 'widgets/auth';
+import { SignupForm } from 'widgets/user';
 import { authService } from 'shared/domains/user';
-import { AuthLayout, AuthPageDescription, AuthPageTitle } from 'entities/auth';
+import { AuthPageLayout, AuthPageHeader } from 'entities/user';
 
-export function SignupPageMemo() {
+function SignupPageMemo() {
   const { state } = useLocation();
   const stateWithFrom = state as { from?: Location } | undefined;
 
@@ -16,16 +16,13 @@ export function SignupPageMemo() {
   }
 
   return (
-    <AuthLayout>
-      <div>
-        <AuthPageTitle>Добро пожаловать</AuthPageTitle>
-        <AuthPageDescription>
-          Давайте начнем! Пожалуйста, введите свои данные.
-        </AuthPageDescription>
-      </div>
-
+    <AuthPageLayout>
+      <AuthPageHeader
+        title="Добро пожаловать"
+        description="Давайте начнем! Пожалуйста, введите свои данные."
+      />
       <SignupForm />
-    </AuthLayout>
+    </AuthPageLayout>
   );
 }
 

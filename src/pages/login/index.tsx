@@ -2,8 +2,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { authService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
-import { LoginForm } from 'widgets/auth';
-import { AuthLayout, AuthPageDescription, AuthPageTitle } from 'entities/auth';
+import { LoginForm } from 'widgets/user';
+import { AuthPageLayout, AuthPageHeader } from 'entities/user';
 
 function LoginPageMemo() {
   const { state } = useLocation();
@@ -16,16 +16,13 @@ function LoginPageMemo() {
   }
 
   return (
-    <AuthLayout>
-      <div>
-        <AuthPageTitle>Добро пожаловать</AuthPageTitle>
-        <AuthPageDescription>
-          Пожалуйста, введите свои данные чтобы войти.
-        </AuthPageDescription>
-      </div>
-
+    <AuthPageLayout>
+      <AuthPageHeader
+        title="Добро пожаловать"
+        description="Пожалуйста, введите свои данные чтобы войти."
+      />
       <LoginForm />
-    </AuthLayout>
+    </AuthPageLayout>
   );
 }
 
