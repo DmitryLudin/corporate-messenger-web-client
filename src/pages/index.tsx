@@ -2,12 +2,9 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { PrivateRoute } from 'entities/auth';
 
-import { BrowseChannelsPage } from './browse-channels';
-import { BrowseNamespacesPage } from './browse-namespaces';
-import { ChannelPage } from './channel';
-import { LoginPage } from './login';
-import { NamespacePage } from './namespace';
-import { SignupPage } from './signup';
+import { LoginPage, SignupPage } from './auth';
+import { BrowseNamespacesPage, NamespacePage } from './namespaces';
+import { ChannelPage, BrowseChannelsPage } from './channels';
 
 export const router = createBrowserRouter([
   {

@@ -8,8 +8,7 @@ import {
   TCreateNamespaceDto,
 } from 'shared/domains/namespace';
 
-import { NamespaceDisplayNameField } from './display-name-field';
-import { NamespaceNameField } from './name-field';
+import { NamespaceDisplayNameField, NamespaceNameField } from './ui';
 
 const defaultFormState = { name: '', displayName: '' };
 
