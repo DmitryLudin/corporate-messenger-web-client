@@ -17,9 +17,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import { router } from 'pages';
-import { authService } from 'shared/domains/user';
 import { appTheme } from 'shared/config/themes';
+import { authService } from 'entities/auth';
+import { router } from 'pages';
 
 dayjs.locale('ru');
 dayjs.extend(relativeTime);

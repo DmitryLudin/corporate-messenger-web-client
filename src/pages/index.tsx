@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { PrivateRoute } from 'shared/ui/private-route';
+import { PrivateRoute } from 'entities/auth';
 
 import { BrowseChannelsPage } from './browse-channels';
 import { BrowseNamespacesPage } from './browse-namespaces';

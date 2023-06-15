@@ -1,9 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { authService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
-import { LoginForm } from 'widgets/user';
-import { AuthPageLayout, AuthPageHeader } from 'entities/user';
+import { AuthPageHeader, AuthPageLayout, authService } from 'entities/auth';
+import { LoginForm } from 'features/auth/login';
 
 function LoginPageMemo() {
   const { state } = useLocation();

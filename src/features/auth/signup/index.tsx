@@ -3,11 +3,13 @@ import { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { authService } from 'shared/domains/user';
+import { authService } from 'entities/auth';
 
-import { SignupNameField } from './name-field';
-import { SignupPasswordField } from './password-field';
-import { SignupUsernameField } from './username-field';
+import {
+  SignupNameField,
+  SignupPasswordField,
+  SignupUsernameField,
+} from './ui';
 
 const defaultFormState = { username: '', password: '', name: '' };
 

@@ -1,8 +1,8 @@
 import { RequestStore } from 'shared/lib/core';
 import { TRequestError } from 'shared/lib/core/base-http-transport/types';
+import { userService, UserService } from 'shared/domains/user/services';
 
 import { ILoginDto, ISignupDto } from '../dto';
-import { userService, UserService } from './user.service';
 import { authTransport, AuthTransport } from '../transports';
 
 type TAuthStore = {

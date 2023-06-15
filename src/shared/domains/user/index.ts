@@ -1,4 +1,3 @@
-export { userService, authService } from './services';
-export type { ILoginDto, ISignupDto } from './dto';
+export { userService } from './services';
 export { User } from './models';
 export type { IUser } from './models';

@@ -1,6 +1,6 @@
 import { BaseHttpTransport } from 'shared/lib/core';
+import { User } from 'shared/domains/user';
 
-import { User } from '../models';
 import { ILoginDto, ISignupDto } from '../dto';
 
 export class AuthTransport extends BaseHttpTransport {

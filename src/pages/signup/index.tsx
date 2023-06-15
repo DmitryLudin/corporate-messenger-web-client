@@ -1,9 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { withObserver } from 'shared/lib/hoc';
-import { SignupForm } from 'widgets/user';
-import { authService } from 'shared/domains/user';
-import { AuthPageLayout, AuthPageHeader } from 'entities/user';
+import { AuthPageHeader, AuthPageLayout, authService } from 'entities/auth';
+import { SignupForm } from 'features/auth/signup';
 
 function SignupPageMemo() {
   const { state } = useLocation();
