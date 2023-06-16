@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { selectedChannelService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
-import { NamespaceContentLayout } from 'shared/ui/layouts/namespace-content-layout';
+import { NamespaceContentLayout } from 'entities/namespace';
 import {
   ChannelContent,
   ChannelFooter,

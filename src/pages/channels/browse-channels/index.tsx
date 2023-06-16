@@ -5,9 +5,11 @@ import { browseChannelsService } from 'entities/channel';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
 import { CreateChannelModal } from 'features/channels';
-import { NamespaceContentLayout } from 'shared/ui/layouts/namespace-content-layout';
-import { PageHeader } from 'shared/ui/page-header';
-import { BrowseChannelList } from 'widgets/channels/browse-channels';
+import { BrowseChannelList } from 'widgets/channels/channel-list';
+import {
+  NamespaceContentLayout,
+  NamespacePageHeader,
+} from 'entities/namespace';
 
 function BrowseChannelsPageMemo() {
   const [isLoading, setLoading] = useState(true);
@@ -26,7 +28,7 @@ function BrowseChannelsPageMemo() {
       <NamespaceContentLayout
         isLoading={isLoading}
         header={
-          <PageHeader
+          <NamespacePageHeader
             title="Все каналы"
             endActions={
               <Button

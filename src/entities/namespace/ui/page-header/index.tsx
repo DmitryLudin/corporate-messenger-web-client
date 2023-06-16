@@ -1,7 +1,8 @@
 import { Grid, Stack } from '@mui/joy';
 import { ReactNode } from 'react';
-import { PageHeaderDescription } from 'shared/ui/page-header/description';
-import { PageHeaderTitle } from 'shared/ui/page-header/title';
+
+import { PageHeaderDescription } from './description';
+import { PageHeaderTitle } from './title';
 
 type TProps = {
   title: ReactNode;
@@ -9,7 +10,11 @@ type TProps = {
   endActions?: ReactNode;
 };
 
-export function PageHeader({ title, description, endActions }: TProps) {
+export function NamespacePageHeader({
+  title,
+  description,
+  endActions,
+}: TProps) {
   return (
     <Grid
       container

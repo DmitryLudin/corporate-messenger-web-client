@@ -1,6 +1,6 @@
 import { ChannelName, selectedChannelService } from 'entities/channel';
+import { NamespacePageHeader } from 'entities/namespace';
 import { withObserver } from 'shared/lib/hoc';
-import { PageHeader } from 'shared/ui/page-header';
 
 import { ChannelQuickActions } from './ui';
 
@@ -8,7 +8,7 @@ function ChannelHeaderMemo() {
   const channel = selectedChannelService.selectedChannel;
 
   return (
-    <PageHeader
+    <NamespacePageHeader
       title={channel && <ChannelName name={channel.getName()} />}
       description={channel?.description}
       endActions={<ChannelQuickActions />}
