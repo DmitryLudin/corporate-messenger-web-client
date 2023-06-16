@@ -1,9 +1,10 @@
 import { Box } from '@mui/joy';
 
-import { ChannelEditor, selectedChannelService } from 'entities/channel';
+import { selectedChannelService } from 'entities/channel';
+import { ChannelEditor } from 'features/channels/channel-editor';
 import { withObserver } from 'shared/lib/hoc';
 
-import { UserNotJoinedChannel } from './user-not-joined';
+import { UserNotJoinedChannel } from './ui';
 
 function ChannelFooterMemo() {
   const channel = selectedChannelService.selectedChannel;

@@ -2,9 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
+import { selectedChannelService } from 'entities/channel';
 import { Editor, EditorFooterToolbar, SendButton } from 'shared/slate-editor';
-
-import { selectedChannelService } from '../../domain';
 
 function ChannelEditorMemo() {
   const [value, setValue] = useState('');

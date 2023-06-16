@@ -1,28 +1,10 @@
-import { Box, CircularProgress, Grid, Typography } from '@mui/joy';
-import { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/joy';
 import { Virtuoso } from 'react-virtuoso';
 
 import { ChannelMessage, selectedChannelService } from 'entities/channel';
 
-export function ChannelContent() {
-  const [isLoading, setLoading] = useState(false);
+export function ChannelMessageList() {
   const messages = selectedChannelService.channelMessages;
-
-  useEffect(() => {
-    setLoading(true);
-    selectedChannelService
-      .fetchMessages()
-      .catch()
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Grid sx={{ mt: 3 }} container justifyContent="center">
-        <CircularProgress />
-      </Grid>
-    );
-  }
 
   return (
     <Box sx={{ height: '100%' }}>
