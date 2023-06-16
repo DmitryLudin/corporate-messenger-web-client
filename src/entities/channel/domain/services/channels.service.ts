@@ -75,9 +75,6 @@ export class ChannelsService {
         this.store.updateChannel(channelId, { membersCount });
       }
     );
-    this.wsTransport.listenChannelNewMessage((data) => {
-      this.messagesStore.addChannelMessage(data.channelId, data);
-    });
   }
 
   disconnect() {

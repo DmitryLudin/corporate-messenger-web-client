@@ -3,23 +3,26 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { selectedChannelService } from 'entities/channel';
 import { ChannelMessage } from 'features/channels/channel-message';
+import { withObserver } from 'shared/lib/hoc';
 
-export function ChannelMessageList() {
-  const messages = selectedChannelService.channelMessages;
+function ChannelMessageListMemo() {
+  const messageIds = selectedChannelService.store.messageIds;
 
   return (
     <Box sx={{ height: '100%' }}>
-      {!messages ? (
+      {!messageIds ? (
         <Typography>Сообщений канала нет</Typography>
       ) : (
         <Virtuoso
           style={{ height: '100%' }}
-          data={messages}
-          itemContent={(index, message) => (
-            <ChannelMessage key={message.id} {...message} />
+          data={messageIds}
+          itemContent={(index, messageId) => (
+            <ChannelMessage key={messageId} messageId={messageId} />
           )}
         />
       )}
     </Box>
   );
 }
+
+export const ChannelMessageList = withObserver(ChannelMessageListMemo);

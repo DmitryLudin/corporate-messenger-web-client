@@ -9,15 +9,19 @@ import {
 import dayjs from 'dayjs';
 import { useCallback, useState } from 'react';
 
+import { withObserver } from 'shared/lib/hoc';
 import { Editor, EditorFooterToolbar } from 'shared/slate-editor';
 import { UserAvatar } from 'entities/user';
-import { ChannelMessageModel } from 'entities/channel';
+import { selectedChannelService } from 'entities/channel';
 
-type TProps = ChannelMessageModel;
+type TProps = {
+  messageId: string;
+};
 
-export function ChannelMessage({ text, user, createdAt, updatedAt }: TProps) {
+function ChannelMessageMemo({ messageId }: TProps) {
   const [isEditMode, setEditMode] = useState(false);
   const [value, setValue] = useState('');
+  const message = selectedChannelService.getChannelMessage(messageId);
 
   const handleChange = useCallback((data: string) => {
     setValue(data);
@@ -31,11 +35,13 @@ export function ChannelMessage({ text, user, createdAt, updatedAt }: TProps) {
     setEditMode((prevState) => !prevState);
   }, []);
 
+  if (!message) return null;
+
   return (
     <ListItem>
       <ListItemButton sx={{ py: 1, px: 2.5 }}>
         <ListItemDecorator sx={{ alignSelf: 'flex-start', mr: 1 }}>
-          <UserAvatar name={user.username} isOnline size="sm" />
+          <UserAvatar name={message.user.username} isOnline size="sm" />
         </ListItemDecorator>
         <ListItemContent>
           <Typography
@@ -46,17 +52,17 @@ export function ChannelMessage({ text, user, createdAt, updatedAt }: TProps) {
                 fontWeight={400}
                 fontSize="xs"
               >
-                {dayjs(createdAt).format('HH:mm')}
+                {dayjs(message.createdAt).format('HH:mm')}
               </Typography>
             }
           >
-            {user.name}
+            {message.user.name}
           </Typography>
 
           <Editor
             placeholder="Редактировать сообщение"
             isReadOnly={!isEditMode}
-            initialValue={text}
+            initialValue={message.text}
             onChange={handleChange}
             onSubmit={handleSubmit}
             footer={
@@ -75,3 +81,5 @@ export function ChannelMessage({ text, user, createdAt, updatedAt }: TProps) {
     </ListItem>
   );
 }
+
+export const ChannelMessage = withObserver(ChannelMessageMemo);

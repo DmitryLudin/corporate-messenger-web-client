@@ -5,7 +5,7 @@ import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { namespacesService } from 'shared/domains/namespace';
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
-import { channelsService } from 'entities/channel';
+import { channelsService, selectedChannelService } from 'entities/channel';
 import { NamespaceHeader } from 'widgets/namespaces/namespace-header';
 import { NamespaceLeftSidebar } from 'widgets/namespaces/namespace-left-sidebar';
 
@@ -33,6 +33,7 @@ function NamespacePageMemo() {
         if (namespace) {
           userService.connect();
           channelsService.connect();
+          selectedChannelService.listenNewMessage();
         }
       });
     }

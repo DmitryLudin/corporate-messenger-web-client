@@ -30,7 +30,10 @@ export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
   listenChannelNewMessage(
     callback: TChannelsEventsMap[ChannelsEventEnum.NEW_MESSAGE]
   ) {
-    this.listen(ChannelsEventEnum.NEW_MESSAGE, callback);
+    this.listen(
+      ChannelsEventEnum.NEW_MESSAGE,
+      this.deserialize(ChannelMessageModel, callback)
+    );
   }
 
   listenNewChannelMembersCount(

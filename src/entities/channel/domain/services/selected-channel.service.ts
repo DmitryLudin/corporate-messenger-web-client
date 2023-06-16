@@ -18,11 +18,13 @@ import { TCreateMessageDto } from '../dto';
 
 type TStore = {
   selectedChannelId: Channel['id'];
+  messageIds: string[];
 };
 
 export class SelectedChannelService {
   private readonly _store = new RequestStore<TStore>({
     selectedChannelId: '',
+    messageIds: [],
   });
 
   get store() {
@@ -35,11 +37,6 @@ export class SelectedChannelService {
     );
   }
 
-  get channelMessages() {
-    const channelId = this._store.getStore().selectedChannelId;
-    return this.messagesStore.getMessages(channelId);
-  }
-
   constructor(
     private readonly channelsStore: ChannelsStore,
     private readonly messagesStore: ChannelMessagesStore,
@@ -47,6 +44,11 @@ export class SelectedChannelService {
     private readonly wsTransport: ChannelsWsTransport,
     private readonly namespaceService: NamespacesService
   ) {}
+
+  getChannelMessage(messageId: string) {
+    const channelId = this._store.getStore().selectedChannelId;
+    return this.messagesStore.getMessage(channelId, messageId);
+  }
 
   fetchByName(channelName: string) {
     const namespaceId = this.namespaceService.getSelectedNamespaceId();
@@ -69,14 +71,26 @@ export class SelectedChannelService {
     if (!namespaceId) return;
 
     return this.transport.getMessages(namespaceId, channelId).then((data) => {
-      data.items.forEach((message) =>
-        this.messagesStore.addChannelMessage(channelId, message)
-      );
+      const messageIds = data.items.map((message) => {
+        this.messagesStore.addMessage(channelId, message);
+        return message.id;
+      });
+      this._store.updateStore({ messageIds });
     });
   }
 
   sendMessage(data: TCreateMessageDto) {
     this.wsTransport.sendChannelMessage(data);
+  }
+
+  listenNewMessage() {
+    this.wsTransport.listenChannelNewMessage((data) => {
+      this.messagesStore.addMessage(data.channelId, data);
+      this._store.updateStore((prevState) => {
+        prevState.messageIds.push(data.id);
+        return prevState;
+      });
+    });
   }
 }
 

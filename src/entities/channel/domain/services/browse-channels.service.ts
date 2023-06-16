@@ -1,9 +1,9 @@
-import { Channel } from 'entities/channel/domain/models';
 import { namespacesService, NamespacesService } from 'shared/domains/namespace';
 import { Store } from 'shared/lib/core';
 
 import { channelsStore, ChannelsStore } from '../stores';
 import { channelsTransport, ChannelsTransport } from '../transports';
+import { Channel } from '../models';
 
 type TStore = {
   channelIds: Array<Channel['id']>;
@@ -25,8 +25,8 @@ export class BrowseChannelsService {
   }
 
   constructor(
-    private readonly channelsStore: ChannelsStore,
     private readonly transport: ChannelsTransport,
+    private readonly channelsStore: ChannelsStore,
     private readonly namespaceService: NamespacesService
   ) {}
 
@@ -51,7 +51,7 @@ export class BrowseChannelsService {
 }
 
 export const browseChannelsService = new BrowseChannelsService(
-  channelsStore,
   channelsTransport,
+  channelsStore,
   namespacesService
 );

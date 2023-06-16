@@ -35,14 +35,16 @@ function ChannelQuickActionsMemo() {
             <ChannelMembersCount count={channel.membersCount} />
           </Button>
         )}
-        <IconButton
-          size="sm"
-          color="neutral"
-          variant="plain"
-          onClick={onOpenMenu}
-        >
-          <MoreHorizIcon />
-        </IconButton>
+        {channel.isMember && (
+          <IconButton
+            size="sm"
+            color="neutral"
+            variant="plain"
+            onClick={onOpenMenu}
+          >
+            <MoreHorizIcon />
+          </IconButton>
+        )}
       </Stack>
     </>
   );
