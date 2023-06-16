@@ -1,4 +1,4 @@
-import { Box } from '@mui/joy';
+import { Box, Sheet } from '@mui/joy';
 import { ChangeEventHandler } from 'react';
 import { Transforms } from 'slate';
 import { ReactEditor, useReadOnly, useSlateStatic } from 'slate-react';
@@ -22,16 +22,16 @@ export function CodeBlockElement({
   };
 
   return (
-    <Box
+    <Sheet
       {...attributes}
+      variant="outlined"
       sx={(theme) => ({
         position: 'relative',
-        fontFamily: 'monospace',
         fontSize: '16px',
         lineHeight: '20px',
         marginTop: '0',
-        background: theme.palette.background.popup,
         padding: '5px 13px',
+        borderRadius: theme.radius.xs,
         whiteSpace: 'pre',
         overflow: 'auto',
       })}
@@ -44,7 +44,7 @@ export function CodeBlockElement({
       />
 
       {children}
-    </Box>
+    </Sheet>
   );
 }
 

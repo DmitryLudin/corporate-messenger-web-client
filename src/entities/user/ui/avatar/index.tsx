@@ -29,7 +29,7 @@ export function UserAvatar({
       <Avatar
         variant="solid"
         color="neutral"
-        alt={name}
+        alt={name.toUpperCase()}
         src={avatarUrl || '/'}
         sx={
           size === 'xs'

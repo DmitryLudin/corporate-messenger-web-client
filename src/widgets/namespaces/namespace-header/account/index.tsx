@@ -7,7 +7,7 @@ function AccountMemo() {
 
   if (!user) return null;
 
-  return <UserAvatar isOnline name={user.username?.toUpperCase() || ''} />;
+  return <UserAvatar isOnline name={user.username || ''} />;
 }
 
 export const Account = withObserver(AccountMemo);

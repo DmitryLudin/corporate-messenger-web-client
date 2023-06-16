@@ -15,7 +15,7 @@ export function ChannelQuickActionsMenu({
       open={isOpen}
       onClose={onClose}
       size="sm"
-      placement="top-start"
+      placement="bottom-end"
     >
       <MenuItem onClick={onClose}>Показать сведения о канале</MenuItem>
       <MenuItem onClick={onClose}>Отключить уведомления канала</MenuItem>

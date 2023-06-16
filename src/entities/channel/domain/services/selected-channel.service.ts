@@ -64,10 +64,9 @@ export class SelectedChannelService {
       .finally(() => this._store.setLoading(false));
   }
 
-  async fetchMessages() {
+  async fetchMessages(channelId: string) {
     const namespaceId = this.namespaceService.getSelectedNamespaceId();
-    const channelId = this._store.getStore().selectedChannelId;
-    if (!namespaceId || !channelId) return;
+    if (!namespaceId) return;
 
     return this.transport.getMessages(namespaceId, channelId).then((data) => {
       data.items.forEach((message) =>

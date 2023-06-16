@@ -11,7 +11,7 @@ import { ChannelMessageList } from 'widgets/channels/channel-message-list';
 function ChannelPageMemo() {
   const params = useParams<{ channel: string }>();
   const [messagesIsLoading, setLoading] = useState(false);
-  const { isLoading } = selectedChannelService.store;
+  const { isLoading, selectedChannelId } = selectedChannelService.store;
 
   useEffect(() => {
     if (params.channel) {
@@ -20,12 +20,14 @@ function ChannelPageMemo() {
   }, [params.channel]);
 
   useEffect(() => {
-    setLoading(true);
-    selectedChannelService
-      .fetchMessages()
-      .catch()
-      .finally(() => setLoading(false));
-  }, []);
+    if (selectedChannelId) {
+      setLoading(true);
+      selectedChannelService
+        .fetchMessages(selectedChannelId)
+        .catch()
+        .finally(() => setLoading(false));
+    }
+  }, [selectedChannelId]);
 
   return (
     <NamespaceContentLayout

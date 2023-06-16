@@ -1,1 +1,1 @@
-export * from './channel-quick-actions';
+export * from './channel-actions';

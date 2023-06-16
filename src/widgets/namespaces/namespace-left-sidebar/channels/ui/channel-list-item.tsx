@@ -24,6 +24,7 @@ function SidebarChannelListItemMemo({ channelId }: TProps) {
         isOpen={isMenuOpen}
         onClose={onCloseMenu}
         anchorEl={anchorEl}
+        channelId={channelId}
       />
 
       <NavigationListItem
