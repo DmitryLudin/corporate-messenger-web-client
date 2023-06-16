@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/joy';
 import { Virtuoso } from 'react-virtuoso';
 
-import { ChannelMessage, selectedChannelService } from 'entities/channel';
+import { selectedChannelService } from 'entities/channel';
+import { ChannelMessage } from 'features/channels/channel-message';
 
 export function ChannelMessageList() {
   const messages = selectedChannelService.channelMessages;

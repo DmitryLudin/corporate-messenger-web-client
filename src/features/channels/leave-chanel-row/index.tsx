@@ -6,9 +6,10 @@ import { withObserver } from 'shared/lib/hoc';
 
 type TProps = {
   channelId: string;
+  onClick?: VoidFunction;
 };
 
-function LeaveChanelRowMemo({ channelId }: TProps) {
+function LeaveChanelRowMemo({ channelId, onClick }: TProps) {
   const [isLoading, setLoading] = useState(false);
   const user = userService.store.user;
 
@@ -17,8 +18,9 @@ function LeaveChanelRowMemo({ channelId }: TProps) {
       setLoading(true);
       await channelsService.leaveChannel(channelId, { userId: user.id });
       setLoading(false);
+      onClick && onClick();
     }
-  }, [channelId, user?.id]);
+  }, [channelId, onClick, user?.id]);
 
   return (
     <MenuItem onClick={handleLeave} variant="soft" color="danger">

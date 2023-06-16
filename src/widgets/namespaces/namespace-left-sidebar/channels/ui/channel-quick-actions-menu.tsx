@@ -21,7 +21,7 @@ export function ChannelQuickActionsMenu({
       <MenuItem onClick={onClose}>Отключить уведомления канала</MenuItem>
       <MenuItem onClick={onClose}>Добавить канал в избранное</MenuItem>
       <ListDivider />
-      <LeaveChanelRow channelId={channelId} />
+      <LeaveChanelRow channelId={channelId} onClick={onClose} />
     </Menu>
   );
 }

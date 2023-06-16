@@ -11,8 +11,7 @@ import { useCallback, useState } from 'react';
 
 import { Editor, EditorFooterToolbar } from 'shared/slate-editor';
 import { UserAvatar } from 'entities/user';
-
-import { ChannelMessageModel } from '../../domain';
+import { ChannelMessageModel } from 'entities/channel';
 
 type TProps = ChannelMessageModel;
 
@@ -40,7 +39,7 @@ export function ChannelMessage({ text, user, createdAt, updatedAt }: TProps) {
         </ListItemDecorator>
         <ListItemContent>
           <Typography
-            sx={{ fontSize: '15px', fontWeight: 900 }}
+            sx={{ fontSize: '15px', fontWeight: 800 }}
             endDecorator={
               <Typography
                 textColor="neutral.700"
