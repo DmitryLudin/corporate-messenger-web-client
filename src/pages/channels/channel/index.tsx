@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { selectedChannelService } from 'entities/channel';
 import { namespacesService } from 'shared/domains/namespace';
+import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 import { NamespaceContentLayout } from 'entities/namespace';
 import { ChannelFooter } from 'widgets/channels/channel-footer';
@@ -14,6 +15,7 @@ function ChannelPageMemo() {
   const [messagesIsLoading, setLoading] = useState(false);
   const { isLoading, selectedChannelId } = selectedChannelService.store;
   const namespace = namespacesService.selectedNamespaceStore.namespace;
+  const user = userService.store.user;
 
   useEffect(() => {
     if (params.channel && namespace?.id) {
@@ -30,6 +32,16 @@ function ChannelPageMemo() {
         .finally(() => setLoading(false));
     }
   }, [selectedChannelId, namespace?.id]);
+
+  useEffect(() => {
+    if (user?.id && selectedChannelId && !messagesIsLoading) {
+      selectedChannelService.sendChannelViewed({
+        channelId: selectedChannelId,
+        timestamp: Date.now(),
+        userId: user?.id,
+      });
+    }
+  }, [user?.id, selectedChannelId, messagesIsLoading]);
 
   return (
     <NamespaceContentLayout

@@ -12,6 +12,7 @@ export interface INavigationListItemProps {
   label: string;
   icon: JSX.Element;
   to: string;
+  isUnread?: boolean;
   endAction?: ReactNode;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
@@ -22,6 +23,7 @@ export function NavigationListItemMemo({
   icon,
   endAction,
   to,
+  isUnread = false,
   onMouseLeave,
   onMouseEnter,
 }: INavigationListItemProps) {
@@ -37,6 +39,7 @@ export function NavigationListItemMemo({
       <ListItemButton
         component={Link}
         to={to}
+        selected={isUnread}
         variant={isActive ? 'soft' : 'plain'}
         color={isActive ? 'neutral' : undefined}
       >
@@ -44,7 +47,7 @@ export function NavigationListItemMemo({
           {cloneElement(icon, { color: isActive ? 'primary' : 'inherit' })}
         </ListItemDecorator>
         <ListItemContent>
-          <Typography fontSize="sm" noWrap>
+          <Typography fontWeight={isUnread ? 700 : 400} fontSize="sm" noWrap>
             {label}
           </Typography>
         </ListItemContent>

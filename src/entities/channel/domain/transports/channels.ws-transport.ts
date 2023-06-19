@@ -1,8 +1,8 @@
-import { TCreateMessageDto } from 'entities/channel/domain/dto';
-import { ChannelMessageModel } from 'entities/channel/domain/models';
 import { BaseWsTransport } from 'shared/lib/core';
 
 import { ChannelsEventEnum } from '../const';
+import { IUnreadChannelTimestampDto, TCreateMessageDto } from '../dto';
+import { ChannelMessageModel } from '../models';
 
 type TChannelsEventsMap = {
   [ChannelsEventEnum.JOIN_CHANNELS]: (namespaceId: string) => void;
@@ -12,6 +12,14 @@ type TChannelsEventsMap = {
   }) => void;
   [ChannelsEventEnum.SEND_MESSAGE]: (data: TCreateMessageDto) => void;
   [ChannelsEventEnum.NEW_MESSAGE]: (data: ChannelMessageModel) => void;
+  [ChannelsEventEnum.UNREAD]: (data: {
+    channelId: string;
+    isUnread: boolean;
+    lastReadTimestamp: number;
+  }) => void;
+  [ChannelsEventEnum.UNREAD_TIMESTAMP]: (
+    data: IUnreadChannelTimestampDto
+  ) => void;
 };
 
 export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
@@ -27,6 +35,10 @@ export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
     this.send(ChannelsEventEnum.SEND_MESSAGE, data);
   }
 
+  sendChannelViewed(data: IUnreadChannelTimestampDto) {
+    this.send(ChannelsEventEnum.UNREAD_TIMESTAMP, data);
+  }
+
   listenChannelNewMessage(
     callback: TChannelsEventsMap[ChannelsEventEnum.NEW_MESSAGE]
   ) {
@@ -40,6 +52,10 @@ export class ChannelsWsTransport extends BaseWsTransport<TChannelsEventsMap> {
     callback: TChannelsEventsMap[ChannelsEventEnum.MEMBERS_COUNT]
   ) {
     this.listen(ChannelsEventEnum.MEMBERS_COUNT, callback);
+  }
+
+  listenUnreadChannel(callback: TChannelsEventsMap[ChannelsEventEnum.UNREAD]) {
+    this.listen(ChannelsEventEnum.UNREAD, callback);
   }
 }
 

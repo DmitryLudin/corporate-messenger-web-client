@@ -13,7 +13,7 @@ import {
   channelsWsTransport,
   ChannelsWsTransport,
 } from '../transports';
-import { TCreateMessageDto } from '../dto';
+import { IUnreadChannelTimestampDto, TCreateMessageDto } from '../dto';
 
 type TStore = {
   selectedChannelId: Channel['id'];
@@ -73,6 +73,10 @@ export class SelectedChannelService {
 
   sendMessage(data: TCreateMessageDto) {
     this.wsTransport.sendChannelMessage(data);
+  }
+
+  sendChannelViewed(data: IUnreadChannelTimestampDto) {
+    this.wsTransport.sendChannelViewed(data);
   }
 
   listenNewMessage() {

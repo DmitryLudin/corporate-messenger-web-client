@@ -30,8 +30,8 @@ function SidebarChannelListItemMemo({ channelId }: TProps) {
       <NavigationListItem
         to={`channels/${channel.name}`}
         label={channel.getName()}
-        // icon={isPrivate ? <LockIcon fontSize="small" /> : <PoundIcon />}
         icon={<PoundIcon />}
+        isUnread={channel.isUnread}
         onMouseEnter={toggleHovered}
         onMouseLeave={toggleHovered}
         endAction={

@@ -64,6 +64,11 @@ export class ChannelsService {
         this.store.updateChannel(channelId, { membersCount });
       }
     );
+    this.wsTransport.listenUnreadChannel(
+      ({ channelId, isUnread, lastReadTimestamp }) => {
+        this.store.updateChannel(channelId, { isUnread, lastReadTimestamp });
+      }
+    );
   }
 
   disconnect() {
