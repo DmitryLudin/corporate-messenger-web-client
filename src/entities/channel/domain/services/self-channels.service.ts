@@ -1,5 +1,3 @@
-import { namespacesService, NamespacesService } from 'shared/domains/namespace';
-
 import { channelsStore, ChannelsStore } from '../stores';
 import { channelsTransport, ChannelsTransport } from '../transports';
 
@@ -14,15 +12,11 @@ export class SelfChannelsService {
 
   constructor(
     private readonly store: ChannelsStore,
-    private readonly transport: ChannelsTransport,
-    private readonly namespaceService: NamespacesService
+    private readonly transport: ChannelsTransport
   ) {}
 
-  async fetchSelfChannels() {
+  async fetchSelfChannels(namespaceId: string) {
     try {
-      const namespaceId = this.namespaceService.getSelectedNamespaceId();
-      if (!namespaceId) return;
-
       const channels = await this.transport.getSelf(namespaceId);
       const ids = channels.map((channel) => {
         this.store.setChannel(channel);
@@ -38,6 +32,5 @@ export class SelfChannelsService {
 
 export const selfChannelsService = new SelfChannelsService(
   channelsStore,
-  channelsTransport,
-  namespacesService
+  channelsTransport
 );

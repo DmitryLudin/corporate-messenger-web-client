@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { withObserver } from 'shared/lib/hoc';
 import { useNamespaceNavigate } from 'shared/lib/hooks';
 import { selectedChannelService } from 'entities/channel';
-import { JoinChannelButton } from 'features/channels';
+import { JoinChannelButton } from 'features/channels/join-channel-button';
 
 function UserNotJoinedChannelMemo() {
   const channel = selectedChannelService.selectedChannel;

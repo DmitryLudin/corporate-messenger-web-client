@@ -2,9 +2,10 @@ import { Button } from '@mui/joy';
 import { useEffect, useState } from 'react';
 
 import { browseChannelsService } from 'entities/channel';
+import { namespacesService } from 'shared/domains/namespace';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
-import { CreateChannelModal } from 'features/channels';
+import { CreateChannelModal } from 'features/channels/create-channel-modal';
 import { BrowseChannelList } from 'widgets/channels/channel-list';
 import {
   NamespaceContentLayout,
@@ -14,10 +15,15 @@ import {
 function BrowseChannelsPageMemo() {
   const [isLoading, setLoading] = useState(true);
   const [isOpen, , handleOpen, handleClose] = useToggle();
+  const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   useEffect(() => {
-    browseChannelsService.fetchChannels().finally(() => setLoading(false));
-  }, []);
+    if (namespace) {
+      browseChannelsService
+        .fetchChannels(namespace?.id)
+        .finally(() => setLoading(false));
+    }
+  }, [namespace?.id]);
 
   return (
     <>

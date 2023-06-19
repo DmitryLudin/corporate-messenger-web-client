@@ -1,4 +1,3 @@
-import { namespacesService, NamespacesService } from 'shared/domains/namespace';
 import { RequestStore } from 'shared/lib/core';
 
 import { Channel } from '../models';
@@ -41,8 +40,7 @@ export class SelectedChannelService {
     private readonly channelsStore: ChannelsStore,
     private readonly messagesStore: ChannelMessagesStore,
     private readonly transport: ChannelsTransport,
-    private readonly wsTransport: ChannelsWsTransport,
-    private readonly namespaceService: NamespacesService
+    private readonly wsTransport: ChannelsWsTransport
   ) {}
 
   getChannelMessage(messageId: string) {
@@ -50,10 +48,7 @@ export class SelectedChannelService {
     return this.messagesStore.getMessage(channelId, messageId);
   }
 
-  fetchByName(channelName: string) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-    if (!namespaceId) return;
-
+  fetchByName(namespaceId: string, channelName: string) {
     this._store.setLoading(true);
 
     return this.transport
@@ -66,10 +61,7 @@ export class SelectedChannelService {
       .finally(() => this._store.setLoading(false));
   }
 
-  async fetchMessages(channelId: string) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-    if (!namespaceId) return;
-
+  async fetchMessages(namespaceId: string, channelId: string) {
     return this.transport.getMessages(namespaceId, channelId).then((data) => {
       const messageIds = data.items.map((message) => {
         this.messagesStore.addMessage(channelId, message);
@@ -98,6 +90,5 @@ export const selectedChannelService = new SelectedChannelService(
   channelsStore,
   channelMessagesStore,
   channelsTransport,
-  channelsWsTransport,
-  namespacesService
+  channelsWsTransport
 );

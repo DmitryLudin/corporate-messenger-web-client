@@ -32,7 +32,7 @@ function NamespacePageMemo() {
       namespacesService.getByName(params.namespace).then((namespace) => {
         if (namespace) {
           userService.connect();
-          channelsService.connect();
+          channelsService.connect(namespace.id);
           selectedChannelService.listenNewMessage();
         }
       });

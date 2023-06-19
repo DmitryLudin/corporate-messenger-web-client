@@ -3,7 +3,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from 'react';
 
 import { selfChannelsService } from 'entities/channel';
-import { CreateChannelModal } from 'features/channels';
+import { CreateChannelModal } from 'features/channels/create-channel-modal';
+import { namespacesService } from 'shared/domains/namespace';
 import { withObserver } from 'shared/lib/hoc';
 import { useToggle } from 'shared/lib/hooks';
 import { NavigationList } from 'shared/ui/navigation-list';
@@ -14,10 +15,15 @@ function SidebarChannelListMemo() {
   const [isOpen, , handleOpen, handleClose] = useToggle();
   const [isLoading, setLoading] = useState(true);
   const selfChannelIds = selfChannelsService.getSelfChannelIds();
+  const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   useEffect(() => {
-    selfChannelsService.fetchSelfChannels().finally(() => setLoading(false));
-  }, []);
+    if (namespace?.id) {
+      selfChannelsService
+        .fetchSelfChannels(namespace.id)
+        .finally(() => setLoading(false));
+    }
+  }, [namespace?.id]);
 
   return (
     <>

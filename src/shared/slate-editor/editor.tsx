@@ -15,13 +15,7 @@ import {
   EditorInnerContainer,
   EditorFormattingToolbar,
 } from './ui';
-import {
-  withLink,
-  useDecorate,
-  useKeyDown,
-  withMentions,
-  useMention,
-} from './lib';
+import { withLink, useDecorate, useKeyDown } from './lib';
 
 import './ui/styles.css';
 import 'prismjs/components/prism-javascript';
@@ -61,7 +55,7 @@ function EditorMemo({
   footer,
 }: TProps) {
   const editor = useMemo(
-    () => withMentions(withLink(withHistory(withReact(createEditor())))),
+    () => withLink(withHistory(withReact(createEditor()))),
     []
   );
   const deserializedInitialValue = useMemo(
@@ -70,8 +64,6 @@ function EditorMemo({
   );
   const decorate = useDecorate(editor);
   const onKeyDown = useKeyDown(editor, onSubmit);
-  // const [chars, { target, index }, onMentionChange, onMentionKeyDown] =
-  //   useMention(editor, users);
 
   useEffect(() => {
     onChange(JSON.stringify(initialState));
@@ -81,7 +73,6 @@ function EditorMemo({
     <Slate
       editor={editor}
       onChange={(value) => {
-        // onMentionChange();
         onChange(JSON.stringify(value));
       }}
       initialValue={deserializedInitialValue}
@@ -104,7 +95,6 @@ function EditorMemo({
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
                 onKeyDown={(event) => {
-                  // onMentionKeyDown(event);
                   onKeyDown(event);
                 }}
                 decorate={decorate}

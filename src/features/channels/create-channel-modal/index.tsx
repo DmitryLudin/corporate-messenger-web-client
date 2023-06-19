@@ -1,6 +1,7 @@
 import { Box, Button, Modal, ModalDialog, Stack, Typography } from '@mui/joy';
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { namespacesService } from 'shared/domains/namespace';
 
 import { withObserver } from 'shared/lib/hoc';
 import { channelsService, TCreateChannelDto } from 'entities/channel';
@@ -30,20 +31,22 @@ function CreateChannelModalMemo({ isOpen, handleClose }: TProps) {
   });
   const [isLoading, setLoading] = useState(false);
   const { namespaceNavigate } = useNamespaceNavigate();
+  const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   const handleSubmit = useCallback(
     (data: TCreateChannelDto) => {
+      if (!namespace) return;
       setLoading(true);
 
       return channelsService
-        .createChannel(data)
+        .createChannel(namespace.id, data)
         .then(() => namespaceNavigate(`/channels/${data.name}`))
         .finally(() => {
           setLoading(false);
           handleClose();
         });
     },
-    [handleClose, namespaceNavigate]
+    [handleClose, namespaceNavigate, namespace]
   );
 
   return (

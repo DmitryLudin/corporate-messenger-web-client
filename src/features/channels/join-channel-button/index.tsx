@@ -3,6 +3,7 @@ import type { ButtonProps } from '@mui/joy';
 import { useCallback, useState } from 'react';
 
 import { channelsService } from 'entities/channel';
+import { namespacesService } from 'shared/domains/namespace';
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
 
@@ -19,14 +20,17 @@ function JoinChannelButtonMemo({
 }: TProps) {
   const [isLoading, setLoading] = useState(false);
   const user = userService.store.user;
+  const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   const handleClick = useCallback(async () => {
-    if (user?.id) {
+    if (user?.id && namespace?.id) {
       setLoading(true);
-      await channelsService.joinChannel(channelId, { userIds: [user.id] });
+      await channelsService.joinChannel(namespace.id, channelId, {
+        userIds: [user.id],
+      });
       setLoading(false);
     }
-  }, [channelId, user?.id]);
+  }, [channelId, user?.id, namespace?.id]);
 
   return (
     <Button

@@ -15,9 +15,10 @@ import {
   ChannelName,
   channelsService,
 } from 'entities/channel';
+import { namespacesService } from 'shared/domains/namespace';
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
-import { JoinChannelButton } from 'features/channels';
+import { JoinChannelButton } from 'features/channels/join-channel-button';
 
 type TProps = {
   channelId: string;
@@ -27,15 +28,18 @@ function BrowseChannelListItemMemo({ channelId }: TProps) {
   const [isLoading, setLoading] = useState(false);
   const params = useParams<{ namespace: string }>();
   const channel = browseChannelsService.getChannelById(channelId);
+  const namespace = namespacesService.selectedNamespaceStore.namespace;
   const user = userService.store.user;
 
   const handleLeave = useCallback(async () => {
-    if (user?.id) {
+    if (user?.id && namespace?.id) {
       setLoading(true);
-      await channelsService.leaveChannel(channelId, { userId: user.id });
+      await channelsService.leaveChannel(namespace.id, channelId, {
+        userId: user.id,
+      });
       setLoading(false);
     }
-  }, [channelId, user?.id]);
+  }, [channelId, user?.id, namespace?.id]);
 
   if (!channel) return null;
 

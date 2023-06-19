@@ -1,5 +1,3 @@
-import { namespacesService, NamespacesService } from 'shared/domains/namespace';
-
 import {
   channelMessagesStore,
   ChannelMessagesStore,
@@ -19,15 +17,10 @@ export class ChannelsService {
     private readonly store: ChannelsStore,
     private readonly messagesStore: ChannelMessagesStore,
     private readonly transport: ChannelsTransport,
-    private readonly wsTransport: ChannelsWsTransport,
-    private readonly namespaceService: NamespacesService
+    private readonly wsTransport: ChannelsWsTransport
   ) {}
 
-  async createChannel(data: TCreateChannelDto) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-
-    if (!namespaceId) return;
-
+  async createChannel(namespaceId: string, data: TCreateChannelDto) {
     return this.transport.create(namespaceId, data).then((channel) => {
       this.store.setChannel(channel);
       this.store.addSelfChannelId(channel.id);
@@ -35,11 +28,11 @@ export class ChannelsService {
     });
   }
 
-  async joinChannel(channelId: string, data: TJoinChannelDto) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-
-    if (!namespaceId) return;
-
+  async joinChannel(
+    namespaceId: string,
+    channelId: string,
+    data: TJoinChannelDto
+  ) {
     return this.transport
       .join(namespaceId, channelId, data)
       .then((channel) => {
@@ -49,11 +42,11 @@ export class ChannelsService {
       .catch();
   }
 
-  async leaveChannel(channelId: string, data: TLeaveChannelDto) {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-
-    if (!namespaceId) return;
-
+  async leaveChannel(
+    namespaceId: string,
+    channelId: string,
+    data: TLeaveChannelDto
+  ) {
     return this.transport
       .leave(namespaceId, channelId, data)
       .then((channel) => {
@@ -63,11 +56,7 @@ export class ChannelsService {
       .catch();
   }
 
-  connect() {
-    const namespaceId = this.namespaceService.getSelectedNamespaceId();
-
-    if (!namespaceId) return;
-
+  connect(namespaceId: string) {
     this.wsTransport.connect();
     this.wsTransport.sendJoinChannels(namespaceId);
     this.wsTransport.listenNewChannelMembersCount(
@@ -90,6 +79,5 @@ export const channelsService = new ChannelsService(
   channelsStore,
   channelMessagesStore,
   channelsTransport,
-  channelsWsTransport,
-  namespacesService
+  channelsWsTransport
 );

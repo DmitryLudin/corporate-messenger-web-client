@@ -1,4 +1,3 @@
-import { namespacesService, NamespacesService } from 'shared/domains/namespace';
 import { Store } from 'shared/lib/core';
 
 import { channelsStore, ChannelsStore } from '../stores';
@@ -20,21 +19,17 @@ export class BrowseChannelsService {
     return this._store.getStore();
   }
 
+  constructor(
+    private readonly transport: ChannelsTransport,
+    private readonly channelsStore: ChannelsStore
+  ) {}
+
   getChannelById(channelId: string) {
     return this.channelsStore.getChannel(channelId);
   }
 
-  constructor(
-    private readonly transport: ChannelsTransport,
-    private readonly channelsStore: ChannelsStore,
-    private readonly namespaceService: NamespacesService
-  ) {}
-
-  async fetchChannels() {
+  async fetchChannels(namespaceId: string) {
     try {
-      const namespaceId = this.namespaceService.getSelectedNamespaceId();
-      if (!namespaceId) return;
-
       const { items, meta } = await this.transport.getChannels(namespaceId);
       const channelIds = items.map((channel) => {
         this.channelsStore.setChannel(channel);
@@ -52,6 +47,5 @@ export class BrowseChannelsService {
 
 export const browseChannelsService = new BrowseChannelsService(
   channelsTransport,
-  channelsStore,
-  namespacesService
+  channelsStore
 );
