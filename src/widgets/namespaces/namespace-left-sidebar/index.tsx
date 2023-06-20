@@ -26,7 +26,7 @@ export function NamespaceLeftSidebar() {
         <SidebarActivities />
         <Divider />
         <SidebarChannelList />
-        <SidebarDirectList />
+        {/*<SidebarDirectList />*/}
       </Stack>
     </Sheet>
   );

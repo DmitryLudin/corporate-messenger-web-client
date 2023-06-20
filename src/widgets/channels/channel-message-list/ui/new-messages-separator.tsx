@@ -1,5 +1,6 @@
 import { Chip, Divider } from '@mui/joy';
 import dayjs from 'dayjs';
+import { userService } from 'shared/domains/user';
 
 import { withObserver } from 'shared/lib/hoc';
 import { selectedChannelService } from 'entities/channel';
@@ -15,26 +16,31 @@ function NewMessagesSeparatorMemo({
   const prevMessage = selectedChannelService.getChannelMessage(
     prevMessageId || ''
   );
+  const user = userService.store.user;
   const message = selectedChannelService.getChannelMessage(messageId);
   const lastReadAt = dayjs(Number(channel?.lastReadTimestamp));
-  const isShowingBefore = dayjs(prevMessage?.createdAt).isAfter(lastReadAt);
-  const isShow = dayjs(message?.createdAt).isAfter(lastReadAt);
+  const prevMessageCreateAt = prevMessage && dayjs(prevMessage?.createdAt);
+  const messageCreateAt = dayjs(message?.createdAt);
 
-  console.log(isShowingBefore, prevMessageId, isShow);
+  if (
+    user?.id !== message?.user.id &&
+    messageCreateAt.isSameOrAfter(lastReadAt) &&
+    (!prevMessageCreateAt || prevMessageCreateAt.isBefore(lastReadAt))
+  ) {
+    return (
+      <Divider
+        sx={(theme) => ({
+          my: 1,
+        })}
+      >
+        <Chip variant="soft" color="warning" size="sm">
+          Новые сообщения
+        </Chip>
+      </Divider>
+    );
+  }
 
-  if (!isShowingBefore || !prevMessageId) return null;
-
-  return (
-    <Divider
-      sx={(theme) => ({
-        my: 1,
-      })}
-    >
-      <Chip variant="soft" color="warning" size="sm">
-        Новые сообщения
-      </Chip>
-    </Divider>
-  );
+  return null;
 }
 
 export const NewMessagesSeparator = withObserver(NewMessagesSeparatorMemo);

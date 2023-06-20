@@ -17,17 +17,26 @@ import { IUnreadChannelTimestampDto, TCreateMessageDto } from '../dto';
 
 type TStore = {
   selectedChannelId: Channel['id'];
+};
+
+type TMessagesStore = {
   messageIds: string[];
 };
 
 export class SelectedChannelService {
   private readonly _store = new RequestStore<TStore>({
     selectedChannelId: '',
+  });
+  private readonly _messagesStore = new RequestStore<TMessagesStore>({
     messageIds: [],
   });
 
   get store() {
     return this._store.getStore();
+  }
+
+  get channelMessagesStore() {
+    return this._messagesStore.getStore();
   }
 
   get selectedChannel() {
@@ -62,13 +71,18 @@ export class SelectedChannelService {
   }
 
   async fetchMessages(namespaceId: string, channelId: string) {
-    return this.transport.getMessages(namespaceId, channelId).then((data) => {
-      const messageIds = data.items.map((message) => {
-        this.messagesStore.addMessage(channelId, message);
-        return message.id;
-      });
-      this._store.updateStore({ messageIds });
-    });
+    this._messagesStore.setLoading(true);
+    return this.transport
+      .getMessages(namespaceId, channelId)
+      .then((data) => {
+        const messageIds = data.items.map((message) => {
+          this.messagesStore.addMessage(channelId, message);
+          return message.id;
+        });
+        this._messagesStore.updateStore({ messageIds });
+      })
+      .catch(this._messagesStore.setError)
+      .finally(() => this._messagesStore.setLoading(false));
   }
 
   sendMessage(data: TCreateMessageDto) {
@@ -76,17 +90,29 @@ export class SelectedChannelService {
   }
 
   sendChannelViewed(data: IUnreadChannelTimestampDto) {
+    console.log(data);
     this.wsTransport.sendChannelViewed(data);
+    setTimeout(() => {
+      this.channelsStore.updateChannel(data.channelId, {
+        isUnread: false,
+        lastReadTimestamp: data.timestamp,
+      });
+    }, 5000);
   }
 
   listenNewMessage() {
     this.wsTransport.listenChannelNewMessage((data) => {
       this.messagesStore.addMessage(data.channelId, data);
-      this._store.updateStore((prevState) => {
+      this._messagesStore.updateStore((prevState) => {
         prevState.messageIds.push(data.id);
         return prevState;
       });
     });
+  }
+
+  resetStore() {
+    this._store.resetStore();
+    this._messagesStore.resetStore();
   }
 }
 

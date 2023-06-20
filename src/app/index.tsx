@@ -16,6 +16,7 @@ import isToday from 'dayjs/plugin/isToday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -33,6 +34,7 @@ dayjs.extend(isYesterday);
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
 
 export function App() {
   const [isLoading, setLoading] = useState(true);
