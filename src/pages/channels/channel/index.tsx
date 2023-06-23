@@ -12,6 +12,8 @@ import { ChannelMessageList } from 'widgets/channels/channel-message-list';
 function ChannelPageMemo() {
   const params = useParams<{ channel: string }>();
   const { isLoading, selectedChannelId } = selectedChannelService.store;
+  const { isLoading: isMessagesLoading } =
+    selectedChannelService.channelMessagesStore;
   const namespace = namespacesService.selectedNamespaceStore.namespace;
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function ChannelPageMemo() {
 
   return (
     <NamespaceContentLayout
-      isLoading={isLoading}
+      isLoading={isLoading || isMessagesLoading}
       header={<ChannelHeader />}
       footer={<ChannelFooter />}
     >

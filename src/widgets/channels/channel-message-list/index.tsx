@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/joy';
+import { Box, List, Typography } from '@mui/joy';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Virtuoso } from 'react-virtuoso';
@@ -31,21 +31,31 @@ function ChannelMessageListMemo() {
       {!messageIds.length ? (
         <Typography sx={{ p: 1.5 }}>Сообщений канала нет</Typography>
       ) : (
-        <Virtuoso
-          style={{ height: '100%' }}
-          data={messageIds}
-          initialTopMostItemIndex={999}
-          followOutput="auto"
-          itemContent={(index, messageId) => (
-            <div key={messageId}>
-              <NewMessagesSeparator
-                prevMessageId={messageIds[index - 1]}
-                messageId={messageId}
-              />
-              <ChannelMessage messageId={messageId} />
-            </div>
-          )}
-        />
+        <List
+          sx={{
+            height: '100%',
+            '& [class*="endAction"]': {
+              top: 0,
+              transform: 'translateY(-15%) translateX(-25%)',
+            },
+          }}
+        >
+          <Virtuoso
+            style={{ height: '100%' }}
+            data={messageIds}
+            initialTopMostItemIndex={999}
+            followOutput="auto"
+            itemContent={(index, messageId) => (
+              <div key={messageId}>
+                <NewMessagesSeparator
+                  prevMessageId={messageIds[index - 1]}
+                  messageId={messageId}
+                />
+                <ChannelMessage messageId={messageId} />
+              </div>
+            )}
+          />
+        </List>
       )}
     </Box>
   );

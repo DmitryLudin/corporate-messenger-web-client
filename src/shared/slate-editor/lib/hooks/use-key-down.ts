@@ -2,11 +2,9 @@ import { isKeyHotkey } from 'is-hotkey';
 import { KeyboardEventHandler, useCallback } from 'react';
 import { Editor, Range, Transforms } from 'slate';
 
-import { resetEditor } from 'shared/slate-editor/lib/utils';
-
 export const useKeyDown = (
   editor: Editor,
-  onSubmit: VoidFunction
+  onSubmit: (editor: Editor) => void
 ): KeyboardEventHandler => {
   return useCallback(
     (event) => {
@@ -17,8 +15,7 @@ export const useKeyDown = (
 
         if (isKeyHotkey('enter', nativeEvent)) {
           event.preventDefault();
-          onSubmit();
-          resetEditor(editor);
+          onSubmit(editor);
           return;
         }
 

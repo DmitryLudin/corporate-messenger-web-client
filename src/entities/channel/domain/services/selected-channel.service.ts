@@ -13,7 +13,12 @@ import {
   channelsWsTransport,
   ChannelsWsTransport,
 } from '../transports';
-import { IUnreadChannelTimestampDto, TCreateMessageDto } from '../dto';
+import {
+  IUnreadChannelTimestampDto,
+  TCreateMessageDto,
+  TRemoveChannelMessageDto,
+  TUpdateMessageDto,
+} from '../dto';
 
 type TStore = {
   selectedChannelId: Channel['id'];
@@ -89,15 +94,22 @@ export class SelectedChannelService {
     this.wsTransport.sendChannelMessage(data);
   }
 
+  sendEditMessage(data: TUpdateMessageDto) {
+    this.wsTransport.sendUpdateMessage(data);
+  }
+
+  sendRemoveMessage(data: TRemoveChannelMessageDto) {
+    this.wsTransport.sendRemoveMessage(data);
+  }
+
   sendChannelViewed(data: IUnreadChannelTimestampDto) {
-    console.log(data);
     this.wsTransport.sendChannelViewed(data);
     setTimeout(() => {
       this.channelsStore.updateChannel(data.channelId, {
         isUnread: false,
         lastReadTimestamp: data.timestamp,
       });
-    }, 5000);
+    }, 2500);
   }
 
   listenNewMessage() {
@@ -106,6 +118,22 @@ export class SelectedChannelService {
       this._messagesStore.updateStore((prevState) => {
         prevState.messageIds.push(data.id);
         return prevState;
+      });
+    });
+  }
+
+  listenMessageUpdated() {
+    this.wsTransport.listenUpdatedMessage((data) => {
+      this.messagesStore.addMessage(data.channelId, data);
+    });
+  }
+
+  listenMessageRemoved() {
+    this.wsTransport.listenRemovedMessage((data) => {
+      this.messagesStore.removeMessage(data.channelId, data.id);
+      this._messagesStore.updateStore((state) => {
+        state.messageIds = state.messageIds.filter((id) => id !== data.id);
+        return state;
       });
     });
   }

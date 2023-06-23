@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { resetEditor } from 'shared/slate-editor/lib';
+import { Editor as SlateEditor } from 'slate';
 
 import { userService } from 'shared/domains/user';
 import { withObserver } from 'shared/lib/hoc';
@@ -14,16 +16,20 @@ function ChannelEditorMemo() {
     setValue(data);
   }, []);
 
-  const handleSubmit = useCallback(() => {
-    if (user && channel) {
-      selectedChannelService.sendMessage({
-        text: value,
-        userId: user?.id,
-        channelId: channel?.id,
-      });
-      setValue('');
-    }
-  }, [channel, user, value]);
+  const handleSubmit = useCallback(
+    (editor?: SlateEditor) => {
+      if (user && channel) {
+        selectedChannelService.sendMessage({
+          text: value,
+          userId: user?.id,
+          channelId: channel?.id,
+        });
+        setValue('');
+        editor && resetEditor(editor);
+      }
+    },
+    [channel, user, value]
+  );
 
   if (!channel) return null;
 

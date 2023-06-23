@@ -1,6 +1,6 @@
 import { Sheet } from '@mui/joy';
 import { memo, ReactNode, useEffect, useMemo } from 'react';
-import { createEditor } from 'slate';
+import { createEditor, Editor as SlateEditor } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
 
@@ -15,7 +15,7 @@ import {
   EditorInnerContainer,
   EditorFormattingToolbar,
 } from './ui';
-import { withLink, useDecorate, useKeyDown } from './lib';
+import { withLink, useDecorate, useKeyDown, resetEditor } from './lib';
 
 import './ui/styles.css';
 import 'prismjs/components/prism-javascript';
@@ -30,7 +30,7 @@ import 'prismjs/components/prism-java';
 
 type TProps = {
   placeholder: string;
-  onSubmit: VoidFunction;
+  onSubmit: (editor: SlateEditor) => void;
   onChange: (value: string) => void;
   users?: string[];
   initialValue?: string;
@@ -68,6 +68,12 @@ function EditorMemo({
   useEffect(() => {
     onChange(JSON.stringify(initialState));
   }, []);
+
+  useEffect(() => {
+    if (editor && initialValue) {
+      resetEditor(editor, JSON.parse(initialValue));
+    }
+  }, [initialValue, editor]);
 
   return (
     <Slate

@@ -34,6 +34,8 @@ function NamespacePageMemo() {
           userService.connect();
           channelsService.connect(namespace.id);
           selectedChannelService.listenNewMessage();
+          selectedChannelService.listenMessageRemoved();
+          selectedChannelService.listenMessageUpdated();
         }
       });
     }
