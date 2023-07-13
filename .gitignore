@@ -56,3 +56,4 @@ build/config\.gypi.c9/
 .env
 docker.env
 .env.*
+build
